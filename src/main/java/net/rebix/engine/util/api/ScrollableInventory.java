@@ -1,7 +1,6 @@
 package net.rebix.engine.util.api;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+
 import net.rebix.engine.Main;
 import net.rebix.engine.util.api.inventorycomponents.ButtonAction;
 import net.rebix.engine.util.api.inventorycomponents.InventoryButton;
@@ -16,7 +15,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,13 +29,14 @@ public class ScrollableInventory implements Listener {
     private Integer page = 1;
     private Integer pages = Main.INTEGER_LIMIT;
     private String name;
+    private List<ItemStack> contents = new ArrayList<>();
     private Inventory inventory;
     private Player player;
 
     public ScrollableInventory(){
     }
 
-    public ScrollableInventory create(@NotNull Player player, @NotNull String name, @NotNull Integer size, @Nullable Integer page,@Nullable Integer pages) {
+    public ScrollableInventory create(@NotNull Player player, @NotNull String name, @NotNull Integer size, @Nullable Integer page, @Nullable Integer pages) {
         //set values to the private variables
         this.size = size;
         this.name = name;
@@ -48,13 +51,26 @@ public class ScrollableInventory implements Listener {
     public void reloadInventory(){
         inventory = Bukkit.createInventory(null,size,name + " - " + page);
         fillInButtonsAndPlaceholder();
+
+        int addedPageindex = (page-1)*45;
+        int index;
+        for(index = 0; index < size-9; ++index){
+            if(contents.size() >= index + addedPageindex){
+                int getter = addedPageindex+index - 1;
+                if(getter == -1) getter = addedPageindex+index;
+                inventory.setItem(index+9,contents.get(getter));
+            }
+
+        }
+
+
         player.openInventory(inventory);
     }
 
     public void fillInButtonsAndPlaceholder() {
         inventory.setItem(0, new itemBuilder(Material.PLAYER_HEAD).skull(new InventoryButton(InventoryButtonType.BLACK_ARROW_LEFT).getSkullValue()).setButtonAction(ButtonAction.SCROLL_LEFT).build());
         inventory.setItem(8, new itemBuilder(Material.PLAYER_HEAD).skull(new InventoryButton(InventoryButtonType.BLACK_ARROW_RIGHT).getSkullValue()).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
-        for (Integer index = 1; index< 8; ++ index) inventory.setItem(index,items.PLACEHOLDER);
+        for (int index = 1; index< 8; ++ index) inventory.setItem(index,items.PLACEHOLDER);
 
     }
     @EventHandler
@@ -94,7 +110,8 @@ public class ScrollableInventory implements Listener {
     }
 
     public void setContents(List<ItemStack> itemStackList){
-
+        this.contents = itemStackList;
+        reloadInventory();
     }
 
 

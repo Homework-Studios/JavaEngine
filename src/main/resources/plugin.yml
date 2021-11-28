@@ -3,3 +3,8 @@ version: '${project.version}'
 main: net.rebix.engine.Main
 api-version: 1.17
 description: My plugin engine to improve coding
+
+
+commands:
+  test:
+    description: "the test command"
