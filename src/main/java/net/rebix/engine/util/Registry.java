@@ -2,8 +2,8 @@ package net.rebix.engine.util;
 
 import net.rebix.engine.Main;
 import net.rebix.engine.TestCommand;
-import net.rebix.engine.util.api.ScrollableInventory;
-import net.rebix.engine.util.events.*;
+import net.rebix.engine.api.ScrollableInventory;
+import net.rebix.engine.events.*;
 import org.bukkit.Bukkit;
 
 import java.util.Objects;

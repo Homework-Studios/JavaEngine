@@ -1,8 +1,8 @@
-package net.rebix.engine.util.events;
+package net.rebix.engine.events;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.util.api.packets.EntityHider;
-import net.rebix.engine.util.api.playernametag.PlayerSetNameTag;
+import net.rebix.engine.api.packets.EntityHider;
+import net.rebix.engine.api.playernametag.PlayerSetNameTag;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;

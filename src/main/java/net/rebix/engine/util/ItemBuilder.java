@@ -2,7 +2,7 @@ package net.rebix.engine.util;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.rebix.engine.Main;
-import net.rebix.engine.util.api.inventorycomponents.ButtonAction;
+import net.rebix.engine.api.inventorycomponents.ButtonAction;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.UUID;
 
-public class itemBuilder {
+public class ItemBuilder {
     private ItemStack item;
     private ItemMeta itemMeta;
 
@@ -25,27 +25,27 @@ public class itemBuilder {
 
 
 
-    public itemBuilder(Material material, short subID){
+    public ItemBuilder(Material material, short subID){
         item = new ItemStack(material, 1, subID);
         itemMeta = item.getItemMeta();
     }
 
-    public itemBuilder(Material material) {
+    public ItemBuilder(Material material) {
         this(material, (short)0);
     }
 
 
-    public itemBuilder setName(String $name) {
+    public ItemBuilder setName(String $name) {
         itemMeta.setDisplayName($name);
         return this;
 
     }
-    public itemBuilder setAmount(int $amount) {
+    public ItemBuilder setAmount(int $amount) {
         item.setAmount($amount);
         return this;
 
     }
-    public itemBuilder setLore(String... $lore) {
+    public ItemBuilder setLore(String... $lore) {
         if($lore != null) {
             itemMeta.setLore(Arrays.asList($lore));
 
@@ -55,20 +55,20 @@ public class itemBuilder {
 
 
 
-    public itemBuilder additemflag(ItemFlag $flag){
+    public ItemBuilder additemflag(ItemFlag $flag){
         itemMeta.addItemFlags($flag);
 
         return this;
     }
-    public itemBuilder setunbreakable(boolean $unbreakalble){
+    public ItemBuilder setunbreakable(boolean $unbreakalble){
         itemMeta.setUnbreakable($unbreakalble);
         return this;
     }
-    public itemBuilder setlocalname(String $name){
+    public ItemBuilder setlocalname(String $name){
         itemMeta.setLocalizedName($name);
         return this;
     }
-    public itemBuilder setglowing(boolean $glowing){
+    public ItemBuilder setglowing(boolean $glowing){
         if($glowing){
             itemMeta.addEnchant(Enchantment.LUCK,1,true);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -77,7 +77,7 @@ public class itemBuilder {
         return this;
     }
 
-    public itemBuilder skull(String value){
+    public ItemBuilder skull(String value){
 
 
         SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
@@ -97,20 +97,26 @@ public class itemBuilder {
         return this;
     }
 
-    public itemBuilder setPickupabel(boolean pickupabel){
+    public ItemBuilder setPickupabel(boolean pickupabel){
         String value = String.valueOf(pickupabel);
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin,"Pickupabel"), PersistentDataType.STRING, value);
         return this;
     }
 
-    public itemBuilder setButtonAction(ButtonAction action){
+    public ItemBuilder setButtonAction(ButtonAction action){
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin,"ButtonAction"), PersistentDataType.STRING, String.valueOf(action));
         return this;
     }
 
 
+    public ItemBuilder getItemBuilder(ItemStack item){
+        this.item = item;
+        return this;
+    }
+
     public ItemStack build(){
         item.setItemMeta(itemMeta);
         return item;
     }
+
 }

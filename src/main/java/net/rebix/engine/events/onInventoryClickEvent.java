@@ -1,9 +1,8 @@
-package net.rebix.engine.util.events;
+package net.rebix.engine.events;
 
-import net.rebix.engine.Main;
-import net.rebix.engine.util.api.inventorycomponents.ButtonAction;
-import net.rebix.engine.util.api.propertie.ItemProperties;
-import net.rebix.engine.util.events.customevents.ButtonClickEvent;
+import net.rebix.engine.api.inventorycomponents.ButtonAction;
+import net.rebix.engine.api.propertie.ItemProperties;
+import net.rebix.engine.events.customevents.ButtonClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

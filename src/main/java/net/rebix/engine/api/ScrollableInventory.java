@@ -1,13 +1,13 @@
-package net.rebix.engine.util.api;
+package net.rebix.engine.api;
 
 
 import net.rebix.engine.Main;
-import net.rebix.engine.util.api.inventorycomponents.ButtonAction;
-import net.rebix.engine.util.api.inventorycomponents.InventoryButton;
-import net.rebix.engine.util.api.inventorycomponents.InventoryButtonType;
-import net.rebix.engine.util.events.customevents.ButtonClickEvent;
-import net.rebix.engine.util.itemBuilder;
-import net.rebix.engine.util.items;
+import net.rebix.engine.api.inventorycomponents.ButtonAction;
+import net.rebix.engine.api.inventorycomponents.InventoryButton;
+import net.rebix.engine.api.inventorycomponents.InventoryButtonType;
+import net.rebix.engine.events.customevents.ButtonClickEvent;
+import net.rebix.engine.util.ItemBuilder;
+import net.rebix.engine.util.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -68,9 +68,9 @@ public class ScrollableInventory implements Listener {
     }
 
     public void fillInButtonsAndPlaceholder() {
-        inventory.setItem(0, new itemBuilder(Material.PLAYER_HEAD).skull(new InventoryButton(InventoryButtonType.BLACK_ARROW_LEFT).getSkullValue()).setButtonAction(ButtonAction.SCROLL_LEFT).build());
-        inventory.setItem(8, new itemBuilder(Material.PLAYER_HEAD).skull(new InventoryButton(InventoryButtonType.BLACK_ARROW_RIGHT).getSkullValue()).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
-        for (int index = 1; index< 8; ++ index) inventory.setItem(index,items.PLACEHOLDER);
+        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButton.SkullValue.get(InventoryButtonType.BLACK_ARROW_LEFT)).setButtonAction(ButtonAction.SCROLL_LEFT).build());
+        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButton.SkullValue.get(InventoryButtonType.BLACK_ARROW_LEFT)).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
+        for (int index = 1; index< 8; ++ index) inventory.setItem(index, Items.PLACEHOLDER);
 
     }
     @EventHandler

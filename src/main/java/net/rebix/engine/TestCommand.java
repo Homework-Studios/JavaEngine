@@ -1,6 +1,6 @@
 package net.rebix.engine;
 
-import net.rebix.engine.util.api.packets.EntityHider;
+import net.rebix.engine.api.packets.EntityHider;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

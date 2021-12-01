@@ -1,4 +1,4 @@
-package net.rebix.engine.util.api.playernametag;
+package net.rebix.engine.api.playernametag;
 
 import org.bukkit.Particle;
 import org.bukkit.entity.*;

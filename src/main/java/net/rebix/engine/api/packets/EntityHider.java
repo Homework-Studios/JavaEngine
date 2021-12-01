@@ -1,4 +1,4 @@
-package net.rebix.engine.util.api.packets;
+package net.rebix.engine.api.packets;
 
 
 

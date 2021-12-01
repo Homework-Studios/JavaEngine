@@ -9,7 +9,7 @@ public class FillInventoryWithPlaceholder {
         int $index;
         for($index = 0; $index < $inventory.getSize(); ++$index){
             if($inventory.getItem($index) == null) {
-                $inventory.setItem($index, items.PLACEHOLDER);
+                $inventory.setItem($index, Items.PLACEHOLDER);
             }
         }
     }

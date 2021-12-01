@@ -1,4 +1,4 @@
-package net.rebix.engine.util.api.inventorycomponents;
+package net.rebix.engine.api.inventorycomponents;
 
 public enum InventoryButtonType {
     BLACK_ARROW_LEFT,

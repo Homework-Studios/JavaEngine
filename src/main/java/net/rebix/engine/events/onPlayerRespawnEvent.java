@@ -1,6 +1,6 @@
-package net.rebix.engine.util.events;
+package net.rebix.engine.events;
 
-import net.rebix.engine.util.api.playernametag.PlayerSetNameTag;
+import net.rebix.engine.api.playernametag.PlayerSetNameTag;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
