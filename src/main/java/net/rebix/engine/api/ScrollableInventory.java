@@ -9,6 +9,7 @@ import net.rebix.engine.util.ItemBuilder;
 import net.rebix.engine.util.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +29,7 @@ public class ScrollableInventory implements Listener {
     private Integer page = 1;
     private Integer pages = Main.INTEGER_LIMIT;
     private String name;
-    private List<ItemStack> contents = new ArrayList<>();
+    private HashMap<Integer,ItemStack> contents = new HashMap<>();
     private Inventory inventory;
     private Player player;
 
@@ -49,22 +50,20 @@ public class ScrollableInventory implements Listener {
     //utils
     public void reloadInventory(){
         inventory = Bukkit.createInventory(null,size,name + " - " + page);
-        fillInButtonsAndPlaceholder();
 
-        int addedPageindex = (page-1)*45;
-        int index;
-        for(index = 0; index < size-9; ++index){
-            if(contents.size() >= index + addedPageindex){
-                int getter = addedPageindex+index - 1;
-                if(getter == -1) getter = addedPageindex+index;
-                inventory.setItem(index+9,contents.get(getter));
-            }
 
+        Integer slot;
+        for(slot = 8; slot < size; ++slot) {
+            Integer invenotryslot = slot-8 + (size-9) * (page-1);
+
+            ItemStack fillitem = contents.get(invenotryslot);
+
+            if(fillitem != null) inventory.setItem(slot,fillitem);
         }
-
-
+        fillInButtonsAndPlaceholder();
         player.openInventory(inventory);
     }
+
 
     public void fillInButtonsAndPlaceholder() {
         inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction(ButtonAction.SCROLL_LEFT).build());
@@ -108,7 +107,7 @@ public class ScrollableInventory implements Listener {
         this.page = page;
     }
 
-    public void setContents(List<ItemStack> itemStackList){
+    public void setContents(HashMap<Integer,ItemStack> itemStackList){
         this.contents = itemStackList;
         reloadInventory();
     }

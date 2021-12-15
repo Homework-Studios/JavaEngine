@@ -7,6 +7,7 @@ Things i have to add later
   - [ ] ScorebordAPI
   - [ ] TablistAPI
   - [x] Readme
+  - [ ] TranslatorAPI
 
 
 
@@ -17,7 +18,7 @@ How to use ScrollableInventoryAPI
 //size is the size
 //page is the page player is starting
 //pages is number of pages if left null pages are integerlimit
-//contents is a List<ItemStack>
+//contents is a HashMap<Integer,ItemStack>
 ScrollableInventory scrollable_inventory = new ScrollableInventory().create(player,"test",size,page,pages);
 scrollable_inventory.setContents(contents);
 scrollable_inventory.reloadInventory();

@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class TestCommand implements CommandExecutor {
@@ -20,10 +21,10 @@ public class TestCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         ScrollableInventory scrollable_inventory = new ScrollableInventory().create((Player) sender,"test",6*9,null,null);
-        List<ItemStack> contents = new ArrayList<>();
+        HashMap<Integer,ItemStack> contents = new HashMap<>();
         int index;
         for(index = 1; index < 63; ++index){
-            contents.add(new ItemBuilder(Material.STONE).setAmount(index).build());
+            contents.put(index, new ItemBuilder(Material.STONE).setAmount(index).build());
         }
         scrollable_inventory.setContents(contents);
         scrollable_inventory.reloadInventory();
