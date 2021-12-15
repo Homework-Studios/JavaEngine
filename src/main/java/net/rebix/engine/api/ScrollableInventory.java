@@ -3,7 +3,6 @@ package net.rebix.engine.api;
 
 import net.rebix.engine.Main;
 import net.rebix.engine.api.inventorycomponents.ButtonAction;
-import net.rebix.engine.api.inventorycomponents.InventoryButton;
 import net.rebix.engine.api.inventorycomponents.InventoryButtonType;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.util.ItemBuilder;
@@ -68,10 +67,9 @@ public class ScrollableInventory implements Listener {
     }
 
     public void fillInButtonsAndPlaceholder() {
-        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButton.SkullValue.get(InventoryButtonType.BLACK_ARROW_LEFT)).setButtonAction(ButtonAction.SCROLL_LEFT).build());
-        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButton.SkullValue.get(InventoryButtonType.BLACK_ARROW_LEFT)).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
+        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction(ButtonAction.SCROLL_LEFT).build());
+        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
         for (int index = 1; index< 8; ++ index) inventory.setItem(index, Items.PLACEHOLDER);
-
     }
     @EventHandler
     public void ButtonClickEvent(ButtonClickEvent event){

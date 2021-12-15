@@ -28,7 +28,7 @@ public class onPlayerJoinEvent implements Listener {
                     new EntityHider(entity).hideEntity();
                 }
             }
-        }, 5L);
+        }, 10L);
 
 
 

@@ -1,7 +1,7 @@
 name: Engine
 version: '${project.version}'
 main: net.rebix.engine.Main
-api-version: 1.17
+api-version: 1.18
 description: My plugin engine to improve coding
 
 

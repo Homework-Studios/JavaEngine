@@ -18,6 +18,7 @@ public class PlayerHead {
         skull = new ItemBuilder(Material.PLAYER_HEAD).build();
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 
+
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
         gameProfile.getProperties().put("textures",new Property("textures",id));
         Field profileField;
@@ -29,6 +30,7 @@ public class PlayerHead {
         }
 
         skull.setItemMeta(skullMeta);
+
     }
 
     public ItemStack getItem(){

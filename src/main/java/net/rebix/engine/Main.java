@@ -23,14 +23,8 @@ public final class Main extends JavaPlugin {
         plugin = this;
         new Registry();
         for(Player player: Bukkit.getOnlinePlayers()){
-            ScrollableInventory scrollable_inventory = new ScrollableInventory().create(player,"test",6*9,null,null);
-            List<ItemStack> contents = new ArrayList<>();
-            int index;
-            for(index = 1; index < 167; ++index){
-                contents.add(new ItemStack(Material.STONE));
-            }
-            scrollable_inventory.setContents(contents);
-            scrollable_inventory.reloadInventory();
+
+
 
             List<String> nametag = new ArrayList<>();
             nametag.add("1");
