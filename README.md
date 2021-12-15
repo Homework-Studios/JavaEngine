@@ -6,7 +6,7 @@ Things i have to add later
   - [ ] CabelAPI
   - [ ] ScorebordAPI
   - [ ] TablistAPI
-  - [ ] Readme
+  - [x] Readme
 
 
 
