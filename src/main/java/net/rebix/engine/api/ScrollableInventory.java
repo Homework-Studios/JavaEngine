@@ -92,6 +92,7 @@ public class ScrollableInventory implements Listener {
             case SCROLL_RIGHT_VERY_FAST:
                 PLAYER_INVENTORY.get(event.getPlayer()).scroll(100);
                 break;
+                //Hier Hashmap machen
         }
     }
 
