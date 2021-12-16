@@ -17,12 +17,9 @@ import java.util.Arrays;
 import java.util.UUID;
 
 public class ItemBuilder {
+    
     private ItemStack item;
     private ItemMeta itemMeta;
-
-
-
-
 
     public ItemBuilder(Material material, short subID){
         item = new ItemStack(material, 1, subID);
