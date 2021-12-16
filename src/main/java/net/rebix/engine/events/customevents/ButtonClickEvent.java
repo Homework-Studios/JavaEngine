@@ -8,7 +8,7 @@ import org.bukkit.event.HandlerList;
 public class ButtonClickEvent extends Event {
 
     private final Player player;
-    private final ButtonAction buttonAction;
+    private ButtonAction buttonAction;
 
     public ButtonClickEvent(Player player, ButtonAction buttonAction) {
         this.player = player;
@@ -28,6 +28,10 @@ public class ButtonClickEvent extends Event {
 
     public Player getPlayer() {
         return this.player;
+    }
+    
+    public void setButtonAction(ButtonAction action){
+        this.buttonAction = action;
     }
 
     public ButtonAction getButtonAction() {
