@@ -67,7 +67,7 @@ functions(last updated 16.12.2021, 18:36 MEZ)
 - build() returns the ItemStack
 
 
--CustomEvents
+**CustomEvents**
 > Have to be registert like normal events
 ButtonClickEvent
 
