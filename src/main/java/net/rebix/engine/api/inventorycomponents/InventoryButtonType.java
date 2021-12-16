@@ -10,7 +10,7 @@ public enum InventoryButtonType {
         return this.value;
     }
 
-    InventoryButtonType(String value){
+    public InventoryButtonType(String value){
         this.value = value;
     }
 
