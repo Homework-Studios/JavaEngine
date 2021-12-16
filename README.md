@@ -51,7 +51,7 @@ public class exampel {
 
 }
 ```
-######functions(last updated 16.12.2021, 18:36 MEZ)
+functions(last updated 16.12.2021, 18:36 MEZ)
 - ItemBuilder(Material material) can't be null but air
 - setName(String name)
 - setAmount(int amount)
@@ -69,7 +69,7 @@ public class exampel {
 
 #CustomEvents
 > Have to be registert like normal events
-######ButtonClickEvent
+ButtonClickEvent
 
 ```java
 import net.rebix.engine.api.inventorycomponents.ButtonAction;
