@@ -10,7 +10,7 @@ Things i have to add later
 
 # How to use things
 
-API's
+**API's**
 
 Scrollabel Inventory API
 
