@@ -26,6 +26,7 @@ public class ItemBuilder {
         itemMeta = item.getItemMeta();
     }
 
+
     public ItemBuilder(Material material) {
         this(material, (short)0);
     }
@@ -51,20 +52,20 @@ public class ItemBuilder {
 
 
 
-    public ItemBuilder additemflag(ItemFlag $flag){
+    public ItemBuilder addItemFlag(ItemFlag $flag){
         itemMeta.addItemFlags($flag);
 
         return this;
     }
-    public ItemBuilder setunbreakable(boolean $unbreakalble){
+    public ItemBuilder setUnbreakable(boolean $unbreakalble){
         itemMeta.setUnbreakable($unbreakalble);
         return this;
     }
-    public ItemBuilder setlocalname(String $name){
+    public ItemBuilder setLocalName(String $name){
         itemMeta.setLocalizedName($name);
         return this;
     }
-    public ItemBuilder setglowing(boolean $glowing){
+    public ItemBuilder setGlowing(boolean $glowing){
         if($glowing){
             itemMeta.addEnchant(Enchantment.LUCK,1,true);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
