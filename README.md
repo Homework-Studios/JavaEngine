@@ -10,9 +10,9 @@ Things i have to add later
 
 # How to use things
 
-##API's
+API's
 
-###Scrollabel Inventory API
+Scrollabel Inventory API
 
 ```java
 import net.rebix.engine.util.ItemBuilder;
@@ -33,7 +33,7 @@ public class exampel {
 }
 ```
 
-###ItemBuilder API
+ItemBuilder API
 
 ```java
 import net.rebix.engine.api.inventorycomponents.ButtonAction;
@@ -51,7 +51,7 @@ public class exampel {
 
 }
 ```
-####functions(last updated 16.12.2021, 18:36 MEZ)
+functions(last updated 16.12.2021, 18:36 MEZ)
 - ItemBuilder(Material material) can't be null but air
 - setName(String name)
 - setAmount(int amount)
@@ -67,9 +67,9 @@ public class exampel {
 - build() returns the ItemStack
 
 
-##CustomEvents
+CustomEvents
 Have to be registert like normal events
-###ButtonClickEvent
+ButtonClickEvent
 
 ```java
 import net.rebix.engine.api.inventorycomponents.ButtonAction;
