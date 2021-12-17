@@ -25,7 +25,7 @@ public class onPlayerJoinEvent implements Listener {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> {
             for (Entity entity: event.getPlayer().getWorld().getEntities()){
                 if(entity.getScoreboardTags().contains(event.getPlayer().getName()+"_NameTag")){
-                    new EntityHider(entity).hideEntity();
+                    new EntityHider(entity).HideEntity();
                 }
             }
         }, 10L);

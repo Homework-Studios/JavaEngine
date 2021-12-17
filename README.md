@@ -3,16 +3,14 @@ My Plugin Engine
 
 
 Things I have to add later
-  - [ ] CabelAPI
-  - [ ] ScorebordAPI
-  - [ ] TablistAPI
-  - [x] TranslatorAPI
+- [ ] CabelAPI
+- [ ] ScorebordAPI
+- [ ] TablistAPI
+- [x] TranslatorAPI
 
-# How to use things
+## API
 
-**API's**
-
-Scrollabel Inventory API
+#### Scrollabel Inventory API
 
 ```java
 import net.rebix.engine.util.ItemBuilder;
@@ -21,19 +19,19 @@ import org.bukkit.Material;
 import java.util.HashMap;
 
 public class exampel {
-    
+
     public void exampel() {
         ScrollableInventory scrollable_inventory = new ScrollableInventory().create(player, name, size, page, pages);
         HashMap<Integer, String> contents = new HashMap<>();
         contents.put(1, new ItemBuilder(Material.STONE).build());
         scrollable_inventory.setContents(contents);
-        
+
         scrollable_inventory.reloadInventory();
     }
 }
 ```
 
-ItemBuilder API
+#### ItemBuilder API
 
 ```java
 
@@ -66,11 +64,48 @@ functions(last updated 16.12.2021, 18:36 MEZ)
 - getItemBuilder(ItemStack item) returns the ItemBuilder class to modify the item
 - build() returns the ItemStack
 
+#### EntityHider
 
-**CustomEvents**
+```java
+import net.rebix.engine.api.packets.EntityHider;
+
+public class example {
+
+    public void HideEntityForAllPlayers() {
+        new EntityHider(entity).HideEntity();
+    }
+
+    public void HideEntityForSpecificPlayer() {
+        new EntityHider(entity).HideEntityForPlayer(player);
+    }
+}
+```
+
+
+#### Translator
+
+```java
+import net.rebix.engine.util.Translator;
+import net.rebix.engine.util.enums.LanguageType;
+
+public class example {
+
+    public void translatedprint() {
+        new Translator().Translate(translateidentifier, LanguageType.language);
+
+        new Translator().Translate("engine.load",LanguageType.German);
+        //this would equal "JavaEngine wurde geladen"
+    }
+}
+```
+you can find the list of translations here
+[Translation List](https://github.com/Homework-Studios/github-storage/blob/main/JavaEngine/Translations "Translation List")
+
+
+##  **CustomEvents**
 > Have to be registert like normal events
 
-ButtonClickEvent
+#### ButtonClickEvent
 
 ```java
 import net.rebix.engine.util.enums.ButtonAction;

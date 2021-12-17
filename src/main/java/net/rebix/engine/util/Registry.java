@@ -21,6 +21,6 @@ public class Registry {
 
         new Translator().enable();
 
-        System.out.println(new Translator().Translate("engine.load", LanguageType.German));
+        Bukkit.getLogger().info(new Translator().Translate("engine.load", LanguageType.German));
     }
 }
