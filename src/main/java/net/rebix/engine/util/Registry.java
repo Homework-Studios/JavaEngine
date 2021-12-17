@@ -21,6 +21,6 @@ public class Registry {
 
         new Translator().enable();
 
-        System.out.println(new Translator().Translate("JavaEngine was loadet", LanguageType.German));
+        System.out.println(new Translator().Translate("engine.load", LanguageType.German));
     }
 }

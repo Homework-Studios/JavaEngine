@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Translator {
 
-    List<String> TranslateList = new ArrayList<>();
+    public static List<String> TranslateList = new ArrayList<>();
 
     public void enable() {
         StringBuilder sb = new StringBuilder();
@@ -26,11 +26,25 @@ public class Translator {
     }
 
     public String Translate(String input, LanguageType languageType) {
-        String out = input;
         String Language = languageType.getValue();
+        for (String line : TranslateList) {
+            if(line.contains("=")){
+            String keyFound = line.split("=")[0];
+            String content = line.split("=")[1];
+            if(keyFound.equals(input)) {
+                String[] translations = content.split(",");
+                for(String translation : translations) {
+                    String lang = translation.split(":")[0];
+                    String value = translation.split(":")[1];
 
-
-        return out;
+                    if (lang.equals(Language)) {
+                        return value;
+                    }
+                }
+                }
+            }
+        }
+        return input;
     }
 
 
