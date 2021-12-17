@@ -1,5 +1,7 @@
 package net.rebix.engine.api.inventorycomponents;
 
+import net.rebix.engine.util.enums.InventoryButtonType;
+
 import java.util.HashMap;
 
 public class InventoryButton {

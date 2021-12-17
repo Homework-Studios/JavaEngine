@@ -1,4 +1,4 @@
-package net.rebix.engine.api.inventorycomponents;
+package net.rebix.engine.util.enums;
 
 public enum ButtonAction {
     SCROLL_LEFT,

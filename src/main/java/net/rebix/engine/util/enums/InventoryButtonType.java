@@ -1,4 +1,4 @@
-package net.rebix.engine.api.inventorycomponents;
+package net.rebix.engine.util.enums;
 
 public enum InventoryButtonType {
     BLACK_ARROW_LEFT("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzdhZWU5YTc1YmYwZGY3ODk3MTgzMDE1Y2NhMGIyYTdkNzU1YzYzMzg4ZmYwMTc1MmQ1ZjQ0MTlmYzY0NSJ9fX0="),
@@ -10,7 +10,7 @@ public enum InventoryButtonType {
         return this.value;
     }
 
-    public InventoryButtonType(String value){
+    InventoryButtonType(String value){
         this.value = value;
     }
 

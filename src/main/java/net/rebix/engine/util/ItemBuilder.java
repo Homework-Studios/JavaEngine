@@ -2,7 +2,7 @@ package net.rebix.engine.util;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.rebix.engine.Main;
-import net.rebix.engine.api.inventorycomponents.ButtonAction;
+import net.rebix.engine.util.enums.ButtonAction;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;

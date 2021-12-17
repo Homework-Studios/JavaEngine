@@ -1,6 +1,6 @@
 package net.rebix.engine.events.customevents;
 
-import net.rebix.engine.api.inventorycomponents.ButtonAction;
+import net.rebix.engine.util.enums.ButtonAction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

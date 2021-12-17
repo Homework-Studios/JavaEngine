@@ -2,14 +2,13 @@ package net.rebix.engine.api;
 
 
 import net.rebix.engine.Main;
-import net.rebix.engine.api.inventorycomponents.ButtonAction;
-import net.rebix.engine.api.inventorycomponents.InventoryButtonType;
+import net.rebix.engine.util.enums.ButtonAction;
+import net.rebix.engine.util.enums.InventoryButtonType;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.util.ItemBuilder;
 import net.rebix.engine.util.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,9 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class ScrollableInventory implements Listener {
 
