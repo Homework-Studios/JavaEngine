@@ -6,7 +6,7 @@ Things I have to add later
   - [ ] CabelAPI
   - [ ] ScorebordAPI
   - [ ] TablistAPI
-  - [ ] TranslatorAPI
+  - [x] TranslatorAPI
 
 # How to use things
 

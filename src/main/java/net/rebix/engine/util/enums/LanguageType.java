@@ -14,6 +14,6 @@ public enum LanguageType {
     private String value;
 
     LanguageType(String value){
-
+        this.value = value;
     }
 }
