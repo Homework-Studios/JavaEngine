@@ -11,6 +11,12 @@ public class TabListAPI {
     public TabListAPI(Player player){
         this.player = player;
     }
+    public TabListAPI(Player player,String header,String footer){
+        this.player = player;
+        this.header = header;
+        this.footer = footer;
+    }
+
 
     public Player getPlayer() {
         return player;
