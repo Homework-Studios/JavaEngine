@@ -38,13 +38,14 @@ public class Translator {
                     String value = translation.split(":")[1];
 
                     if (lang.equals(Language)) {
-                        return value;
+                        return value.replace("Â","");
                     }
                 }
                 }
             }
         }
-        return input;
+        if(languageType != LanguageType.English) return Translate(input,LanguageType.English);
+        else return input;
     }
 
 

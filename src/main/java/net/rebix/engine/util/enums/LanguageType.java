@@ -1,10 +1,8 @@
 package net.rebix.engine.util.enums;
 
 public enum LanguageType {
-    German("German");
-
-
-
+    German("German"),
+    English("English");
 
     public String getValue(){
 

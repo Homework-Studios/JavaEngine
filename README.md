@@ -18,9 +18,9 @@ import org.bukkit.Material;
 
 import java.util.HashMap;
 
-public class exampel {
+public class example {
 
-    public void exampel() {
+    public example() {
         ScrollableInventory scrollable_inventory = new ScrollableInventory().create(player, name, size, page, pages);
         HashMap<Integer, String> contents = new HashMap<>();
         contents.put(1, new ItemBuilder(Material.STONE).build());
@@ -31,6 +31,8 @@ public class exampel {
 }
 ```
 
+page an pages can be left out page will be 1 and pages will be integer limit
+
 #### ItemBuilder API
 
 ```java
@@ -38,9 +40,9 @@ public class exampel {
 import net.rebix.engine.util.ItemBuilder;
 import org.bukkit.inventory.ItemStack;
 
-public class exampel {
+public class example {
 
-    public void exampel() {
+    public example() {
         ItemStack itemStack = new ItemBuilder(Material)
                 .setUnbreakable(true).build();
         //you can add a lot here below is a list of functions
@@ -67,7 +69,7 @@ functions(last updated 16.12.2021, 18:36 MEZ)
 #### EntityHider
 
 ```java
-import net.rebix.engine.api.packets.EntityHider;
+import net.rebix.engine.api.EntityHider;
 
 public class example {
 

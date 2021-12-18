@@ -1,4 +1,4 @@
-package net.rebix.engine.api.packets;
+package net.rebix.engine.api;
 
 
 import net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy;

@@ -1,8 +1,9 @@
 package net.rebix.engine.util;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.TestCommand;
+import net.rebix.engine.commands.TestCommand;
 import net.rebix.engine.api.ScrollableInventory;
+import net.rebix.engine.commands.WriteDefaultCfg;
 import net.rebix.engine.events.*;
 import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
@@ -18,9 +19,11 @@ public class Registry {
         Bukkit.getPluginManager().registerEvents(new onPlayerRespawnEvent(),Main.plugin);
 
         Objects.requireNonNull(Bukkit.getPluginCommand("test")).setExecutor(new TestCommand());
+        Objects.requireNonNull(Bukkit.getPluginCommand("writedefaultcfg")).setExecutor(new WriteDefaultCfg());
 
         new Translator().enable();
+        new cfgManager().enable();
 
-        Bukkit.getLogger().info(new Translator().Translate("engine.load", LanguageType.German));
+        Bukkit.getLogger().info(new Translator().Translate("engine.load", Main.defaultLanguage));
     }
 }

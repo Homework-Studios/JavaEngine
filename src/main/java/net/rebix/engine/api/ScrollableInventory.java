@@ -6,7 +6,7 @@ import net.rebix.engine.util.enums.ButtonAction;
 import net.rebix.engine.util.enums.InventoryButtonType;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.util.ItemBuilder;
-import net.rebix.engine.util.Items;
+import net.rebix.engine.items.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,6 +33,25 @@ public class ScrollableInventory implements Listener {
     public ScrollableInventory(){
     }
 
+    public ScrollableInventory create(@NotNull Player player, @NotNull String name, @NotNull Integer size) {
+        //set values to the private variables
+        this.size = size;
+        this.name = name;
+        this.player = player;
+        PLAYER_INVENTORY.put(player,this);
+        return this;
+    }
+
+    public ScrollableInventory create(@NotNull Player player, @NotNull String name, @NotNull Integer size, @Nullable Integer page) {
+        //set values to the private variables
+        this.size = size;
+        this.name = name;
+        this.player = player;
+        if(page != null) this.page = page;
+        PLAYER_INVENTORY.put(player,this);
+        return this;
+    }
+
     public ScrollableInventory create(@NotNull Player player, @NotNull String name, @NotNull Integer size, @Nullable Integer page, @Nullable Integer pages) {
         //set values to the private variables
         this.size = size;
@@ -49,7 +68,7 @@ public class ScrollableInventory implements Listener {
         inventory = Bukkit.createInventory(null,size,name + " - " + page);
 
 
-        Integer slot;
+        int slot;
         for(slot = 8; slot < size; ++slot) {
             Integer invenotryslot = slot-8 + (size-9) * (page-1);
 
@@ -65,7 +84,7 @@ public class ScrollableInventory implements Listener {
     public void fillInButtonsAndPlaceholder() {
         inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction(ButtonAction.SCROLL_LEFT).build());
         inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
-        for (int index = 1; index< 8; ++ index) inventory.setItem(index, Items.PLACEHOLDER);
+        for (int index = 1; index< 8; ++ index) inventory.setItem(index, ItemFactory.PLACEHOLDER);
     }
     @EventHandler
     public void ButtonClickEvent(ButtonClickEvent event){

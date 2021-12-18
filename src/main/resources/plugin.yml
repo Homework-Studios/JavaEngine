@@ -8,3 +8,5 @@ description: My plugin engine to improve coding
 commands:
   test:
     description: "the test command"
+  writedefaultcfg:
+    description: "writes the default cfg"
