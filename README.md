@@ -7,6 +7,7 @@ Things I have to add later
 - [ ] ScorebordAPI
 - [ ] TablistAPI
 - [x] TranslatorAPI
+- [ ] AutoUpdater
 
 ## API
 
@@ -69,7 +70,7 @@ functions(last updated 16.12.2021, 18:36 MEZ)
 #### EntityHider
 
 ```java
-import net.rebix.engine.api.EntityHider;
+import net.rebix.engine.api.packets.EntityHider;
 
 public class example {
 
@@ -87,7 +88,7 @@ public class example {
 #### Translator
 
 ```java
-import net.rebix.engine.util.Translator;
+import net.rebix.engine.api.Translator;
 import net.rebix.engine.util.enums.LanguageType;
 
 public class example {
@@ -95,13 +96,15 @@ public class example {
     public void translatedprint() {
         new Translator().Translate(translateidentifier, LanguageType.language);
 
-        new Translator().Translate("engine.load",LanguageType.German);
+        new Translator().Translate("engine.load", LanguageType.German);
         //this would equal "JavaEngine wurde geladen"
     }
 }
 ```
 you can find the list of translations here
 [Translation List](https://github.com/Homework-Studios/github-storage/blob/main/JavaEngine/Translations "Translation List")
+
+
 
 
 ##  **CustomEvents**
@@ -123,3 +126,19 @@ public class exampel implements Listener {
 }
 ```
 
+
+## Config
+can be found under plugin/Java Engine/config.yaml
+
+you can get the default config with the writedefaultcfg command ony in the console
+```yaml
+#This is the cfg for The JavaEngine
+Version: 1.0
+#The Language supported are: English,German
+Language: English
+
+#Auto update
+AutoUpdate: true
+
+
+```

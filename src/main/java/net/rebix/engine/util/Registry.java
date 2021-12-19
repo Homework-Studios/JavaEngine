@@ -1,11 +1,13 @@
 package net.rebix.engine.util;
 
 import net.rebix.engine.Main;
+import net.rebix.engine.api.Translator;
 import net.rebix.engine.commands.ReloadCommand;
 import net.rebix.engine.commands.TestCommand;
 import net.rebix.engine.api.ScrollableInventory;
 import net.rebix.engine.commands.WriteDefaultCfgCommand;
 import net.rebix.engine.events.*;
+import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
 
 import java.util.Objects;
@@ -25,6 +27,9 @@ public class Registry {
         new Translator().enable();
         new cfgManager().enable();
 
-        Bukkit.getLogger().info(new Translator().Translate("engine.load", Main.defaultLanguage));
+
+        Main.Language = LanguageType.valueOf(Main.plugin.getConfig().getString("Language"));
+        Bukkit.getLogger().info(new Translator().Translate("engine.load"));
+
     }
 }

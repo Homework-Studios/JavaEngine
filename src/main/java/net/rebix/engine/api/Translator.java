@@ -1,7 +1,8 @@
-package net.rebix.engine.util;
+package net.rebix.engine.api;
 
 import java.io.IOException;
 
+import net.rebix.engine.Main;
 import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.entity.Player;
 import java.net.URL;
@@ -45,6 +46,29 @@ public class Translator {
             }
         }
         if(languageType != LanguageType.English) return Translate(input,LanguageType.English);
+        else return input;
+    }
+
+    public String Translate(String input) {
+        String Language = Main.Language.getValue();
+        for (String line : TranslateList) {
+            if(line.contains("=")){
+                String keyFound = line.split("=")[0];
+                String content = line.split("=")[1];
+                if(keyFound.equals(input)) {
+                    String[] translations = content.split(",");
+                    for(String translation : translations) {
+                        String lang = translation.split(":")[0];
+                        String value = translation.split(":")[1];
+
+                        if (lang.equals(Language)) {
+                            return value.replace("Â","");
+                        }
+                    }
+                }
+            }
+        }
+        if(Main.Language != LanguageType.English) return Translate(input,LanguageType.English);
         else return input;
     }
 

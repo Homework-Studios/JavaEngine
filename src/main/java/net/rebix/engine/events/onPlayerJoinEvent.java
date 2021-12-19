@@ -1,10 +1,10 @@
 package net.rebix.engine.events;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.api.EntityHider;
+import net.rebix.engine.api.packets.EntityHider;
 import net.rebix.engine.api.packets.TabListAPI;
 import net.rebix.engine.api.playernametag.PlayerSetNameTag;
-import net.rebix.engine.util.Translator;
+import net.rebix.engine.api.Translator;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -17,7 +17,7 @@ import java.util.List;
 public class onPlayerJoinEvent implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent event){
-        event.setJoinMessage(new Translator().Translate("engine.player.join",Main.defaultLanguage).replace("//player//",event.getPlayer().getDisplayName()));
+        event.setJoinMessage(new Translator().Translate("engine.player.join").replaceAll("_"," ").replace("//player//",event.getPlayer().getDisplayName()));
         TabListAPI tabListAPI = new TabListAPI(event.getPlayer(),"§fYour name: \n§f" + event.getPlayer().getName(),"§fYour Ping: " + event.getPlayer().getPing());
         tabListAPI.send();
 

@@ -1,13 +1,12 @@
 package net.rebix.engine;
 
 import net.rebix.engine.util.Registry;
-import net.rebix.engine.api.ScrollableInventory;
 import net.rebix.engine.api.playernametag.PlayerSetNameTag;
+import net.rebix.engine.api.Translator;
+import net.rebix.engine.updater.UpdatePlugin;
 import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,12 +15,14 @@ import java.util.List;
 
 public final class Main extends JavaPlugin {
     public static Integer INTEGER_LIMIT = 2147483647;
-    public static LanguageType defaultLanguage = LanguageType.English;
+    public static LanguageType Language = LanguageType.English;
 
     public static Plugin plugin;
 
     @Override
     public void onEnable() {
+
+
         plugin = this;
         new Registry();
         for(Player player: Bukkit.getOnlinePlayers()){
@@ -36,8 +37,7 @@ public final class Main extends JavaPlugin {
             new PlayerSetNameTag(player,nametag);
         }
 
-
-        //https://raw.githubusercontent.com/Reebix/Engine/master/CurrenVersion
+        if(this.getConfig().getDouble("Version") < Double.parseDouble(new Translator().Translate("engine.version"))) new UpdatePlugin();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package net.rebix.engine.commands;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.util.Translator;
+import net.rebix.engine.api.Translator;
 import net.rebix.engine.util.cfgManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -17,7 +17,7 @@ public class WriteDefaultCfgCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!(sender instanceof Player)){
             new cfgManager().writeDefaultCfg();
-            Bukkit.getLogger().info(new Translator().Translate("engine.cfg.default", Main.defaultLanguage));
+            Bukkit.getLogger().info(new Translator().Translate("engine.cfg.default", Main.Language));
         }
         return false;
     }
