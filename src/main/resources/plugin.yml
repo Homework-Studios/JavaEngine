@@ -12,3 +12,5 @@ commands:
     description: "writes the default cfg"
   /r:
     description: "reloads the plugins"
+  /item:
+    description: "custom item"

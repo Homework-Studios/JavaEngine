@@ -24,6 +24,7 @@ public class cfgManager {
     }
 
     public void writeDefaultCfg(){
+        Main.plugin.saveConfig();
         String defaultCfg;
         try {
 

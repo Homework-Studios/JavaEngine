@@ -15,10 +15,13 @@ import org.jetbrains.annotations.NotNull;
 public class WriteDefaultCfgCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player)){
-            new cfgManager().writeDefaultCfg();
-            Bukkit.getLogger().info(new Translator().Translate("engine.cfg.default", Main.Language));
-        }
+       write();
         return false;
+    }
+
+    public void write() {
+        new cfgManager().writeDefaultCfg();
+        Bukkit.getLogger().info(new Translator().Translate("engine.cfg.default", Main.Language));
+        Bukkit.reload();
     }
 }

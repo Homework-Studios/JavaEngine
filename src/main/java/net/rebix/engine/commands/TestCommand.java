@@ -1,19 +1,11 @@
 package net.rebix.engine.commands;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.api.ScrollableInventory;
-import net.rebix.engine.util.ItemBuilder;
-import net.rebix.engine.util.enums.LanguageType;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
 
 public class TestCommand implements CommandExecutor {
     @Override

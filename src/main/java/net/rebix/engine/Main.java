@@ -1,5 +1,6 @@
 package net.rebix.engine;
 
+import net.rebix.engine.commands.WriteDefaultCfgCommand;
 import net.rebix.engine.util.Registry;
 import net.rebix.engine.api.playernametag.PlayerSetNameTag;
 import net.rebix.engine.api.Translator;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +23,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-
         plugin = this;
+        if(!new File(this.getDataFolder(),"config.yml").exists()) new WriteDefaultCfgCommand().write();
         new Registry();
         for(Player player: Bukkit.getOnlinePlayers()){
 
@@ -35,6 +36,8 @@ public final class Main extends JavaPlugin {
             nametag.add("3");
             nametag.add("4");
             new PlayerSetNameTag(player,nametag);
+
+
         }
 
         if(this.getConfig().getDouble("Version") < Double.parseDouble(new Translator().Translate("engine.version"))) new UpdatePlugin();

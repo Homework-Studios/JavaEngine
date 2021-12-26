@@ -1,4 +1,4 @@
-package net.rebix.engine.util;
+package net.rebix.engine.items;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.rebix.engine.Main;
@@ -27,8 +27,14 @@ public class ItemBuilder {
     }
 
 
-    public ItemBuilder(Material material) {
+    public ItemBuilder(Material material, String id) {
         this(material, (short)0);
+        setID(id);
+    }
+
+    public ItemBuilder(ItemStack itemBuilder) {
+        this.item = itemBuilder;
+        this.itemMeta = itemBuilder.getItemMeta();
     }
 
 
@@ -105,15 +111,17 @@ public class ItemBuilder {
         return this;
     }
 
-
-    public ItemBuilder getItemBuilder(ItemStack item){
-        this.item = item;
-        return this;
-    }
-
     public ItemStack build(){
         item.setItemMeta(itemMeta);
         return item;
+    }
+
+    private void setID(String id){
+        itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin, "ID"), PersistentDataType.STRING, id);
+    }
+
+    public String getID(){
+        return itemMeta.getPersistentDataContainer().get(new NamespacedKey(Main.plugin, "ID"), PersistentDataType.STRING);
     }
 
 }

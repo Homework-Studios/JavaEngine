@@ -2,11 +2,13 @@ package net.rebix.engine.util;
 
 import net.rebix.engine.Main;
 import net.rebix.engine.api.Translator;
+import net.rebix.engine.commands.ItemCommand;
 import net.rebix.engine.commands.ReloadCommand;
 import net.rebix.engine.commands.TestCommand;
 import net.rebix.engine.api.ScrollableInventory;
 import net.rebix.engine.commands.WriteDefaultCfgCommand;
 import net.rebix.engine.events.*;
+import net.rebix.engine.items.ItemFactory;
 import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
 
@@ -23,10 +25,12 @@ public class Registry {
         Objects.requireNonNull(Bukkit.getPluginCommand("test")).setExecutor(new TestCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("writedefaultcfg")).setExecutor(new WriteDefaultCfgCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("/r")).setExecutor(new ReloadCommand());
+        Objects.requireNonNull(Bukkit.getPluginCommand("/item")).setExecutor(new ItemCommand());
 
         new Translator().enable();
         new cfgManager().enable();
-
+        new ItemFactory().enable();
+        new ItemCommand().enable();
 
         Main.Language = LanguageType.valueOf(Main.plugin.getConfig().getString("Language"));
         Bukkit.getLogger().info(new Translator().Translate("engine.load"));

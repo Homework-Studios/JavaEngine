@@ -5,7 +5,7 @@ import net.rebix.engine.Main;
 import net.rebix.engine.util.enums.ButtonAction;
 import net.rebix.engine.util.enums.InventoryButtonType;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
-import net.rebix.engine.util.ItemBuilder;
+import net.rebix.engine.items.ItemBuilder;
 import net.rebix.engine.items.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -82,9 +82,9 @@ public class ScrollableInventory implements Listener {
 
 
     public void fillInButtonsAndPlaceholder() {
-        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction(ButtonAction.SCROLL_LEFT).build());
-        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD).skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
-        for (int index = 1; index< 8; ++ index) inventory.setItem(index, ItemFactory.PLACEHOLDER);
+        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction(ButtonAction.SCROLL_LEFT).build());
+        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
+        for (int index = 1; index< 8; ++ index) inventory.setItem(index, ItemFactory.Items.get("PLACEHOLDER"));
     }
     @EventHandler
     public void ButtonClickEvent(ButtonClickEvent event){
