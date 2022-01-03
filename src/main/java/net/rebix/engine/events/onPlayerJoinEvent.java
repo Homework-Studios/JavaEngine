@@ -22,10 +22,8 @@ public class onPlayerJoinEvent implements Listener {
         tabListAPI.send();
 
         List<String> name = new ArrayList<>();
-        name.add("1");
-        name.add("2");
-        name.add("3");
-        name.add("4");
+        name.add(event.getPlayer().getDisplayName());
+
         new PlayerSetNameTag(event.getPlayer(), name);
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> {

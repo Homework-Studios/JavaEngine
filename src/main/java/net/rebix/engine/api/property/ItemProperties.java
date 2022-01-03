@@ -1,4 +1,4 @@
-package net.rebix.engine.api.propertie;
+package net.rebix.engine.api.property;
 
 import net.rebix.engine.Main;
 import net.rebix.engine.util.enums.ButtonAction;

@@ -4,8 +4,8 @@ My Plugin Engine
 
 Things I have to add later
 - [ ] CabelAPI
-- [x] ScorebordAPI
-- [ ] TablistAPI
+- [ ] ScorebordAPI
+- [x] TablistAPI
 - [x] TranslatorAPI
 - [ ] AutoUpdater
 

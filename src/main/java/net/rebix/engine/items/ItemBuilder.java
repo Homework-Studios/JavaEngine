@@ -32,6 +32,11 @@ public class ItemBuilder {
         setID(id);
     }
 
+    public ItemBuilder(Material material) {
+        this(material, (short)0);
+        setID("");
+    }
+
     public ItemBuilder(ItemStack itemBuilder) {
         this.item = itemBuilder;
         this.itemMeta = itemBuilder.getItemMeta();

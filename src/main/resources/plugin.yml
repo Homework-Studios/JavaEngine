@@ -1,4 +1,4 @@
-name: Engine
+name: JavaEngine
 version: '${project.version}'
 main: net.rebix.engine.Main
 api-version: 1.18
@@ -14,3 +14,5 @@ commands:
     description: "reloads the plugins"
   /item:
     description: "custom item"
+  /spawn:
+    description: "spawn entity with amount"

@@ -2,11 +2,8 @@ package net.rebix.engine.util;
 
 import net.rebix.engine.Main;
 import net.rebix.engine.api.Translator;
-import net.rebix.engine.commands.ItemCommand;
-import net.rebix.engine.commands.ReloadCommand;
-import net.rebix.engine.commands.TestCommand;
+import net.rebix.engine.commands.*;
 import net.rebix.engine.api.ScrollableInventory;
-import net.rebix.engine.commands.WriteDefaultCfgCommand;
 import net.rebix.engine.events.*;
 import net.rebix.engine.items.ItemFactory;
 import net.rebix.engine.util.enums.LanguageType;
@@ -26,6 +23,7 @@ public class Registry {
         Objects.requireNonNull(Bukkit.getPluginCommand("writedefaultcfg")).setExecutor(new WriteDefaultCfgCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("/r")).setExecutor(new ReloadCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("/item")).setExecutor(new ItemCommand());
+        Objects.requireNonNull(Bukkit.getPluginCommand("/spawn")).setExecutor(new SpawnCommand());
 
         new Translator().enable();
         new cfgManager().enable();

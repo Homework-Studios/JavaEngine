@@ -1,7 +1,7 @@
 package net.rebix.engine.events;
 
 import net.rebix.engine.util.enums.ButtonAction;
-import net.rebix.engine.api.propertie.ItemProperties;
+import net.rebix.engine.api.property.ItemProperties;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -26,19 +26,6 @@ public final class Main extends JavaPlugin {
         plugin = this;
         if(!new File(this.getDataFolder(),"config.yml").exists()) new WriteDefaultCfgCommand().write();
         new Registry();
-        for(Player player: Bukkit.getOnlinePlayers()){
-
-
-
-            List<String> nametag = new ArrayList<>();
-            nametag.add("1");
-            nametag.add("2");
-            nametag.add("3");
-            nametag.add("4");
-            new PlayerSetNameTag(player,nametag);
-
-
-        }
 
         if(this.getConfig().getDouble("Version") < Double.parseDouble(new Translator().Translate("engine.version"))) new UpdatePlugin();
     }
