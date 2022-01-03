@@ -38,8 +38,13 @@ public class ItemBuilder {
     }
 
     public ItemBuilder(ItemStack itemBuilder) {
-        this.item = itemBuilder;
-        this.itemMeta = itemBuilder.getItemMeta();
+        if(itemBuilder != null)
+        item = itemBuilder;
+        else {
+            item = new ItemBuilder(Material.STONE).build();
+        }
+        itemMeta = item.getItemMeta();
+
     }
 
 
@@ -126,7 +131,8 @@ public class ItemBuilder {
     }
 
     public String getID(){
-        return itemMeta.getPersistentDataContainer().get(new NamespacedKey(Main.plugin, "ID"), PersistentDataType.STRING);
+        if(itemMeta != null) return itemMeta.getPersistentDataContainer().get(new NamespacedKey(Main.plugin, "ID"), PersistentDataType.STRING);
+        else return null;
     }
 
 }
