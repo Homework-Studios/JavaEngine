@@ -16,7 +16,9 @@ public class ItemProperties {
     }
 
     public Boolean getCannotBePickedUp(){
+        if(itemStack.getItemMeta() != null)
         return Objects.equals(itemStack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(Main.plugin, "Pickupabel"), PersistentDataType.STRING), "false");
+        else return false;
     }
 
     public ButtonAction getButtonAction(){

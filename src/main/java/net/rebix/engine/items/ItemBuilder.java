@@ -95,7 +95,7 @@ public class ItemBuilder {
 
         SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
 
-        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
+        GameProfile gameProfile = new GameProfile(UUID.fromString("0ed8b527-d3cf-48a4-b9fc-c35c9efee447"), null);
         gameProfile.getProperties().put("textures",new Property("textures",value));
         Field profileField;
         try {
@@ -113,11 +113,13 @@ public class ItemBuilder {
     public ItemBuilder setPickupabel(boolean pickupabel){
         String value = String.valueOf(pickupabel);
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin,"Pickupabel"), PersistentDataType.STRING, value);
+        item.setItemMeta(itemMeta);
         return this;
     }
 
     public ItemBuilder setButtonAction(ButtonAction action){
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin,"ButtonAction"), PersistentDataType.STRING, String.valueOf(action));
+        item.setItemMeta(itemMeta);
         return this;
     }
 
@@ -126,8 +128,9 @@ public class ItemBuilder {
         return item;
     }
 
-    private void setID(String id){
+    public void setID(String id){
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin, "ID"), PersistentDataType.STRING, id);
+        item.setItemMeta(itemMeta);
     }
 
     public String getID(){

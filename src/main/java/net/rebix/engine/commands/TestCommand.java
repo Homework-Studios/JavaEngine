@@ -1,33 +1,24 @@
 package net.rebix.engine.commands;
 
 import net.rebix.engine.Main;
+import net.rebix.engine.items.ItemBuilder;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 public class TestCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-
-
-        /*
-        ScrollableInventory scrollable_inventory = new ScrollableInventory().create((Player) sender,"test",6*9);
-        HashMap<Integer,ItemStack> contents = new HashMap<>();
-        int index;
-        for(index = 1; index < 63; ++index){
-            contents.put(index, new ItemBuilder(Material.STONE).setAmount(index).build());
-        }
-        scrollable_inventory.setContents(contents);
-        scrollable_inventory.reloadInventory();
-
-         */
-
-        FileConfiguration cfg = Main.plugin.getConfig();
-        cfg.set("Language", "English");
-        Main.plugin.saveDefaultConfig();
-        Main.plugin.saveConfig();
+        Player player = (Player) sender;
+        ItemMeta meta = player.getInventory().getItemInMainHand().getItemMeta();
+        meta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin,"ID"), PersistentDataType.STRING, "Test");
+        player.getInventory().getItemInMainHand().setItemMeta(meta);
         return false;
     }
 }
