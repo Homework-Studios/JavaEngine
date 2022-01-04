@@ -12,6 +12,7 @@ import java.util.Collections;
 public class onPlayerLeaveEvent implements Listener {
     @EventHandler
     public void PlayerLeaveEvent(PlayerQuitEvent event){
+        if(Main.plugin.getConfig().getBoolean("Nametag"))
         new PlayerSetNameTag(event.getPlayer(), Collections.singletonList(event.getPlayer().getDisplayName())).RemoveNameTag(event.getPlayer());
         event.setQuitMessage(new Translator().Translate("engine.player.leave").replaceAll("_"," ").replace("//player//",event.getPlayer().getDisplayName()));
     }

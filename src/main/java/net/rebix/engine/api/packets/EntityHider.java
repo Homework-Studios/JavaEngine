@@ -4,6 +4,7 @@ package net.rebix.engine.api.packets;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy;
 
 import net.minecraft.server.network.PlayerConnection;
+import net.rebix.engine.util.SendPacketToPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
@@ -30,9 +31,9 @@ public class EntityHider{
     }
 
     public void HideEntityForPlayer(Player player){
-        PlayerConnection connection = ((CraftPlayer) player).getHandle().b;
+
         PacketPlayOutEntityDestroy packetPlayOutEntityDestroy = new PacketPlayOutEntityDestroy(entity.getEntityId());
-        connection.a(packetPlayOutEntityDestroy);
+        new SendPacketToPlayer(player,packetPlayOutEntityDestroy);
 
     }
 

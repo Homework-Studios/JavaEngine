@@ -3,11 +3,12 @@ My Plugin Engine
 
 
 Things I have to add later
-- [ ] CabelAPI
+- [ ] CableAPI
 - [ ] ScorebordAPI
 - [x] TablistAPI
 - [x] TranslatorAPI
 - [ ] AutoUpdater
+- [ ] NPC
 
 ## API
 

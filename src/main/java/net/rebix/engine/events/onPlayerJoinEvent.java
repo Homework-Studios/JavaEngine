@@ -18,12 +18,11 @@ public class onPlayerJoinEvent implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent event){
         event.setJoinMessage(new Translator().Translate("engine.player.join").replaceAll("_"," ").replace("//player//",event.getPlayer().getDisplayName()));
-        TabListAPI tabListAPI = new TabListAPI(event.getPlayer(),"§fYour name: \n§f" + event.getPlayer().getName(),"§fYour Ping: " + event.getPlayer().getPing());
-        tabListAPI.send();
+
 
         List<String> name = new ArrayList<>();
         name.add(event.getPlayer().getDisplayName());
-
+        if(Main.plugin.getConfig().getBoolean("Nametag"))
         new PlayerSetNameTag(event.getPlayer(), name);
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.plugin, () -> {
