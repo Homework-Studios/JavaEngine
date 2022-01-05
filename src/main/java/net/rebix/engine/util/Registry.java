@@ -19,12 +19,15 @@ public class Registry {
         Bukkit.getPluginManager().registerEvents(new onPlayerLeaveEvent(),Main.plugin);
         Bukkit.getPluginManager().registerEvents(new onPlayerRespawnEvent(),Main.plugin);
 
-        Objects.requireNonNull(Bukkit.getPluginCommand("/time")).setExecutor(new TimeCommand());
+
         Objects.requireNonNull(Bukkit.getPluginCommand("test")).setExecutor(new TestCommand());
+
+        Objects.requireNonNull(Bukkit.getPluginCommand("/time")).setExecutor(new TimeCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("writedefaultcfg")).setExecutor(new WriteDefaultCfgCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("/r")).setExecutor(new ReloadCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("/item")).setExecutor(new ItemCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("/spawn")).setExecutor(new SpawnCommand());
+        Objects.requireNonNull(Bukkit.getPluginCommand("/day")).setExecutor(new DayCommand());
 
         new Translator().enable();
         new cfgManager().enable();

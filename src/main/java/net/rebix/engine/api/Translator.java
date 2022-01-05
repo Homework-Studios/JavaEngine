@@ -33,7 +33,7 @@ public class Translator {
             String keyFound = line.split("=")[0];
             String content = line.split("=")[1];
             if(keyFound.equals(input)) {
-                String[] translations = content.split(",");
+                String[] translations = content.split(";;");
                 for(String translation : translations) {
                     String lang = translation.split(":")[0];
                     String value = translation.split(":")[1];
@@ -50,26 +50,7 @@ public class Translator {
     }
 
     public String Translate(String input) {
-        String Language = Main.Language.getValue();
-        for (String line : TranslateList) {
-            if(line.contains("=")){
-                String keyFound = line.split("=")[0];
-                String content = line.split("=")[1];
-                if(keyFound.equals(input)) {
-                    String[] translations = content.split(",");
-                    for(String translation : translations) {
-                        String lang = translation.split(":")[0];
-                        String value = translation.split(":")[1];
-
-                        if (lang.equals(Language)) {
-                            return value.replace("Â","");
-                        }
-                    }
-                }
-            }
-        }
-        if(Main.Language != LanguageType.English) return Translate(input,LanguageType.English);
-        else return input;
+        return Translate(input,Main.Language);
     }
 
 

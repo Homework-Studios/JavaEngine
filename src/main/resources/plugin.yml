@@ -18,3 +18,5 @@ commands:
     description: "spawn entity with amount"
   /time:
     description: "shows you the time"
+  /day:
+    description: "makes it day and not raining"

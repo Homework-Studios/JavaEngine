@@ -4,11 +4,13 @@ My Plugin Engine
 
 Things I have to add later
 - [ ] CableAPI
-- [ ] ScorebordAPI
-- [x] TablistAPI
-- [x] TranslatorAPI
 - [ ] AutoUpdater
 - [ ] NPC
+###
+- [x] ScorebordAPI
+- [x] TablistAPI
+- [x] TranslatorAPI
+
 
 ## API
 
@@ -85,8 +87,53 @@ public class example {
 }
 ```
 
+#### Scoreboard
+
+```java
+import org.bukkit.scoreboard.DisplaySlot;
+import net.rebix.engine.api.scoreboard.CustomScoreboard;
+import org.bukkit.entity.Player;
+
+public class example {
+
+    public example() {
+        CustomScoreboard scoreboard = new CustomScoreboard(name, DisplaySlot.SIDEBAR);
+        scoreboard.setLine(0, "Test");
+        scoreboard.setLine(14, "Test2");
+        scoreboard.sendScoreboardToPlayer(player);
+    }
+}
+```
+you can use a maximum of 15 lines from 0 -> 15 <br />
+it goes from 0 bottom to 15 top
+
+
+#### Tablist
+
+```java
+
+import net.rebix.engine.api.packets.TabListAPI;
+
+public class example {
+
+    public example() {
+        TabListAPI tabList = new TabListAPI(player);
+        tabList.setFooter("Bottom \n below bottom");
+        tabList.setHeader("Top");
+        tabList.send();
+        
+        //or
+        
+        new TabListAPI(player,"top","Bottom \n below bottom").send();
+    }
+}
+```
+With \n you go a line lower <br />
+dont forget to do .send(); at the end
+
 
 #### Translator
+
 
 ```java
 import net.rebix.engine.api.Translator;
@@ -129,8 +176,7 @@ public class exampel implements Listener {
 
 
 ## Config
-can be found under plugin/Java Engine/config.yaml
-
+can be found under plugin/Java Engine/config.yaml <br />
 you can get the default config with the writedefaultcfg command ony in the console
 ```yaml
 #This is the cfg for The JavaEngine
