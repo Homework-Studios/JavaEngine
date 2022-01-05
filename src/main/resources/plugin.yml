@@ -16,3 +16,5 @@ commands:
     description: "custom item"
   /spawn:
     description: "spawn entity with amount"
+  /time:
+    description: "shows you the time"

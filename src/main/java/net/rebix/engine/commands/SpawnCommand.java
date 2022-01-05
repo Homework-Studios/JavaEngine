@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +19,9 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Player player = (Player) sender;
-        int $index;
-        for($index = 0; $index < Integer.parseInt(args[1]); ++$index){
+        if(args[0].length() == 0) player.getWorld().spawnEntity(player.getLocation(), EntityType.valueOf(args[0]));
+        else
+        for(int $index = 0; $index < Integer.parseInt(args[1]); ++$index){
             player.getWorld().spawnEntity(player.getLocation(), EntityType.valueOf(args[0]));
         }
 
@@ -32,7 +34,9 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
         List<String> out = new ArrayList<>();
 
         for (EntityType e: EntityType.values()) {
+            if(String.valueOf(e).startsWith(args[0]))
             out.add(String.valueOf(e));
+            if(String.valueOf(e).equals(args[0])) return null;
         }
         return out;
     }
