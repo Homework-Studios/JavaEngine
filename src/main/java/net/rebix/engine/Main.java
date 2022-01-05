@@ -30,10 +30,6 @@ public final class Main extends JavaPlugin {
 
         if(this.getConfig().getDouble("Version") < Double.parseDouble(new Translator().Translate("engine.version"))) new UpdatePlugin();
 
-        CustomScoreboard scoreboard = new CustomScoreboard("Test", DisplaySlot.SIDEBAR);
-        scoreboard.setLine(0,"Test");
-        scoreboard.setLine(14,"Test2");
-        scoreboard.sendScoreboardToPlayer(Objects.requireNonNull(Bukkit.getPlayer("10MilesDeep")));
 
 
     }
