@@ -7,6 +7,10 @@ Things I have to add later
 - [ ] AutoUpdater
 - [ ] NPC
 ###
+- [ ] Playerheaddrop
+- [ ] customization+
+- [ ] loadstonechunkload
+###
 - [x] ScorebordAPI
 - [x] TablistAPI
 - [x] TranslatorAPI
