@@ -25,6 +25,7 @@ public class ItemCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if(sender.hasPermission("engine.itemcommand.use"))
         switch (args[0]) {
             case "list":
                 sender.sendMessage("All items with id:");

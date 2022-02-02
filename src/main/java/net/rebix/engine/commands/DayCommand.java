@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class DayCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if(sender.hasPermission("engine.day.use"))
         if(sender instanceof Player) {
             Player player = (Player) sender;
             player.getWorld().setTime(100);

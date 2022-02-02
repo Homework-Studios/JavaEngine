@@ -1,4 +1,4 @@
-package net.rebix.engine.events;
+package net.rebix.engine.events.player;
 
 import net.rebix.engine.Main;
 import net.rebix.engine.api.packets.EntityHider;

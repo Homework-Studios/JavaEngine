@@ -15,10 +15,6 @@ import org.jetbrains.annotations.NotNull;
 public class TestCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        Player player = (Player) sender;
-        ItemMeta meta = player.getInventory().getItemInMainHand().getItemMeta();
-        meta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin,"ID"), PersistentDataType.STRING, "Test");
-        player.getInventory().getItemInMainHand().setItemMeta(meta);
         return false;
     }
 }

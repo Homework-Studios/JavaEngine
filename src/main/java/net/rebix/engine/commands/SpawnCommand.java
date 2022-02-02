@@ -19,6 +19,7 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Player player = (Player) sender;
+        if(sender.hasPermission("engine.command.spawn.use"))
         if(args[0].length() == 0) player.getWorld().spawnEntity(player.getLocation(), EntityType.valueOf(args[0]));
         else
         for(int $index = 0; $index < Integer.parseInt(args[1]); ++$index){

@@ -5,6 +5,12 @@ import net.rebix.engine.api.Translator;
 import net.rebix.engine.commands.*;
 import net.rebix.engine.api.ScrollableInventory;
 import net.rebix.engine.events.*;
+import net.rebix.engine.events.block.onBlockBreakEvent;
+import net.rebix.engine.events.block.onBlockPlaceEvent;
+import net.rebix.engine.events.player.onPlayerDeathEvent;
+import net.rebix.engine.events.player.onPlayerJoinEvent;
+import net.rebix.engine.events.player.onPlayerLeaveEvent;
+import net.rebix.engine.events.player.onPlayerRespawnEvent;
 import net.rebix.engine.items.ItemFactory;
 import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
@@ -15,10 +21,14 @@ public class Registry {
     public Registry(){
         Bukkit.getPluginManager().registerEvents(new onInventoryClickEvent(), Main.plugin);
         Bukkit.getPluginManager().registerEvents(new ScrollableInventory(), Main.plugin);
+        //player
         Bukkit.getPluginManager().registerEvents(new onPlayerJoinEvent(),Main.plugin);
         Bukkit.getPluginManager().registerEvents(new onPlayerLeaveEvent(),Main.plugin);
         Bukkit.getPluginManager().registerEvents(new onPlayerRespawnEvent(),Main.plugin);
-
+        Bukkit.getPluginManager().registerEvents(new onPlayerDeathEvent(),Main.plugin);
+        //block
+        Bukkit.getPluginManager().registerEvents(new onBlockPlaceEvent(),Main.plugin);
+        Bukkit.getPluginManager().registerEvents(new onBlockBreakEvent(),Main.plugin);
 
         Objects.requireNonNull(Bukkit.getPluginCommand("test")).setExecutor(new TestCommand());
 
