@@ -7,13 +7,14 @@ import net.rebix.engine.api.ScrollableInventory;
 import net.rebix.engine.events.*;
 import net.rebix.engine.events.block.onBlockBreakEvent;
 import net.rebix.engine.events.block.onBlockPlaceEvent;
-import net.rebix.engine.events.player.onPlayerDeathEvent;
-import net.rebix.engine.events.player.onPlayerJoinEvent;
-import net.rebix.engine.events.player.onPlayerLeaveEvent;
-import net.rebix.engine.events.player.onPlayerRespawnEvent;
+import net.rebix.engine.events.player.*;
+import net.rebix.engine.items.ItemBuilder;
 import net.rebix.engine.items.ItemFactory;
 import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.FurnaceRecipe;
 
 import java.util.Objects;
 
@@ -26,6 +27,7 @@ public class Registry {
         Bukkit.getPluginManager().registerEvents(new onPlayerLeaveEvent(),Main.plugin);
         Bukkit.getPluginManager().registerEvents(new onPlayerRespawnEvent(),Main.plugin);
         Bukkit.getPluginManager().registerEvents(new onPlayerDeathEvent(),Main.plugin);
+        Bukkit.getPluginManager().registerEvents(new onPlayerItemHeldEvent(),Main.plugin);
         //block
         Bukkit.getPluginManager().registerEvents(new onBlockPlaceEvent(),Main.plugin);
         Bukkit.getPluginManager().registerEvents(new onBlockBreakEvent(),Main.plugin);
@@ -47,5 +49,8 @@ public class Registry {
         Main.Language = LanguageType.valueOf(Main.plugin.getConfig().getString("Language"));
         Bukkit.getLogger().info(new Translator().Translate("engine.load"));
 
+
+        FurnaceRecipe furnaceRecipe = new FurnaceRecipe(NamespacedKey.minecraft("tropical_fish_smelt"),new ItemBuilder(Material.COOKED_SALMON).setName(new Translator().Translate("engine.vanillaitem.coockedtropical")).build(),Material.TROPICAL_FISH,5.0f,20);
+        Bukkit.getServer().addRecipe(furnaceRecipe);
     }
 }

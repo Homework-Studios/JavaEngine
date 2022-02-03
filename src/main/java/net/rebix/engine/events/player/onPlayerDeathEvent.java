@@ -2,6 +2,7 @@ package net.rebix.engine.events.player;
 
 import net.rebix.engine.Main;
 import net.rebix.engine.items.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,6 @@ public class onPlayerDeathEvent implements Listener {
         SkullMeta skullMeta = (SkullMeta) playerskull.getItemMeta();
         skullMeta.setOwningPlayer(event.getEntity().getPlayer());
         playerskull.setItemMeta(skullMeta);
-        if(Main.plugin.getConfig().getBoolean("HeadDrop")) event.getEntity().getInventory().addItem(playerskull);
+        if(Main.plugin.getConfig().getBoolean("HeadDrop")) event.getEntity().getWorld().dropItem(event.getEntity().getLocation(),playerskull);
     }
 }
