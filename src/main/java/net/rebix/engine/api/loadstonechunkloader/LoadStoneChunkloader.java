@@ -9,9 +9,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Objects;
+
 public class LoadStoneChunkloader {
 
-    private Player player;
+    private final Player player;
 
     public LoadStoneChunkloader(Player player) {
         this.player = player;
@@ -19,10 +21,12 @@ public class LoadStoneChunkloader {
 
     public void loaderPlaced(Location location) {
         location.getChunk().setForceLoaded(true);
+       player.sendMessage(new Translator().Translate("engine.chunkload.nowloadet"));
     }
 
     public void loaderBreak(Location location) {
         location.getChunk().setForceLoaded(false);
+        player.sendMessage(new Translator().Translate("engine.chunkload.nownotloadet"));
     }
 
     public void playerHoldLoader() {
@@ -33,7 +37,7 @@ public class LoadStoneChunkloader {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(new Translator().Translate("engine.chunkload.loadet")));
                 else player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(new Translator().Translate("engine.chunkload.notloadet")));
 
-                if (player.getItemInUse().getType() != Material.LODESTONE) cancel();
+                if (Objects.requireNonNull(player.getItemInUse()).getType() != Material.LODESTONE) cancel();
             }
         }.runTaskLaterAsynchronously(Main.plugin,10L);
     }
