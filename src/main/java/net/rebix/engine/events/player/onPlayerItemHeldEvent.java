@@ -10,6 +10,7 @@ public class onPlayerItemHeldEvent implements Listener {
 
     @EventHandler
     public void PlayerItemHeldEvent(PlayerItemHeldEvent event) {
+        if(event.getPlayer().getInventory().getItem(event.getNewSlot()) == null) return;
         if(event.getPlayer().getInventory().getItem(event.getNewSlot()).getType().equals(Material.LODESTONE)) new LoadStoneChunkloader(event.getPlayer()).playerHoldLoader();
     }
 }
