@@ -41,11 +41,11 @@ public class LoadStoneChunkloader {
             @Override
             public void run() {
 
-                if(player.getItemInUse() != null)
-                    if(player.getItemInUse().getType() == Material.LODESTONE)
+                if(player.getInventory().getItemInMainHand() != null)
+                    if(player.getInventory().getItemInMainHand().getType() == Material.LODESTONE)
                 playerHoldLoader();
             }
-        }.runTaskLaterAsynchronously(Main.plugin,1L);
+        }.runTaskLaterAsynchronously(Main.plugin,5L);
 
     }
 }

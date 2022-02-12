@@ -89,22 +89,22 @@ public class ScrollableInventory implements Listener {
     @EventHandler
     public void ButtonClickEvent(ButtonClickEvent event){
         switch (event.getButtonAction()){
-            case SCROLL_LEFT:
+            case "SCROLL_LEFT":
                 PLAYER_INVENTORY.get(event.getPlayer()).scroll(-1);
                 break;
-            case SCROLL_RIGHT:
+            case "SCROLL_RIGHT":
                 PLAYER_INVENTORY.get(event.getPlayer()).scroll(1);
                 break;
-            case SCROLL_LEFT_FAST:
+            case "SCROLL_LEFT_FAST":
                 PLAYER_INVENTORY.get(event.getPlayer()).scroll(-10);
                 break;
-            case SCROLL_RIGHT_FAST:
+            case "SCROLL_RIGHT_FAST":
                 PLAYER_INVENTORY.get(event.getPlayer()).scroll(10);
                 break;
-            case SCROLL_LEFT_VERY_FAST:
+            case "SCROLL_LEFT_VERY_FAST":
                 PLAYER_INVENTORY.get(event.getPlayer()).scroll(-100);
                 break;
-            case SCROLL_RIGHT_VERY_FAST:
+            case "SCROLL_RIGHT_VERY_FAST":
                 PLAYER_INVENTORY.get(event.getPlayer()).scroll(100);
                 break;
         }

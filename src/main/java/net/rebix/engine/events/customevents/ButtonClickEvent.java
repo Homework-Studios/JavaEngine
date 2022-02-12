@@ -8,9 +8,13 @@ import org.bukkit.event.HandlerList;
 public class ButtonClickEvent extends Event {
 
     private final Player player;
-    private ButtonAction buttonAction;
+    private String buttonAction;
 
     public ButtonClickEvent(Player player, ButtonAction buttonAction) {
+        this.player = player;
+        this.buttonAction = buttonAction.toString();
+    }
+    public ButtonClickEvent(Player player, String buttonAction) {
         this.player = player;
         this.buttonAction = buttonAction;
     }
@@ -30,11 +34,14 @@ public class ButtonClickEvent extends Event {
         return this.player;
     }
     
-    public void setButtonAction(ButtonAction action){
+    public void setButtonAction(String action){
         this.buttonAction = action;
     }
+    public void setButtonAction(ButtonAction action){
+        this.buttonAction = action.toString();
+    }
 
-    public ButtonAction getButtonAction() {
+    public String getButtonAction() {
         return buttonAction;
     }
 }

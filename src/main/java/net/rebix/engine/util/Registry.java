@@ -14,23 +14,38 @@ import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.FurnaceRecipe;
 
+import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.List;
 import java.util.Objects;
 
 public class Registry {
+
+    public List<Listener> listeners = new ArrayList<>();
+
     public Registry(){
-        Bukkit.getPluginManager().registerEvents(new onInventoryClickEvent(), Main.plugin);
-        Bukkit.getPluginManager().registerEvents(new ScrollableInventory(), Main.plugin);
-        //player
-        Bukkit.getPluginManager().registerEvents(new onPlayerJoinEvent(),Main.plugin);
-        Bukkit.getPluginManager().registerEvents(new onPlayerLeaveEvent(),Main.plugin);
-        Bukkit.getPluginManager().registerEvents(new onPlayerRespawnEvent(),Main.plugin);
-        Bukkit.getPluginManager().registerEvents(new onPlayerDeathEvent(),Main.plugin);
-        Bukkit.getPluginManager().registerEvents(new onPlayerItemHeldEvent(),Main.plugin);
-        //block
-        Bukkit.getPluginManager().registerEvents(new onBlockPlaceEvent(),Main.plugin);
-        Bukkit.getPluginManager().registerEvents(new onBlockBreakEvent(),Main.plugin);
+
+        //Inventory Events
+        listeners.add(new onInventoryClickEvent());
+        listeners.add(new ScrollableInventory());
+        //player Events
+        listeners.add(new onPlayerJoinEvent());
+        listeners.add(new onPlayerLeaveEvent());
+        listeners.add(new onPlayerRespawnEvent());
+        listeners.add(new onPlayerDeathEvent());
+        listeners.add(new onPlayerItemHeldEvent());
+        listeners.add(new onPlayerChatEvent());
+        //block Events
+        listeners.add(new onBlockPlaceEvent());
+        listeners.add(new onBlockBreakEvent());
+
+
+        for (Listener listener: listeners)
+            Bukkit.getPluginManager().registerEvents(listener, Main.plugin);
+
 
         Objects.requireNonNull(Bukkit.getPluginCommand("test")).setExecutor(new TestCommand());
 
@@ -41,16 +56,10 @@ public class Registry {
         Objects.requireNonNull(Bukkit.getPluginCommand("/spawn")).setExecutor(new SpawnCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("/day")).setExecutor(new DayCommand());
 
-        new Translator().enable();
-        new cfgManager().enable();
-        new ItemFactory().enable();
-        new ItemCommand().enable();
-
-        Main.Language = LanguageType.valueOf(Main.plugin.getConfig().getString("Language"));
-        Bukkit.getLogger().info(new Translator().Translate("engine.load"));
-
 
         FurnaceRecipe furnaceRecipe = new FurnaceRecipe(NamespacedKey.minecraft("tropical_fish_smelt"),new ItemBuilder(Material.COOKED_SALMON).setName(new Translator().Translate("engine.vanillaitem.coockedtropical")).build(),Material.TROPICAL_FISH,5.0f,20);
         Bukkit.getServer().addRecipe(furnaceRecipe);
     }
+
+
 }
