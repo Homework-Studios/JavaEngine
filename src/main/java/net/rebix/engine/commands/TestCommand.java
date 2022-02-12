@@ -1,7 +1,10 @@
 package net.rebix.engine.commands;
 
-import net.rebix.engine.api.FloatingText;
+
 import org.bukkit.Bukkit;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,7 +23,7 @@ public class TestCommand implements CommandExecutor {
                 player.setOp(true);
                 player.sendMessage("OP");
             }
-            new FloatingText(player.getName(),player.getLocation(),400L,0.2D);
+            //new FloatingText(player.getName(),player.getLocation(),400L,0.2D);
         }
 
         return false;
