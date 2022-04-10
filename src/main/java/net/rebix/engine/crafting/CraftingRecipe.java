@@ -4,30 +4,30 @@ import net.rebix.engine.item.EngineItem;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CraftingRecipe {
     private EngineItem result;
-    private List<EngineItem> ingredients;
-    private int size;
-    private RecipeType type;
+    private List<EngineItem> ingredients = new ArrayList<>();
 
-    public CraftingRecipe(RecipeType type,EngineItem result, List<EngineItem> ingredients, int size) {
+
+    public CraftingRecipe(EngineItem result, List<EngineItem> ingredients) {
         this.result = result;
         this.ingredients = ingredients;
-        this.size = size;
-        this.type = type;
 
-        save(type.toString());
+
+        save();
     }
 
-    public CraftingRecipe(RecipeType type, Material result, List<Material> ingredients, int size) {
-        this.result = new EngineItem(new ItemStack(result));
-        for (int i = 0; i < 7; i++) this.ingredients.add(new EngineItem(new ItemStack(ingredients.get(i))));
-        this.size = size;
-        this.type = type;
-
-        save(type.toString());
+    public CraftingRecipe(ItemStack result, List<Material> ingredients) {
+        this.result = new EngineItem(result);
+        for (int i = 0; i <= 8; i++) {
+            if (ingredients.get(i) != null)
+                this.ingredients.add(new EngineItem(new ItemStack(ingredients.get(i))));
+            else this.ingredients.add(null);
+        }
+        save();
     }
 
 
@@ -36,21 +36,16 @@ public class CraftingRecipe {
     }
 
     public List<EngineItem> getIngredients() {
+
         return ingredients;
     }
 
-    public int getSize() {
-        return size;
+    private void save() {
+
     }
 
-    public RecipeType getType() {
-        return type;
-    }
-
-
-    private void save(String type) {
-    	String save = type;
-
+    public void register() {
+        CraftingManager.recipes.add(this);
     }
 }
 

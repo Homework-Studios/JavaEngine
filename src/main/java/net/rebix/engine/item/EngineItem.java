@@ -1,7 +1,6 @@
 package net.rebix.engine.item;
 
 import net.rebix.engine.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -26,8 +25,8 @@ public class EngineItem {
 
     public EngineItem(ItemStack item) {
         this.item = item;
-        this.id = item.getType().name();
-        this.name = item.getItemMeta().getDisplayName();
+        this.id = new ItemBuilder(item).getID();
+        this.name = item.getType().name();
         this.description = item.getItemMeta().getLore();
         this.material = item.getType();
     }

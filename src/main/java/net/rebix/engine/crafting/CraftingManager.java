@@ -5,6 +5,8 @@ import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.item.EngineItem;
 import net.rebix.engine.item.ItemBuilder;
 import net.rebix.engine.item.ItemFactory;
+import net.rebix.engine.item.items.Bedrock;
+import net.rebix.engine.item.items.TestItem;
 import net.rebix.engine.util.FillInventoryWithPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,18 +22,30 @@ import java.util.List;
 import java.util.Map;
 
 public class CraftingManager implements Listener {
-    private List<CraftingRecipe> recipes = new ArrayList<CraftingRecipe>();
+    public static List<CraftingRecipe> recipes = new ArrayList<CraftingRecipe>();
+
 
     public CraftingManager() {
     }
 
-    public void registerRecipe(CraftingRecipe recipe) {
-        recipes.add(recipe);
-    }
+
 
     public CraftingRecipe getRecipe(EngineItem itemStack) {
         for (CraftingRecipe recipe : recipes) {
-            if (recipe.getResult().equals(itemStack)) {
+            if (recipe.getResult().getId().equals(itemStack.getId())) {
+                return recipe;
+            }
+        }
+        return null;
+    }
+
+    public CraftingRecipe getRecipeByIngredients(List<EngineItem> items) {
+        for (CraftingRecipe recipe : recipes) {
+            StringBuilder ingredients = new StringBuilder();
+            StringBuilder ingredients2 = new StringBuilder();
+            for (EngineItem item : items)  if(item != null) ingredients2.append(item.getId()); else ingredients2.append("null");
+            for (EngineItem item : recipe.getIngredients()) if(item != null) ingredients.append(item.getId()); else ingredients.append("null");
+            if (ingredients.toString().equals(ingredients2.toString())) {
                 return recipe;
             }
         }
@@ -40,27 +54,24 @@ public class CraftingManager implements Listener {
 
     public void openMenu(Player player) {
         open3x3(player);
+
     }
 
     public void open3x3(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 9 * 5, "CraftingTable 3x3");
         new FillInventoryWithPlaceholder(inventory);
         setCraftingInventoryDefaults(inventory, 5);
-        for (int i = 10; i <= 12; i++) inventory.setItem(i, null);
-        for (int i = 19; i <= 21; i++) inventory.setItem(i, null);
-        for (int i = 28; i <= 30; i++) inventory.setItem(i, null);
+        for (int id = 1; id <= 3; id++)
+            for (int i = 1 + id*9; i < 4 + id*9; i++) inventory.setItem(i, null);
         player.openInventory(inventory);
-    }
 
+    }
     public void open5x5(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 9*5, "CraftingTable 5x5");
         new FillInventoryWithPlaceholder(inventory);
         setCraftingInventoryDefaults(inventory, 3);
-        for (int i = 0; i <= 4; i++) inventory.setItem(i, null);
-        for (int i = 9; i <= 13; i++) inventory.setItem(i, null);
-        for (int i = 18; i <= 22; i++) inventory.setItem(i, null);
-        for (int i = 27; i <= 31; i++) inventory.setItem(i, null);
-        for (int i = 36; i <= 40; i++) inventory.setItem(i, null);
+        for (int id = 0; id <= 4; id++)
+            for (int i = 0 + id*9; i < 5 + id*9; i++) inventory.setItem(i, null);
         player.openInventory(inventory);
     }
 
@@ -74,8 +85,18 @@ public class CraftingManager implements Listener {
     public void craftingUpdate(Player player) {
         new Thread(() -> {
             Inventory inventory = player.getOpenInventory().getTopInventory();
+            List<EngineItem> items = new ArrayList<EngineItem>();
 
-
+            if (player.getOpenInventory().getTitle().contains("3x3")) {
+                for (int id = 1; id <= 3; id++)
+                    for (int i = 1 + id*9; i < 4 + id*9; i++) if (inventory.getItem(i) != null) items.add(new EngineItem(inventory.getItem(i))); else items.add(null);
+            } else {
+                for (int id = 0; id <= 4; id++)
+                    for (int i = 0 + id*9; i < 5 + id*9; i++) if (inventory.getItem(i) != null) items.add(new EngineItem(inventory.getItem(i))); else items.add(null);
+            }
+            CraftingRecipe result = getRecipeByIngredients(items);
+            if(result != null) player.getOpenInventory().getTopInventory().setItem(24,result.getResult().getItem());
+            else inventory.setItem(24,ItemFactory.Items.get("NOTHING"));
         }).start();
     }
 
@@ -93,15 +114,8 @@ public class CraftingManager implements Listener {
         }
     }
 
-    @EventHandler
-    public void onInventoryClick(org.bukkit.event.inventory.InventoryClickEvent event) {
-        if(event.getWhoClicked().getOpenInventory().getTitle().contains("CraftingTable")) {
-
-        }
-    }
 
     public void updateRecipes() {
-        new Thread(() -> {
         Main.plugin.getServer().recipeIterator().forEachRemaining(recipe -> {
             if(recipe instanceof ShapedRecipe) {
                 ShapedRecipe shapedRecipe = (ShapedRecipe) recipe;
@@ -123,12 +137,12 @@ public class CraftingManager implements Listener {
                     Material material = null;
                     if(s != null) if(s.charAt(0) != ' ') if(charMap.get(s.charAt(0)) != null)
                         material = charMap.get(s.charAt(0)).getType();
-
                     materialList.add(material);
                 }
-                System.out.println(materialList);
+                while (materialList.size() < 9) materialList.add(null);
+                new CraftingRecipe(shapedRecipe.getResult(), materialList).register();
+
             }
         });
-        }).start();
     }
 }

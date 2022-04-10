@@ -133,8 +133,12 @@ public class ItemBuilder {
     }
 
     public String getID(){
-        if(itemMeta != null) return itemMeta.getPersistentDataContainer().get(new NamespacedKey(Main.plugin, "ID"), PersistentDataType.STRING);
-        else return null;
+        if(itemMeta != null){
+            String id =itemMeta.getPersistentDataContainer().get(new NamespacedKey(Main.plugin, "ID"), PersistentDataType.STRING);
+            if(id != null)
+                return id;
+                else return item.getType().name();
+        } else return item.getType().name();
     }
 
 }

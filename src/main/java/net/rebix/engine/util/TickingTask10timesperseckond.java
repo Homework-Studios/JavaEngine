@@ -11,6 +11,9 @@ public class TickingTask10timesperseckond {
     public TickingTask10timesperseckond() {
         new Thread(() -> Bukkit.getScheduler().runTaskTimer(Main.plugin, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
+                if (player.getOpenInventory().getTitle().contains("CraftingTable"))
+                    Main.getCraftingManager().craftingUpdate(player);
+
                 if(player.isSneaking() && player.isGliding() && player.getGameMode() == GameMode.CREATIVE) {
                     player.setVelocity(player.getEyeLocation().getDirection().multiply(3));
                     player.getWorld().spawnParticle(Particle.CLOUD,player.getLocation(), 30, 0, 0, 0, .2);

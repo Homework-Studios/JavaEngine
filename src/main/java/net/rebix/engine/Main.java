@@ -6,7 +6,6 @@ import net.rebix.engine.commands.ItemCommand;
 import net.rebix.engine.commands.WriteDefaultCfgCommand;
 import net.rebix.engine.crafting.CraftingManager;
 import net.rebix.engine.crafting.CraftingRecipe;
-import net.rebix.engine.crafting.RecipeType;
 import net.rebix.engine.item.EngineItem;
 import net.rebix.engine.item.ItemFactory;
 import net.rebix.engine.item.items.Bedrock;
@@ -67,7 +66,7 @@ public final class Main extends JavaPlugin {
         ingredients.add(new Bedrock());
         ingredients.add(new Bedrock());
         ingredients.add(new Bedrock());
-       craftingManager.registerRecipe(new CraftingRecipe(RecipeType.SHAPELESS, new TestItem(), ingredients,3));
+       new CraftingRecipe(new TestItem(), ingredients).register();
 
        craftingManager.updateRecipes();
         Bukkit.getLogger().info(new Translator().Translate("engine.load"));
