@@ -1,5 +1,6 @@
 package net.rebix.engine.commands;
 
+import net.rebix.engine.api.CommandPermissionManager;
 import net.rebix.engine.api.Translator;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -12,9 +13,9 @@ import org.jetbrains.annotations.NotNull;
 public class DayCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(sender.hasPermission("engine.day.use"))
         if(sender instanceof Player) {
             Player player = (Player) sender;
+            if(!new CommandPermissionManager().checkPermissionLevelOfPlayer(player,label)) return false;
             player.getWorld().setTime(100);
             player.getWorld().setStorm(false);
             player.getWorld().setThundering(false);

@@ -1,5 +1,6 @@
 package net.rebix.engine;
 
+import net.rebix.engine.api.CommandPermissionManager;
 import net.rebix.engine.api.Translator;
 import net.rebix.engine.commands.ItemCommand;
 import net.rebix.engine.commands.WriteDefaultCfgCommand;
@@ -39,6 +40,7 @@ public final class Main extends JavaPlugin {
         new cfgManager().enable();
         new ItemFactory().enable();
         new ItemCommand().enable();
+        new CommandPermissionManager().enable();
 
         Main.Language = LanguageType.valueOf(Main.plugin.getConfig().getString("Language"));
         Bukkit.getLogger().info(new Translator().Translate("engine.load"));

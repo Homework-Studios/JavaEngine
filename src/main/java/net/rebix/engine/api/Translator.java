@@ -35,12 +35,14 @@ public class Translator {
             if(keyFound.equals(input)) {
                 String[] translations = content.split(";;");
                 for(String translation : translations) {
-                    String lang = translation.split(":")[0];
-                    String value = translation.split(":")[1];
+                    if(translation.split(":").length >= 2) {
+                        String lang = translation.split(":")[0];
+                        String value = translation.split(":")[1];
 
-                    if (lang.equals(Language)) {
-                        return value.replace("Â","");
-                    }
+                        if (lang.equals(Language)) {
+                            return value.replace("Â", "");
+                        }
+                    } else Main.plugin.getLogger().info("translation Error in translation " + input);
                 }
                 }
             }

@@ -37,7 +37,4 @@ public class EntityHider{
 
     }
 
-    public void reloadHidden(){
-
-    }
 }

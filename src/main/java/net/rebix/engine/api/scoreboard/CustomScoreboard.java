@@ -42,6 +42,7 @@ public class CustomScoreboard {
         if(scoreboard.getObjective(Name) == null) {
             Objective = scoreboard.registerNewObjective(Name, "");
         } else Objective = scoreboard.getObjective(Name);
+        assert Objective != null;
         Objective.setDisplaySlot(DisplaySlot);
         for (String entry: scoreboard.getEntries()){
             scoreboard.resetScores(entry);

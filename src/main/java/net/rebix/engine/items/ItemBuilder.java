@@ -117,7 +117,7 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder setButtonAction(ButtonAction action){
+    public ItemBuilder setButtonAction(String action){
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin,"ButtonAction"), PersistentDataType.STRING, String.valueOf(action));
         item.setItemMeta(itemMeta);
         return this;

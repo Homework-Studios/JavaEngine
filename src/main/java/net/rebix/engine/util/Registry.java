@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class Registry {
 
-    public List<Listener> listeners = new ArrayList<>();
+    public static List<Listener> listeners = new ArrayList<>();
 
     public Registry(){
 
@@ -41,6 +41,7 @@ public class Registry {
         //block Events
         listeners.add(new onBlockPlaceEvent());
         listeners.add(new onBlockBreakEvent());
+        listeners.add(new onButtonClickEvent());
 
 
         for (Listener listener: listeners)

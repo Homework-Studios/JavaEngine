@@ -82,8 +82,8 @@ public class ScrollableInventory implements Listener {
 
 
     public void fillInButtonsAndPlaceholder() {
-        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction(ButtonAction.SCROLL_LEFT).build());
-        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction(ButtonAction.SCROLL_RIGHT).build());
+        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction(ButtonAction.SCROLL_LEFT.name()).build());
+        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction(ButtonAction.SCROLL_RIGHT.name()).build());
         for (int index = 1; index< 8; ++ index) inventory.setItem(index, ItemFactory.Items.get("PLACEHOLDER"));
     }
     @EventHandler
