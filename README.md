@@ -8,7 +8,7 @@ My Plugin Engine
 #### Scrollabel Inventory API
 
 ```java
-import net.rebix.engine.items.ItemBuilder;
+import net.rebix.engine.item.ItemBuilder;
 import org.bukkit.Material;
 
 import java.util.HashMap;
@@ -32,7 +32,7 @@ page an pages can be left out page will be 1 and pages will be integer limit
 
 ```java
 
-import net.rebix.engine.items.ItemBuilder;
+import net.rebix.engine.item.ItemBuilder;
 import org.bukkit.inventory.ItemStack;
 
 public class example {

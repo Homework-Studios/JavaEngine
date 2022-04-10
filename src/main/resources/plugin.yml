@@ -20,3 +20,7 @@ commands:
     description: "shows you the time"
   /day:
     description: "makes it day and not raining"
+  /craft:
+    description: "opens crafting menu"
+  /rename:
+    description: "renames an item"

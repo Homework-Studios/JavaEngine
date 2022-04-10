@@ -1,8 +1,7 @@
-package net.rebix.engine.items;
+package net.rebix.engine.item;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.rebix.engine.Main;
-import net.rebix.engine.util.enums.ButtonAction;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -13,7 +12,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class ItemBuilder {
@@ -48,19 +47,19 @@ public class ItemBuilder {
     }
 
 
-    public ItemBuilder setName(String $name) {
-        itemMeta.setDisplayName($name);
+    public ItemBuilder setName(String name) {
+        itemMeta.setDisplayName(name);
         return this;
 
     }
-    public ItemBuilder setAmount(int $amount) {
-        item.setAmount($amount);
+    public ItemBuilder setAmount(int amount) {
+        item.setAmount(amount);
         return this;
 
     }
-    public ItemBuilder setLore(String... $lore) {
-        if($lore != null) {
-            itemMeta.setLore(Arrays.asList($lore));
+    public ItemBuilder setLore(List<String> lore) {
+        if(lore != null) {
+            itemMeta.setLore(lore);
 
         }
         return this;
@@ -68,21 +67,21 @@ public class ItemBuilder {
 
 
 
-    public ItemBuilder addItemFlag(ItemFlag $flag){
-        itemMeta.addItemFlags($flag);
+    public ItemBuilder addItemFlag(ItemFlag flag){
+        itemMeta.addItemFlags(flag);
 
         return this;
     }
-    public ItemBuilder setUnbreakable(boolean $unbreakalble){
-        itemMeta.setUnbreakable($unbreakalble);
+    public ItemBuilder setUnbreakable(boolean unbreakalble){
+        itemMeta.setUnbreakable(unbreakalble);
         return this;
     }
-    public ItemBuilder setLocalName(String $name){
-        itemMeta.setLocalizedName($name);
+    public ItemBuilder setLocalName(String name){
+        itemMeta.setLocalizedName(name);
         return this;
     }
-    public ItemBuilder setGlowing(boolean $glowing){
-        if($glowing){
+    public ItemBuilder setGlowing(boolean glowing){
+        if(glowing){
             itemMeta.addEnchant(Enchantment.LUCK,1,true);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }

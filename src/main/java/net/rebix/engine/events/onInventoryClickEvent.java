@@ -15,32 +15,8 @@ public class onInventoryClickEvent implements Listener {
         if(event.getCurrentItem() != null){
         ItemProperties properties = new ItemProperties(event.getCurrentItem());
         if(properties.getCannotBePickedUp()) event.setCancelled(true);
-        if(properties.getButtonAction() != ButtonAction.NONE) {
-            switch (event.getAction()) {
-                case PICKUP_ALL:
-                    Bukkit.getPluginManager().callEvent(new ButtonClickEvent((Player) event.getWhoClicked(), properties.getButtonAction()));
-                    break;
-                case PICKUP_HALF:
-                    switch (properties.getButtonAction()){
-                        case SCROLL_LEFT:
-                            Bukkit.getPluginManager().callEvent(new ButtonClickEvent((Player) event.getWhoClicked(), ButtonAction.SCROLL_LEFT_FAST));
-                            break;
-                        case SCROLL_RIGHT:
-                            Bukkit.getPluginManager().callEvent(new ButtonClickEvent((Player) event.getWhoClicked(), ButtonAction.SCROLL_RIGHT_FAST));
-                            break;
-                    }
-                    break;
-                case MOVE_TO_OTHER_INVENTORY:
-                    switch (properties.getButtonAction()){
-                        case SCROLL_LEFT:
-                            Bukkit.getPluginManager().callEvent(new ButtonClickEvent((Player) event.getWhoClicked(), ButtonAction.SCROLL_LEFT_VERY_FAST));
-                            break;
-                        case SCROLL_RIGHT:
-                            Bukkit.getPluginManager().callEvent(new ButtonClickEvent((Player) event.getWhoClicked(), ButtonAction.SCROLL_RIGHT_VERY_FAST));
-                            break;
-                    }
-                    break;
-            }
+        if(properties.getButtonAction() != null){
+            Bukkit.getPluginManager().callEvent(new ButtonClickEvent((Player) event.getWhoClicked(), event.getAction(), properties.getButtonAction()));
             event.setCancelled(true);
         }
         }

@@ -21,15 +21,12 @@ public class ItemProperties {
         else return false;
     }
 
-    public ButtonAction getButtonAction(){
-        if(itemStack.getItemMeta() != null){
+    public String getButtonAction() {
+        if (itemStack.getItemMeta() != null) {
             String string = itemStack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(Main.plugin, "ButtonAction"), PersistentDataType.STRING);
-            if(string != null) {
-                ButtonAction action = ButtonAction.valueOf(string);
-                if (action != null) return action;
-                else return ButtonAction.NONE;
-            } else return ButtonAction.NONE;
-        } else return ButtonAction.NONE;
+            if (string != null) {
+                return string;
+            } return null;
+        } return null;
     }
-
 }

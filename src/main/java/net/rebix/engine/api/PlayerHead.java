@@ -3,7 +3,7 @@ package net.rebix.engine.api;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import net.rebix.engine.items.ItemBuilder;
+import net.rebix.engine.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;

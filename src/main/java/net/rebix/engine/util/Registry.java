@@ -8,9 +8,7 @@ import net.rebix.engine.events.*;
 import net.rebix.engine.events.block.onBlockBreakEvent;
 import net.rebix.engine.events.block.onBlockPlaceEvent;
 import net.rebix.engine.events.player.*;
-import net.rebix.engine.items.ItemBuilder;
-import net.rebix.engine.items.ItemFactory;
-import net.rebix.engine.util.enums.LanguageType;
+import net.rebix.engine.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -18,7 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.FurnaceRecipe;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +28,7 @@ public class Registry {
         //Inventory Events
         listeners.add(new onInventoryClickEvent());
         listeners.add(new ScrollableInventory());
+        listeners.add(Main.getCraftingManager());
         //player Events
         listeners.add(new onPlayerJoinEvent());
         listeners.add(new onPlayerLeaveEvent());
@@ -38,10 +36,12 @@ public class Registry {
         listeners.add(new onPlayerDeathEvent());
         listeners.add(new onPlayerItemHeldEvent());
         listeners.add(new onPlayerChatEvent());
+        listeners.add(new onPlayerSneakEvent());
         //block Events
         listeners.add(new onBlockPlaceEvent());
         listeners.add(new onBlockBreakEvent());
         listeners.add(new onButtonClickEvent());
+        ;
 
 
         for (Listener listener: listeners)
@@ -57,10 +57,13 @@ public class Registry {
         Objects.requireNonNull(Bukkit.getPluginCommand("/spawn")).setExecutor(new SpawnCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("/day")).setExecutor(new DayCommand());
 
+        Objects.requireNonNull(Bukkit.getPluginCommand("/craft")).setExecutor(new CraftCommand());
+        Objects.requireNonNull(Bukkit.getPluginCommand("/rename")).setExecutor(new RenameCommand());
 
         FurnaceRecipe furnaceRecipe = new FurnaceRecipe(NamespacedKey.minecraft("tropical_fish_smelt"),new ItemBuilder(Material.COOKED_SALMON).setName(new Translator().Translate("engine.vanillaitem.coockedtropical")).build(),Material.TROPICAL_FISH,5.0f,20);
         Bukkit.getServer().addRecipe(furnaceRecipe);
     }
+
 
 
 }

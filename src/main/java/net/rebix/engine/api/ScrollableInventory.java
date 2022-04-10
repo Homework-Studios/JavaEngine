@@ -2,11 +2,10 @@ package net.rebix.engine.api;
 
 
 import net.rebix.engine.Main;
-import net.rebix.engine.util.enums.ButtonAction;
 import net.rebix.engine.util.enums.InventoryButtonType;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
-import net.rebix.engine.items.ItemBuilder;
-import net.rebix.engine.items.ItemFactory;
+import net.rebix.engine.item.ItemBuilder;
+import net.rebix.engine.item.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -82,30 +81,30 @@ public class ScrollableInventory implements Listener {
 
 
     public void fillInButtonsAndPlaceholder() {
-        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction(ButtonAction.SCROLL_LEFT.name()).build());
-        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction(ButtonAction.SCROLL_RIGHT.name()).build());
+        inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction("BUTTON.ACTION.LEFT").build());
+        inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction("BUTTON.ACTION.RIGHT").build());
         for (int index = 1; index< 8; ++ index) inventory.setItem(index, ItemFactory.Items.get("PLACEHOLDER"));
     }
     @EventHandler
     public void ButtonClickEvent(ButtonClickEvent event){
+        int scroll = 0;
+        switch (event.getButtonActionE()){
+            case PICKUP_ALL:
+                    scroll = 1;
+                    break;
+            case PICKUP_HALF:
+                    scroll = 10;
+                    break;
+            case MOVE_TO_OTHER_INVENTORY:
+                    scroll = 100;
+                    break;
+        }
         switch (event.getButtonAction()){
-            case "SCROLL_LEFT":
-                PLAYER_INVENTORY.get(event.getPlayer()).scroll(-1);
+            case "BUTTON.ACTION.LEFT":
+                scroll(-scroll);
                 break;
-            case "SCROLL_RIGHT":
-                PLAYER_INVENTORY.get(event.getPlayer()).scroll(1);
-                break;
-            case "SCROLL_LEFT_FAST":
-                PLAYER_INVENTORY.get(event.getPlayer()).scroll(-10);
-                break;
-            case "SCROLL_RIGHT_FAST":
-                PLAYER_INVENTORY.get(event.getPlayer()).scroll(10);
-                break;
-            case "SCROLL_LEFT_VERY_FAST":
-                PLAYER_INVENTORY.get(event.getPlayer()).scroll(-100);
-                break;
-            case "SCROLL_RIGHT_VERY_FAST":
-                PLAYER_INVENTORY.get(event.getPlayer()).scroll(100);
+            case "BUTTON.ACTION.RIGHT":
+                scroll(scroll);
                 break;
         }
     }

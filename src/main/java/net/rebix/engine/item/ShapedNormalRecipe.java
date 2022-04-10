@@ -1,4 +1,4 @@
-package net.rebix.engine.items;
+package net.rebix.engine.item;
 
 import net.rebix.engine.Main;
 import org.bukkit.Bukkit;

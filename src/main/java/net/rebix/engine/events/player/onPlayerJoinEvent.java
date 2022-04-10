@@ -17,7 +17,7 @@ import java.util.List;
 public class onPlayerJoinEvent implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent event){
-        event.setJoinMessage(new Translator().Translate("engine.player.join").replaceAll("_"," ").replace("//player//",event.getPlayer().getDisplayName()));
+        event.setJoinMessage(new Translator().Translate("engine.player.join").replaceAll("_"," ").replaceAll("%%player%%",event.getPlayer().getDisplayName()));
 
 
         List<String> name = new ArrayList<>();

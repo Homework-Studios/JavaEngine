@@ -2,7 +2,7 @@ package net.rebix.engine.util;
 
 
 
-import net.rebix.engine.items.ItemFactory;
+import net.rebix.engine.item.ItemFactory;
 import org.bukkit.inventory.Inventory;
 
 public class FillInventoryWithPlaceholder {
