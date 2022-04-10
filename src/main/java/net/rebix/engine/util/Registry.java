@@ -37,10 +37,13 @@ public class Registry {
         listeners.add(new onPlayerItemHeldEvent());
         listeners.add(new onPlayerChatEvent());
         listeners.add(new onPlayerSneakEvent());
+        listeners.add(new onPlayerInteractEvent());
+        listeners.add(new onPlayerInventoryCloseEvent());
         //block Events
         listeners.add(new onBlockPlaceEvent());
         listeners.add(new onBlockBreakEvent());
         listeners.add(new onButtonClickEvent());
+
         ;
 
 
