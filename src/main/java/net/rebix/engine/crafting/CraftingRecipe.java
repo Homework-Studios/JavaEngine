@@ -2,32 +2,19 @@ package net.rebix.engine.crafting;
 
 import net.rebix.engine.item.EngineItem;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class CraftingRecipe {
     private EngineItem result;
-    private List<EngineItem> ingredients = new ArrayList<>();
+    private EngineItem[][] grid;
 
 
-    public CraftingRecipe(EngineItem result, List<EngineItem> ingredients) {
+
+
+    public CraftingRecipe(EngineItem result, EngineItem[][] grid) {
         this.result = result;
-        this.ingredients = ingredients;
-
-
-        save();
-    }
-
-    public CraftingRecipe(ItemStack result, List<Material> ingredients) {
-        this.result = new EngineItem(result);
-        for (int i = 0; i <= 8; i++) {
-            if (ingredients.get(i) != null)
-                this.ingredients.add(new EngineItem(new ItemStack(ingredients.get(i))));
-            else this.ingredients.add(null);
-        }
-        save();
+        this.grid = grid;
     }
 
 
@@ -35,17 +22,29 @@ public class CraftingRecipe {
         return result;
     }
 
-    public List<EngineItem> getIngredients() {
 
-        return ingredients;
-    }
-
-    private void save() {
-
-    }
 
     public void register() {
         CraftingManager.recipes.add(this);
     }
+
+    public EngineItem[][] getGrid() {
+        return grid;
+    }
+
+
+    public boolean compare(EngineItem[][] grid) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (!Objects.equals(this.grid[i][j], null) && !Objects.equals(grid[i][j], null))
+                {
+                if (!Objects.equals(this.grid[i][j].getId(), grid[i][j].getId()))
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
 

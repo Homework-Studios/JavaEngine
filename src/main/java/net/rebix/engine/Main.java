@@ -55,18 +55,13 @@ public final class Main extends JavaPlugin {
         Main.Language = LanguageType.valueOf(Main.plugin.getConfig().getString("Language"));
 
 
-
-        List<EngineItem> ingredients = new ArrayList<>();
-        ingredients.add(new Bedrock());
-        ingredients.add(new Bedrock());
-        ingredients.add(new Bedrock());
-        ingredients.add(new Bedrock());
-        ingredients.add(null);
-        ingredients.add(new Bedrock());
-        ingredients.add(new Bedrock());
-        ingredients.add(new Bedrock());
-        ingredients.add(new Bedrock());
-       new CraftingRecipe(new TestItem(), ingredients).register();
+       new CraftingRecipe(new TestItem(), new EngineItem[][]{
+               {new Bedrock(), new Bedrock(), new Bedrock(), new Bedrock(), new Bedrock()},
+               {null, null, new Bedrock(), null, null},
+               {null, null, new Bedrock(), null, null},
+               {null, null, new Bedrock(), null, null},
+               {null, null, new Bedrock(), null, null}
+       }).register();
 
        craftingManager.updateRecipes();
         Bukkit.getLogger().info(new Translator().Translate("engine.load"));

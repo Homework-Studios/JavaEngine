@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Locale;
 
 public class EngineItem {
     private String name;
@@ -29,6 +30,13 @@ public class EngineItem {
         this.name = item.getType().name();
         this.description = item.getItemMeta().getLore();
         this.material = item.getType();
+    }
+    public EngineItem(Material material) {
+        this.material = material;
+        this.item = new ItemBuilder(material).build();
+        this.name = material.name();
+        this.description = null;
+        this.id = material.name();
     }
 
     public String getName() {

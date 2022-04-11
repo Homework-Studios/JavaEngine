@@ -5,8 +5,7 @@ import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.item.EngineItem;
 import net.rebix.engine.item.ItemBuilder;
 import net.rebix.engine.item.ItemFactory;
-import net.rebix.engine.item.items.Bedrock;
-import net.rebix.engine.item.items.TestItem;
+import net.rebix.engine.item.items.NullItem;
 import net.rebix.engine.util.FillInventoryWithPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,6 @@ public class CraftingManager implements Listener {
     public CraftingManager() {
     }
 
-
-
     public CraftingRecipe getRecipe(EngineItem itemStack) {
         for (CraftingRecipe recipe : recipes) {
             if (recipe.getResult().getId().equals(itemStack.getId())) {
@@ -39,18 +37,6 @@ public class CraftingManager implements Listener {
         return null;
     }
 
-    public CraftingRecipe getRecipeByIngredients(List<EngineItem> items) {
-        for (CraftingRecipe recipe : recipes) {
-            StringBuilder ingredients = new StringBuilder();
-            StringBuilder ingredients2 = new StringBuilder();
-            for (EngineItem item : items)  if(item != null) ingredients2.append(item.getId()); else ingredients2.append("null");
-            for (EngineItem item : recipe.getIngredients()) if(item != null) ingredients.append(item.getId()); else ingredients.append("null");
-            if (ingredients.toString().equals(ingredients2.toString())) {
-                return recipe;
-            }
-        }
-        return null;
-    }
 
     public void openMenu(Player player) {
         open3x3(player);
@@ -86,17 +72,37 @@ public class CraftingManager implements Listener {
         new Thread(() -> {
             Inventory inventory = player.getOpenInventory().getTopInventory();
             List<EngineItem> items = new ArrayList<EngineItem>();
-
-            if (player.getOpenInventory().getTitle().contains("3x3")) {
-                for (int id = 1; id <= 3; id++)
-                    for (int i = 1 + id*9; i < 4 + id*9; i++) if (inventory.getItem(i) != null) items.add(new EngineItem(inventory.getItem(i))); else items.add(null);
-            } else {
-                for (int id = 0; id <= 4; id++)
-                    for (int i = 0 + id*9; i < 5 + id*9; i++) if (inventory.getItem(i) != null) items.add(new EngineItem(inventory.getItem(i))); else items.add(null);
+            for (int i = 0; i < inventory.getSize(); i++) {
+                if (inventory.getItem(i) != null) items.add(new EngineItem(inventory.getItem(i)));
+                 else items.add(new NullItem());
             }
-            CraftingRecipe result = getRecipeByIngredients(items);
-            if(result != null) player.getOpenInventory().getTopInventory().setItem(24,result.getResult().getItem());
-            else inventory.setItem(24,ItemFactory.Items.get("NOTHING"));
+            EngineItem[][] inventoryIngredients = new EngineItem[][]{
+                    {items.get(10), items.get(11), items.get(12),new NullItem(),new NullItem()},
+                    {items.get(19), items.get(20), items.get(21),new NullItem(),new NullItem()},
+                    {items.get(28), items.get(29), items.get(30),new NullItem(),new NullItem()},
+                    {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
+                    {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()}
+            };
+           if(player.getOpenInventory().getTitle().equals("CraftingTable 5x5")) {
+                inventoryIngredients = new EngineItem[][]{
+                        {items.get(0), items.get(1), items.get(2), items.get(3), items.get(4)},
+                        {items.get(9), items.get(10), items.get(11), items.get(12), items.get(13)},
+                        {items.get(18), items.get(19), items.get(20), items.get(21), items.get(22)},
+                        {items.get(27), items.get(28), items.get(29), items.get(30), items.get(31)},
+                        {items.get(36), items.get(37), items.get(38), items.get(39), items.get(40)}
+                          };
+            }
+
+            EngineItem[][] finalInventoryIngredients = inventoryIngredients;
+
+           inventory.setItem(24,ItemFactory.Items.get("NOTHING"));
+            recipes.forEach(recipe -> {
+                if (recipe.compare(finalInventoryIngredients)) {
+                    player.getOpenInventory().getTopInventory().setItem(24,recipe.getResult().getItem());
+                }
+            }
+            );
+
         }).start();
     }
 
@@ -122,7 +128,6 @@ public class CraftingManager implements Listener {
                 List<String> charMaterialArray = new ArrayList<String>();
                 List<Material> materialList = new ArrayList<Material>();
                 Map<Character, ItemStack> charMap = shapedRecipe.getIngredientMap();
-
                 for (String s : shapedRecipe.getShape()) {
                     char[] chars = s.toCharArray();
                     for (int i = 0; i < 3; i++) {
@@ -139,10 +144,37 @@ public class CraftingManager implements Listener {
                         material = charMap.get(s.charAt(0)).getType();
                     materialList.add(material);
                 }
+                List<EngineItem> engineItems = new ArrayList<EngineItem>();
                 while (materialList.size() < 9) materialList.add(null);
-                new CraftingRecipe(shapedRecipe.getResult(), materialList).register();
+                for (int i = 0; i < 9; i++) {
+                        if(materialList.get(i) == null) engineItems.add(new NullItem());
+                        else engineItems.add(new EngineItem(materialList.get(i)));
+                }
+                EngineItem[][] ingredients = new EngineItem[][]{
+                    {engineItems.get(0),engineItems.get(1),engineItems.get(2),new NullItem(),new NullItem()},
+                    {engineItems.get(3),engineItems.get(4),engineItems.get(5),new NullItem(),new NullItem()},
+                    {engineItems.get(6),engineItems.get(7),engineItems.get(8),new NullItem(),new NullItem()},
+                    {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
+                    {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()}
+                };
+                new CraftingRecipe(new EngineItem(shapedRecipe.getResult()), ingredients).register();
 
+            }
+
+            if(recipe instanceof ShapelessRecipe) {
+                ShapelessRecipe shapeLessRecipe = (ShapelessRecipe) recipe;
+                new CraftingRecipe(new EngineItem(shapeLessRecipe.getResult()), new EngineItem[][]{
+                        {new EngineItem(shapeLessRecipe.getIngredientList().get(0)),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
+                        {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
+                        {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
+                        {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
+                        {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()}
+                }).register();
             }
         });
     }
+
+
+
+
 }
