@@ -5,6 +5,7 @@ import net.rebix.engine.api.packets.EntityHider;
 import net.rebix.engine.api.packets.TabListAPI;
 import net.rebix.engine.api.playernametag.PlayerSetNameTag;
 import net.rebix.engine.api.Translator;
+import net.rebix.engine.discordchatbot.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -18,7 +19,7 @@ public class onPlayerJoinEvent implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent event){
         event.setJoinMessage(new Translator().Translate("engine.player.join").replaceAll("_"," ").replaceAll("%%player%%",event.getPlayer().getDisplayName()));
-
+        MessageManager.PlayerChannelID.put(event.getPlayer(),1);
 
         List<String> name = new ArrayList<>();
         name.add(event.getPlayer().getDisplayName());

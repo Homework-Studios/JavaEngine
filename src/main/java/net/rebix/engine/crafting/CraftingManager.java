@@ -18,6 +18,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,13 +94,14 @@ public class CraftingManager implements Listener {
                           };
             }
 
+
             EngineItem[][] finalInventoryIngredients = inventoryIngredients;
 
            inventory.setItem(24,ItemFactory.Items.get("NOTHING"));
             recipes.forEach(recipe -> {
-                if (recipe.compare(finalInventoryIngredients)) {
-                    player.getOpenInventory().getTopInventory().setItem(24,recipe.getResult().getItem());
-                }
+                    if (recipe.compare(finalInventoryIngredients)) {
+                        player.getOpenInventory().getTopInventory().setItem(24, recipe.getResult().getItem());
+                    }
             }
             );
 
@@ -163,13 +165,13 @@ public class CraftingManager implements Listener {
 
             if(recipe instanceof ShapelessRecipe) {
                 ShapelessRecipe shapeLessRecipe = (ShapelessRecipe) recipe;
-                new CraftingRecipe(new EngineItem(shapeLessRecipe.getResult()), new EngineItem[][]{
-                        {new EngineItem(shapeLessRecipe.getIngredientList().get(0)),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
-                        {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
-                        {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
-                        {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
-                        {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()}
-                }).register();
+                HashMap<EngineItem,Integer> ingredients = new HashMap<EngineItem, Integer>();
+                for (ItemStack itemStack : shapeLessRecipe.getIngredientList()) {
+                    EngineItem item = new EngineItem(itemStack);
+                    if (ingredients.containsKey(item)) ingredients.put(item, ingredients.get(item) + 1);
+                    else ingredients.put(item, 1);
+                }
+                new CraftingRecipe(new EngineItem(shapeLessRecipe.getResult()), ingredients).register();
             }
         });
     }

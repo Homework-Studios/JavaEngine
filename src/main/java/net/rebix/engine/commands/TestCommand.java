@@ -3,6 +3,8 @@ package net.rebix.engine.commands;
 
 import net.rebix.engine.Main;
 import net.rebix.engine.crafting.CraftingRecipe;
+import net.rebix.engine.discordchatbot.ChatBot;
+import net.rebix.engine.discordchatbot.MessageManager;
 import net.rebix.engine.item.EngineItem;
 import net.rebix.engine.item.items.NullItem;
 import net.rebix.engine.item.items.TestItem;
@@ -26,14 +28,8 @@ public class TestCommand implements CommandExecutor {
                 player.setOp(true);
                 player.sendMessage("OP");
             }
-
-            Main.getCraftingManager().getRecipe(new EngineItem(Material.ENCHANTED_GOLDEN_APPLE)).compare(new EngineItem[][]{
-                    {new EngineItem(Material.GOLD_BLOCK), new EngineItem(Material.GOLD_BLOCK), new EngineItem(Material.GOLD_BLOCK),new NullItem(),new NullItem()},
-                    {new EngineItem(Material.GOLD_BLOCK), new EngineItem(Material.APPLE), new EngineItem(Material.GOLD_BLOCK),new NullItem(),new NullItem()},
-                    {new EngineItem(Material.GOLD_BLOCK), new EngineItem(Material.GOLD_BLOCK), new EngineItem(Material.GOLD_BLOCK),new NullItem(),new NullItem()},
-                    {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
-                    {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()}
-            });
+            if(args.length > 0)
+            Main.CHATBOT.sendMessage("1%%split%%rebbix%%split%%Server: " + args[0]);
         }
 
         return false;

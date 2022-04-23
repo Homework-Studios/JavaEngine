@@ -6,6 +6,7 @@ import net.rebix.engine.commands.ItemCommand;
 import net.rebix.engine.commands.WriteDefaultCfgCommand;
 import net.rebix.engine.crafting.CraftingManager;
 import net.rebix.engine.crafting.CraftingRecipe;
+import net.rebix.engine.discordchatbot.ChatBot;
 import net.rebix.engine.item.EngineItem;
 import net.rebix.engine.item.ItemFactory;
 import net.rebix.engine.item.items.Bedrock;
@@ -21,14 +22,13 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public final class Main extends JavaPlugin {
     public static Integer INTEGER_LIMIT = 2147483647;
     public static LanguageType Language = LanguageType.English;
     static CraftingManager craftingManager = new CraftingManager();
     static ItemFactory itemFactory = new ItemFactory();
+    public static ChatBot CHATBOT;
 
     public static Plugin plugin;
 
@@ -65,6 +65,8 @@ public final class Main extends JavaPlugin {
 
        craftingManager.updateRecipes();
         Bukkit.getLogger().info(new Translator().Translate("engine.load"));
+
+        if(this.getConfig().getBoolean("ChatBot")) CHATBOT = new ChatBot();
     }
 
     @Override
