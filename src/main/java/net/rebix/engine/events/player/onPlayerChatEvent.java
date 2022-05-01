@@ -11,7 +11,7 @@ public class onPlayerChatEvent implements Listener {
     public void PlayerChatEvent(AsyncPlayerChatEvent event) {
         event.setMessage(event.getMessage().replaceAll("&&","§"));
         Main.CHATBOT.receiveMessage(MessageManager.PlayerChannelID.get(event.getPlayer()) + "%%split%%" + event.getPlayer().getName() + "%split%%" + event.getMessage());
-
+        if(Main.plugin.getConfig().getBoolean("ChatBot"))
         event.setCancelled(true);
     }
 }
