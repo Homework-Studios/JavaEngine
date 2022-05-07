@@ -1,6 +1,7 @@
 package net.rebix.engine.crafting;
 
 import net.rebix.engine.Main;
+import net.rebix.engine.api.property.ItemProperties;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.item.EngineItem;
 import net.rebix.engine.item.ItemBuilder;
@@ -9,6 +10,7 @@ import net.rebix.engine.item.items.NullItem;
 import net.rebix.engine.util.FillInventoryWithPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -72,41 +74,44 @@ public class CraftingManager implements Listener {
     public void craftingUpdate(Player player) {
         new Thread(() -> {
             Inventory inventory = player.getOpenInventory().getTopInventory();
-            List<EngineItem> items = new ArrayList<EngineItem>();
-            for (int i = 0; i < inventory.getSize(); i++) {
-                if (inventory.getItem(i) != null) items.add(new EngineItem(inventory.getItem(i)));
-                 else items.add(new NullItem());
+            List<EngineItem> items = new ArrayList<>();
+            List<EngineItem> emptycheck = new ArrayList<>();
+                for (int i = 0; i < inventory.getSize(); i++) {
+                    if (inventory.getItem(i) != null) items.add(new EngineItem(inventory.getItem(i)));
+                    else items.add(new NullItem());
+                    if (inventory.getItem(i) != null &&! new ItemProperties(inventory.getItem(i)).getCannotBePickedUp()) emptycheck.add(new EngineItem(inventory.getItem(i)));
+                }
+            if(emptycheck.size() > 1) {
+                EngineItem[][] inventoryIngredients = new EngineItem[][]{
+                        {items.get(10), items.get(11), items.get(12), new NullItem(), new NullItem()},
+                        {items.get(19), items.get(20), items.get(21), new NullItem(), new NullItem()},
+                        {items.get(28), items.get(29), items.get(30), new NullItem(), new NullItem()},
+                        {new NullItem(), new NullItem(), new NullItem(), new NullItem(), new NullItem()},
+                        {new NullItem(), new NullItem(), new NullItem(), new NullItem(), new NullItem()}
+                };
+                if (player.getOpenInventory().getTitle().equals("CraftingTable 5x5")) {
+                    inventoryIngredients = new EngineItem[][]{
+                            {items.get(0), items.get(1), items.get(2), items.get(3), items.get(4)},
+                            {items.get(9), items.get(10), items.get(11), items.get(12), items.get(13)},
+                            {items.get(18), items.get(19), items.get(20), items.get(21), items.get(22)},
+                            {items.get(27), items.get(28), items.get(29), items.get(30), items.get(31)},
+                            {items.get(36), items.get(37), items.get(38), items.get(39), items.get(40)}
+                    };
+                }
+
+
+                EngineItem[][] finalInventoryIngredients = inventoryIngredients;
+                CraftingRecipe inventoryRecipe = new CraftingRecipe(new NullItem(), finalInventoryIngredients);
+                if (inventoryRecipe.topLeftCorner.getX() > 0 || inventoryRecipe.topLeftCorner.getY() > 0)
+                    inventoryRecipe.normalize();
+                inventory.setItem(24, ItemFactory.Items.get("NOTHING"));
+                recipes.forEach(recipe -> {
+                            if (recipe.compare(inventoryRecipe)) {
+                                result(recipe.getResult(), player);
+                            }
+                        }
+                );
             }
-            EngineItem[][] inventoryIngredients = new EngineItem[][]{
-                    {items.get(10), items.get(11), items.get(12),new NullItem(),new NullItem()},
-                    {items.get(19), items.get(20), items.get(21),new NullItem(),new NullItem()},
-                    {items.get(28), items.get(29), items.get(30),new NullItem(),new NullItem()},
-                    {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()},
-                    {new NullItem(),new NullItem(),new NullItem(),new NullItem(),new NullItem()}
-            };
-           if(player.getOpenInventory().getTitle().equals("CraftingTable 5x5")) {
-                inventoryIngredients = new EngineItem[][]{
-                        {items.get(0), items.get(1), items.get(2), items.get(3), items.get(4)},
-                        {items.get(9), items.get(10), items.get(11), items.get(12), items.get(13)},
-                        {items.get(18), items.get(19), items.get(20), items.get(21), items.get(22)},
-                        {items.get(27), items.get(28), items.get(29), items.get(30), items.get(31)},
-                        {items.get(36), items.get(37), items.get(38), items.get(39), items.get(40)}
-                          };
-            }
-
-
-            EngineItem[][] finalInventoryIngredients = inventoryIngredients;
-            CraftingRecipe inventoryRecipe = new CraftingRecipe(new NullItem(),finalInventoryIngredients);
-            System.out.println(inventoryRecipe.topLeftCorner.getX()+ " " + inventoryRecipe.topLeftCorner.getY());
-           inventory.setItem(24,ItemFactory.Items.get("NOTHING"));
-            recipes.forEach(recipe -> {
-                   // if (recipe.compare(inventoryRecipe)) {
-
-                      //  result(recipe.getResult(), player);
-                   // }
-            }
-            );
-
         }).start();
     }
 

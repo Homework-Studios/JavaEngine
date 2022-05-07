@@ -5,6 +5,7 @@ import net.rebix.engine.item.items.NullItem;
 import net.rebix.engine.util.variables.Vector2;
 import org.bukkit.Material;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -17,27 +18,21 @@ public class CraftingRecipe {
     private EngineItem[][] grid;
     private HashMap<EngineItem, Integer> ingredients = new HashMap<>();
     public Vector2 bottomRightCorner = new Vector2(0, 0);
-    public Vector2 topLeftCorner = new Vector2(0, 0);
+    public Vector2 topLeftCorner = new Vector2(5, 5);
     private boolean shaped = false;
 
 
     void checkCorner() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                if (grid[i][j] != null)
-                if (grid[i][j].getId() != new NullItem().getId()) {
-                    if (i > bottomRightCorner.getX()) bottomRightCorner.setX(j);
-                    if (j > bottomRightCorner.getY()) bottomRightCorner.setY(i);
-                }
-
-                if (grid[i][j] != null)
-                if (grid[i][j].getId() != new NullItem().getId()) {
-                    if (i < topLeftCorner.getX()) topLeftCorner.setX(j);
-                    if (j < topLeftCorner.getY()) topLeftCorner.setY(i);
+                if (grid[i][j] != null && grid[i][j].getId() != new NullItem().getId()) {
+                    if (i > bottomRightCorner.getX() || i >= bottomRightCorner.getX()) bottomRightCorner.setX(j);
+                    if (j > bottomRightCorner.getY() || j >= bottomRightCorner.getY()) bottomRightCorner.setY(i);
+                    if (topLeftCorner.getX() > j) topLeftCorner.setX(j);
+                    if (topLeftCorner.getY() > i) topLeftCorner.setY(i);
                 }
             }
         }
-        ;
     }
 
     public CraftingRecipe(EngineItem result, HashMap<EngineItem,Integer> ingredients) {
@@ -87,10 +82,31 @@ public class CraftingRecipe {
     }
 
     public boolean compare(CraftingRecipe recipe) {
-        return false;
+        if(recipe.topLeftCorner.getX() == 5) return false;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (grid[i][j] != null && recipe.grid[i][j] != null) {
+                    if (grid[i][j].getId() != recipe.grid[i][j].getId()) return false;
+                }
+            }
+        }
+        return true;
     }
 
-
+    public void normalize() {
+        EngineItem[][] newgrid = new EngineItem[5][5];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                newgrid[i][j] = new NullItem();
+                //set things in old grid to new grid but moved according to topLeftCorner
+                if (grid[i][j] != null && i + topLeftCorner.getY() < 5 && j + topLeftCorner.getX() < 5) {
+                    newgrid[i][j] = grid[(int) (i + topLeftCorner.getY())][(int) (j + topLeftCorner.getX())];
+                }
+            }
+        }
+        grid = newgrid;
+        checkCorner();
+    }
 
     public boolean isShaped() {
         return shaped;
