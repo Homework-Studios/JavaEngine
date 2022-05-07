@@ -8,6 +8,7 @@ import net.rebix.engine.crafting.CraftingManager;
 import net.rebix.engine.crafting.CraftingRecipe;
 import net.rebix.engine.discordchatbot.ChatBot;
 import net.rebix.engine.item.EngineItem;
+import net.rebix.engine.item.ItemBuilder;
 import net.rebix.engine.item.ItemFactory;
 import net.rebix.engine.item.items.Bedrock;
 import net.rebix.engine.item.items.TestItem;
@@ -16,6 +17,7 @@ import net.rebix.engine.util.TickingTask10timesperseckond;
 import net.rebix.engine.util.cfgManager;
 import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
@@ -62,6 +64,8 @@ public final class Main extends JavaPlugin {
                {null, null, new Bedrock(), null, null},
                {null, null, new Bedrock(), null, null}
        }).register();
+
+
 
        craftingManager.updateRecipes();
         Bukkit.getLogger().info(new Translator().Translate("engine.load"));

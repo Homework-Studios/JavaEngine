@@ -1,24 +1,50 @@
 package net.rebix.engine.crafting;
 
 import net.rebix.engine.item.EngineItem;
+import net.rebix.engine.item.items.NullItem;
+import net.rebix.engine.util.variables.Vector2;
 import org.bukkit.Material;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+
+
+
 public class CraftingRecipe {
     private EngineItem result;
     private EngineItem[][] grid;
     private HashMap<EngineItem, Integer> ingredients = new HashMap<>();
+    public Vector2 bottomRightCorner = new Vector2(0, 0);
+    public Vector2 topLeftCorner = new Vector2(0, 0);
     private boolean shaped = false;
 
 
+    void checkCorner() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (grid[i][j] != null)
+                if (grid[i][j].getId() != new NullItem().getId()) {
+                    if (i > bottomRightCorner.getX()) bottomRightCorner.setX(j);
+                    if (j > bottomRightCorner.getY()) bottomRightCorner.setY(i);
+                }
 
+                if (grid[i][j] != null)
+                if (grid[i][j].getId() != new NullItem().getId()) {
+                    if (i < topLeftCorner.getX()) topLeftCorner.setX(j);
+                    if (j < topLeftCorner.getY()) topLeftCorner.setY(i);
+                }
+            }
+        }
+        ;
+    }
 
     public CraftingRecipe(EngineItem result, HashMap<EngineItem,Integer> ingredients) {
         this.result = result;
         this.ingredients = ingredients;
+
+       checkCorner();
     }
 
     public CraftingRecipe(EngineItem result, EngineItem[][] grid) {
@@ -30,10 +56,10 @@ public class CraftingRecipe {
                 addIngredient(grid[i][j]);
             }
         }
-
+        checkCorner();
     }
 
-    private void addIngredient(EngineItem item) {
+    void addIngredient(EngineItem item) {
         if (ingredients.containsKey(item)) ingredients.put(item, ingredients.get(item) + 1);
         else ingredients.put(item, 1);
     }
@@ -53,32 +79,15 @@ public class CraftingRecipe {
         return grid;
     }
 
-
-    public boolean compare(EngineItem[][] grid) {
-        if(shaped) {
-
-                    for (int i = 0; i < 5; i++) {
-                        for (int j = 0; j < 5; j++) {
-                            if (!Objects.equals(this.grid[i][j], null) && !Objects.equals(grid[i][j], null))
-                            {
-                                if (!Objects.equals(this.grid[i][j].getId(), grid[i][j].getId()))
-                                    return false;
-                            }
-                        }
-                    }
-                    return true;
-        } else
-        {
-            HashMap<EngineItem, Integer> ingredients = new HashMap<EngineItem, Integer>();
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    EngineItem item = grid[i][j];
-                    if (ingredients.containsKey(item)) ingredients.put(item, ingredients.get(item) + 1);
-                    else ingredients.put(item, 1);
-                }
-            }
-            return ingredients.equals(this.ingredients);
+    public boolean compareIngredients(HashMap<EngineItem, Integer> ingredients) {
+        for (EngineItem item : ingredients.keySet()) {
+            if (!this.ingredients.containsKey(item) || this.ingredients.get(item) != ingredients.get(item)) return false;
         }
+        return true;
+    }
+
+    public boolean compare(CraftingRecipe recipe) {
+        return false;
     }
 
 

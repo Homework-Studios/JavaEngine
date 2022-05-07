@@ -96,17 +96,26 @@ public class CraftingManager implements Listener {
 
 
             EngineItem[][] finalInventoryIngredients = inventoryIngredients;
-
+            CraftingRecipe inventoryRecipe = new CraftingRecipe(new NullItem(),finalInventoryIngredients);
+            System.out.println(inventoryRecipe.topLeftCorner.getX()+ " " + inventoryRecipe.topLeftCorner.getY());
            inventory.setItem(24,ItemFactory.Items.get("NOTHING"));
             recipes.forEach(recipe -> {
-                    if (recipe.compare(finalInventoryIngredients)) {
-                        player.getOpenInventory().getTopInventory().setItem(24, recipe.getResult().getItem());
-                    }
+                   // if (recipe.compare(inventoryRecipe)) {
+
+                      //  result(recipe.getResult(), player);
+                   // }
             }
             );
 
         }).start();
     }
+
+    public void result(EngineItem item, Player player) {
+
+        player.getOpenInventory().getTopInventory().setItem(24, new ItemBuilder(item).setButtonAction("craft").setPickupabel(false).build());
+
+    }
+
 
     @EventHandler
     public void ButtonClickEvent(ButtonClickEvent event) {
@@ -161,17 +170,6 @@ public class CraftingManager implements Listener {
                 };
                 new CraftingRecipe(new EngineItem(shapedRecipe.getResult()), ingredients).register();
 
-            }
-
-            if(recipe instanceof ShapelessRecipe) {
-                ShapelessRecipe shapeLessRecipe = (ShapelessRecipe) recipe;
-                HashMap<EngineItem,Integer> ingredients = new HashMap<EngineItem, Integer>();
-                for (ItemStack itemStack : shapeLessRecipe.getIngredientList()) {
-                    EngineItem item = new EngineItem(itemStack);
-                    if (ingredients.containsKey(item)) ingredients.put(item, ingredients.get(item) + 1);
-                    else ingredients.put(item, 1);
-                }
-                new CraftingRecipe(new EngineItem(shapeLessRecipe.getResult()), ingredients).register();
             }
         });
     }

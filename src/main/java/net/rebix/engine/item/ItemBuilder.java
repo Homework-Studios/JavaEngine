@@ -46,6 +46,11 @@ public class ItemBuilder {
 
     }
 
+    public ItemBuilder(EngineItem item) {
+        this.item = item.getItem();
+        this.itemMeta = item.getItem().getItemMeta();
+    }
+
 
     public ItemBuilder setName(String name) {
         itemMeta.setDisplayName(name);
