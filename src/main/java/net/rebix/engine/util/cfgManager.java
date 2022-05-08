@@ -3,8 +3,10 @@ package net.rebix.engine.util;
 import net.rebix.engine.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 

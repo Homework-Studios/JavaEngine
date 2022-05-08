@@ -2,10 +2,10 @@ package net.rebix.engine.api;
 
 
 import net.rebix.engine.Main;
-import net.rebix.engine.util.enums.InventoryButtonType;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.item.ItemBuilder;
 import net.rebix.engine.item.ItemFactory;
+import net.rebix.engine.util.enums.InventoryButtonType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

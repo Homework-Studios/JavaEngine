@@ -1,12 +1,10 @@
 package net.rebix.engine.api;
 
 import net.rebix.engine.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
 public class FloatingText {
 

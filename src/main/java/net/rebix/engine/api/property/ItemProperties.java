@@ -1,7 +1,6 @@
 package net.rebix.engine.api.property;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.util.enums.ButtonAction;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;

@@ -1,8 +1,8 @@
 package net.rebix.engine.events.player;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.api.playernametag.PlayerSetNameTag;
 import net.rebix.engine.api.Translator;
+import net.rebix.engine.api.playernametag.PlayerSetNameTag;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;

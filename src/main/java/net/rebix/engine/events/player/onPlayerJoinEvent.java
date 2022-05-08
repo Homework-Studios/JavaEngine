@@ -1,10 +1,9 @@
 package net.rebix.engine.events.player;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.api.packets.EntityHider;
-import net.rebix.engine.api.packets.TabListAPI;
-import net.rebix.engine.api.playernametag.PlayerSetNameTag;
 import net.rebix.engine.api.Translator;
+import net.rebix.engine.api.packets.EntityHider;
+import net.rebix.engine.api.playernametag.PlayerSetNameTag;
 import net.rebix.engine.discordchatbot.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;

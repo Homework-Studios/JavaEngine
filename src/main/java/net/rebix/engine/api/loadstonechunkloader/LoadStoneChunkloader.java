@@ -4,13 +4,10 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.rebix.engine.Main;
 import net.rebix.engine.api.Translator;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.Objects;
 
 public class LoadStoneChunkloader {
 

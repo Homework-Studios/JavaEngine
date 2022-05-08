@@ -1,12 +1,13 @@
 package net.rebix.engine.util;
 
 import net.rebix.engine.Main;
+import net.rebix.engine.api.ScrollableInventory;
 import net.rebix.engine.api.Translator;
 import net.rebix.engine.commands.*;
-import net.rebix.engine.api.ScrollableInventory;
-import net.rebix.engine.events.*;
 import net.rebix.engine.events.block.onBlockBreakEvent;
 import net.rebix.engine.events.block.onBlockPlaceEvent;
+import net.rebix.engine.events.onButtonClickEvent;
+import net.rebix.engine.events.onInventoryClickEvent;
 import net.rebix.engine.events.player.*;
 import net.rebix.engine.item.ItemBuilder;
 import org.bukkit.Bukkit;

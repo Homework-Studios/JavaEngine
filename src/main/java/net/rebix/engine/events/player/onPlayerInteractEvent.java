@@ -3,15 +3,9 @@ package net.rebix.engine.events.player;
 import net.rebix.engine.Main;
 import net.rebix.engine.qol.DoorOpener;
 import org.bukkit.Material;
-import org.bukkit.block.data.type.Door;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
 
 public class onPlayerInteractEvent implements Listener {
     @EventHandler

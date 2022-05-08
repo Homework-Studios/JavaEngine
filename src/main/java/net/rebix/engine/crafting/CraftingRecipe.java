@@ -3,12 +3,8 @@ package net.rebix.engine.crafting;
 import net.rebix.engine.item.EngineItem;
 import net.rebix.engine.item.items.NullItem;
 import net.rebix.engine.util.variables.Vector2;
-import org.bukkit.Material;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 
 
