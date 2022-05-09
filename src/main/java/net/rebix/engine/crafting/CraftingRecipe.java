@@ -14,7 +14,7 @@ public class CraftingRecipe {
     private EngineItem[][] grid;
     private HashMap<EngineItem, Integer> ingredients = new HashMap<>();
     public Vector2 bottomRightCorner = new Vector2(0, 0);
-    public Vector2 topLeftCorner = new Vector2(5, 5);
+    public Vector2 topLeftCorner = new Vector2(7, 7);
     private boolean shaped = false;
 
 

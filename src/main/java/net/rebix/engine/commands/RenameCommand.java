@@ -16,7 +16,7 @@ public class RenameCommand implements CommandExecutor {
             if(!player.getInventory().getItemInMainHand().getType().isAir()) {
                 ItemStack item = player.getInventory().getItemInMainHand();
                 ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(args[0]);
+                meta.setDisplayName(args[0].replaceAll("&", "§"));
                 item.setItemMeta(meta);
             }
         }

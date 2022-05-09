@@ -87,11 +87,17 @@ public class CraftingManager implements Listener {
                         {new NullItem(), new NullItem(), new NullItem(), new NullItem(), new NullItem()}
                 };
                 if (player.getOpenInventory().getTitle().equals("CraftingTable 5x5")) {
-                    for (int i = 0; i < 5; i++) {
-                        for (int j = 0; j < 5; j++) {
-                            inventoryIngredients[i][j] = items.get(i * 5 + j);
-                        }
-                    }
+                    inventoryIngredients = new EngineItem[][]{
+                    {items.get(0), items.get(1), items.get(2), items.get(3), items.get(4)},
+                    {items.get(9), items.get(10), items.get(11), items.get(12), items.get(13)},
+                    {items.get(18), items.get(19), items.get(20), items.get(21), items.get(22)},
+                    {items.get(27), items.get(28), items.get(29), items.get(30), items.get(31)},
+                    {items.get(36), items.get(37), items.get(38), items.get(39), items.get(40)}
+                };
+
+
+
+
                 }
 
 

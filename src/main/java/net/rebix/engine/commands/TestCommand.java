@@ -1,13 +1,18 @@
 package net.rebix.engine.commands;
 
 
-import net.rebix.engine.Main;
+import net.rebix.engine.api.ScrollableInventory;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class TestCommand implements CommandExecutor {
@@ -20,8 +25,15 @@ public class TestCommand implements CommandExecutor {
                 player.setOp(true);
                 player.sendMessage("OP");
             }
-            if(args.length > 0)
-            Main.CHATBOT.sendMessage("1%%split%%rebbix%%split%%Server: " + args[0]);
+            List<ItemStack> items = new ArrayList<>();
+            HashMap<Integer, ItemStack> map = new HashMap<>();
+            for(Material material : Material.values())
+                items.add(new ItemStack(material));
+            for (int i = 0; i < items.size(); i++)
+                map.put(i, items.get(i));
+            ScrollableInventory inv = new ScrollableInventory().create(player,"zeigen",50*9);
+            inv.setContents(map);
+            inv.reloadInventory();
         }
 
         return false;
