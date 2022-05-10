@@ -10,9 +10,11 @@ import net.rebix.engine.events.onButtonClickEvent;
 import net.rebix.engine.events.onInventoryClickEvent;
 import net.rebix.engine.events.player.*;
 import net.rebix.engine.item.ItemBuilder;
+import net.rebix.engine.qol.CropHarvester;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.FurnaceRecipe;
 
@@ -27,47 +29,54 @@ public class Registry {
     public Registry(){
 
         //Inventory Events
-        listeners.add(new onInventoryClickEvent());
-        listeners.add(new ScrollableInventory());
-        listeners.add(Main.getCraftingManager());
+        registerListener(new onInventoryClickEvent());
+        registerListener(new ScrollableInventory());
+        registerListener(Main.getCraftingManager());
         //player Events
-        listeners.add(new onPlayerJoinEvent());
-        listeners.add(new onPlayerLeaveEvent());
-        listeners.add(new onPlayerRespawnEvent());
-        listeners.add(new onPlayerDeathEvent());
-        listeners.add(new onPlayerItemHeldEvent());
-        listeners.add(new onPlayerChatEvent());
-        listeners.add(new onPlayerSneakEvent());
-        listeners.add(new onPlayerInteractEvent());
-        listeners.add(new onPlayerInventoryCloseEvent());
+        registerListener(new onPlayerJoinEvent());
+        registerListener(new onPlayerLeaveEvent());
+        registerListener(new onPlayerRespawnEvent());
+        registerListener(new onPlayerDeathEvent());
+        registerListener(new onPlayerItemHeldEvent());
+        registerListener(new onPlayerChatEvent());
+        registerListener(new onPlayerSneakEvent());
+        registerListener(new onPlayerInteractEvent());
+        registerListener(new onPlayerInventoryCloseEvent());
+        registerListener(new CropHarvester());
         //block Events
-        listeners.add(new onBlockPlaceEvent());
-        listeners.add(new onBlockBreakEvent());
-        listeners.add(new onButtonClickEvent());
+        registerListener(new onBlockPlaceEvent());
+        registerListener(new onBlockBreakEvent());
+        registerListener(new onButtonClickEvent());
 
-        ;
+
 
 
         for (Listener listener: listeners)
             Bukkit.getPluginManager().registerEvents(listener, Main.plugin);
 
+        //Registering Commands
+        registerCommand("test", new TestCommand());
+        registerCommand("time", new TimeCommand());
+        registerCommand("writedefaultcfg", new WriteDefaultCfgCommand());
+        registerCommand("/r", new ReloadCommand());
+        registerCommand("/item", new ItemCommand());
+        registerCommand("/itembuilder", new ItemBuilderCommand());
+        registerCommand("/translate", new TranslateCommand());
+        registerCommand("/spawn", new SpawnCommand());
+        registerCommand("/day", new DayCommand());
+        registerCommand("/craft", new CraftCommand());
+        registerCommand("/rename", new RenameCommand());
 
-        Objects.requireNonNull(Bukkit.getPluginCommand("test")).setExecutor(new TestCommand());
-
-        Objects.requireNonNull(Bukkit.getPluginCommand("/time")).setExecutor(new TimeCommand());
-        Objects.requireNonNull(Bukkit.getPluginCommand("writedefaultcfg")).setExecutor(new WriteDefaultCfgCommand());
-        Objects.requireNonNull(Bukkit.getPluginCommand("/r")).setExecutor(new ReloadCommand());
-        Objects.requireNonNull(Bukkit.getPluginCommand("/item")).setExecutor(new ItemCommand());
-        Objects.requireNonNull(Bukkit.getPluginCommand("/spawn")).setExecutor(new SpawnCommand());
-        Objects.requireNonNull(Bukkit.getPluginCommand("/day")).setExecutor(new DayCommand());
-
-        Objects.requireNonNull(Bukkit.getPluginCommand("/craft")).setExecutor(new CraftCommand());
-        Objects.requireNonNull(Bukkit.getPluginCommand("/rename")).setExecutor(new RenameCommand());
 
         FurnaceRecipe furnaceRecipe = new FurnaceRecipe(NamespacedKey.minecraft("tropical_fish_smelt"),new ItemBuilder(Material.COOKED_SALMON).setName(new Translator().Translate("engine.vanillaitem.coockedtropical")).build(),Material.TROPICAL_FISH,5.0f,20);
         Bukkit.getServer().addRecipe(furnaceRecipe);
     }
 
+    void registerListener(Listener listener){
+        listeners.add(listener);
+    }
 
-
+    void registerCommand(String command, CommandExecutor executor){
+        Objects.requireNonNull(Bukkit.getPluginCommand(command)).setExecutor(executor);
+    }
 }
