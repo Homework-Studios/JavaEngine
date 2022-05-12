@@ -30,7 +30,7 @@ public class CropHarvester implements Listener {
                     if(blockData.contains("age=7"))
                         for (ItemStack item :block.getDrops()) {
                             if(item.getType() == Material.WHEAT_SEEDS) item.setAmount(item.getAmount()-1);
-                            if(item.getType() != Material.AIR)
+                            if(item.getType() != Material.AIR && item.getAmount() > 0)
                             block.getWorld().dropItemNaturally(block.getLocation(), item);
                             removeAge(block , hand);
                         }
@@ -43,7 +43,7 @@ public class CropHarvester implements Listener {
                     if(blockData.contains("age=3"))
                         for (ItemStack item :block.getDrops()) {
                             if(item.getType() == Material.BEETROOT_SEEDS) item.setAmount(item.getAmount()-1);
-                            if(item.getType() != Material.AIR)
+                            if(item.getType() != Material.AIR && item.getAmount() > 0)
                             block.getWorld().dropItemNaturally(block.getLocation(), item);
                             removeAge(block, hand);
                         }break;
@@ -51,6 +51,7 @@ public class CropHarvester implements Listener {
 
     void dropSeeds(Block block, ItemStack hand) {
         for (ItemStack item :block.getDrops()) {
+            if(item.getType() != Material.AIR)
            block.getWorld().dropItemNaturally(block.getLocation(), item);
         }
         removeAge(block , hand);
@@ -62,10 +63,9 @@ public class CropHarvester implements Listener {
 
         Damageable meta = (Damageable) hand.getItemMeta();
         int unbreaking = meta.getEnchantLevel(Enchantment.DURABILITY);
-        Double chance = 10 - Math.sqrt(unbreaking)* Main.plugin.getConfig().getDouble("hoe_unbreakingenchant_modifier");
+        Double chance = 10 - unbreaking * unbreaking* Main.plugin.getConfig().getDouble("hoe_unbreakingenchant_modifier");
         Integer random = new Random().nextInt(10);
-        System.out.println(chance + " " + random);
-        if(random <= chance) {
+        if(random >= chance) {
             meta.setDamage(meta.getDamage() + 1);
             hand.setItemMeta(meta);
         }

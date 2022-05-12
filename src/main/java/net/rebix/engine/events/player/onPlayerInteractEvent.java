@@ -12,7 +12,7 @@ public class onPlayerInteractEvent implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         switch (event.getAction()) {
             case RIGHT_CLICK_BLOCK:
-                 if(event.getClickedBlock() != null && event.getClickedBlock().getType().equals(Material.CRAFTING_TABLE) && Main.plugin.getConfig().getBoolean("CraftingTableReplaced")) {
+                 if(event.getClickedBlock() != null && event.getClickedBlock().getType().equals(Material.CRAFTING_TABLE) && Main.plugin.getConfig().getBoolean("CustomCraftingTable")) {
                     Main.getCraftingManager().open3x3(event.getPlayer());
                     event.setCancelled(true);
                 }

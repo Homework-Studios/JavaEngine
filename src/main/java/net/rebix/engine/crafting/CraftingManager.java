@@ -1,6 +1,7 @@
 package net.rebix.engine.crafting;
 
 import net.rebix.engine.Main;
+import net.rebix.engine.api.Translator;
 import net.rebix.engine.api.property.ItemProperties;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.item.EngineItem;
@@ -44,13 +45,14 @@ public class CraftingManager implements Listener {
     }
 
     public void open3x3(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, 9 * 5, "CraftingTable 3x3");
-        new FillInventoryWithPlaceholder(inventory);
-        setCraftingInventoryDefaults(inventory, 5);
-        for (int id = 1; id <= 3; id++)
-            for (int i = 1 + id*9; i < 4 + id*9; i++) inventory.setItem(i, null);
-        player.openInventory(inventory);
-
+        if(Main.plugin.getConfig().getBoolean("CustomCraftingTable")) {
+            Inventory inventory = Bukkit.createInventory(null, 9 * 5, "CraftingTable 3x3");
+            new FillInventoryWithPlaceholder(inventory);
+            setCraftingInventoryDefaults(inventory, 5);
+            for (int id = 1; id <= 3; id++)
+                for (int i = 1 + id * 9; i < 4 + id * 9; i++) inventory.setItem(i, null);
+            player.openInventory(inventory);
+        } else player.sendMessage(new Translator().Translate("engine.disabledtext"));
     }
     public void open5x5(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 9*5, "CraftingTable 5x5");
