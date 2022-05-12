@@ -26,5 +26,5 @@ commands:
     description: "renames an item"
   /translate:
     description: "translates a string like translator"
-  /itemBuilder:
+  /itembuilder:
     description: "creates an item using itemBuilder"

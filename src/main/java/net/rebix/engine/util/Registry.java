@@ -56,7 +56,7 @@ public class Registry {
 
         //Registering Commands
         registerCommand("test", new TestCommand());
-        registerCommand("time", new TimeCommand());
+        registerCommand("/time", new TimeCommand());
         registerCommand("writedefaultcfg", new WriteDefaultCfgCommand());
         registerCommand("/r", new ReloadCommand());
         registerCommand("/item", new ItemCommand());
@@ -77,6 +77,6 @@ public class Registry {
     }
 
     void registerCommand(String command, CommandExecutor executor){
-        Objects.requireNonNull(Bukkit.getPluginCommand(command)).setExecutor(executor);
+       Objects.requireNonNull(Bukkit.getPluginCommand(command)).setExecutor(executor);
     }
 }
