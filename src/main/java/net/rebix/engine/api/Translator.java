@@ -1,12 +1,14 @@
 package net.rebix.engine.api;
 
 import net.rebix.engine.Main;
-import net.rebix.engine.util.enums.LanguageType;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Translator {
@@ -16,7 +18,13 @@ public class Translator {
     public void enable() {
         StringBuilder sb = new StringBuilder();
         try {
-            for(Scanner scanner = new Scanner(new URL("https://raw.githubusercontent.com/Homework-Studios/github-storage/main/JavaEngine/Translations").openStream()); scanner.hasNext(); )
+            if(!new File(Main.plugin.getDataFolder() + File.separator + "Translations.txt").exists()) {
+                PrintWriter writer = new PrintWriter(Main.plugin.getDataFolder() + "/Translations.txt");
+                writer.println("test");
+            }
+            for(Scanner scanner = new Scanner(new URL(Objects.requireNonNull(Main.plugin.getConfig().getString("DigitalTranslationTable"))).openStream()); scanner.hasNext(); )
+                TranslateList.add(scanner.nextLine());
+            for(Scanner scanner = new Scanner(new File(Main.plugin.getDataFolder() + File.separator + "Translations.txt")); scanner.hasNext(); )
                 TranslateList.add(scanner.nextLine());
         } catch (IOException e) {
             e.printStackTrace();
@@ -24,8 +32,7 @@ public class Translator {
         TranslateList.removeIf(line -> line.startsWith("#"));
     }
 
-    public String Translate(String input, LanguageType languageType) {
-        String Language = languageType.getValue();
+    public String Translate(String input, String Language) {
         for (String line : TranslateList) {
             if(line.contains("=")){
             String keyFound = line.split("=")[0];
@@ -45,7 +52,7 @@ public class Translator {
                 }
             }
         }
-        if(languageType != LanguageType.English) return Translate(input,LanguageType.English);
+        if(!Objects.equals(Language, "English")) return Translate(input,"English");
         else return input;
     }
 

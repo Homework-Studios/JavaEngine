@@ -14,7 +14,6 @@ import net.rebix.engine.item.items.TestItem;
 import net.rebix.engine.util.Registry;
 import net.rebix.engine.util.TickingTask10timesperseckond;
 import net.rebix.engine.util.cfgManager;
-import net.rebix.engine.util.enums.LanguageType;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -25,7 +24,7 @@ import java.io.File;
 
 public final class Main extends JavaPlugin {
     public static Integer INTEGER_LIMIT = 2147483647;
-    public static LanguageType Language = LanguageType.English;
+    public static String Language = "English";
     static CraftingManager craftingManager = new CraftingManager();
     static ItemFactory itemFactory = new ItemFactory();
     public static ChatBot CHATBOT;
@@ -52,7 +51,7 @@ public final class Main extends JavaPlugin {
         new ItemCommand().enable();
         new CommandPermissionManager().enable();
 
-        Main.Language = LanguageType.valueOf(Main.plugin.getConfig().getString("Language"));
+        Main.Language = Main.plugin.getConfig().getString("Language");
 
 
        new CraftingRecipe(new TestItem(), new EngineItem[][]{

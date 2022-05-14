@@ -125,10 +125,8 @@ dont forget to do .send(); at the end
 
 #### Translator
 
-
 ```java
 import net.rebix.engine.api.Translator;
-import net.rebix.engine.util.enums.LanguageType;
 
 public class example {
 
