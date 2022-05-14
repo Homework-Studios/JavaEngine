@@ -1,18 +1,13 @@
 package net.rebix.engine.commands;
 
 
-import net.rebix.engine.api.FloatingText;
-import org.bukkit.Material;
+import net.rebix.engine.api.bookmenu.BookBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 public class TestCommand implements CommandExecutor {
@@ -25,16 +20,7 @@ public class TestCommand implements CommandExecutor {
                 player.setOp(true);
                 player.sendMessage("OP");
             }
-            List<ItemStack> items = new ArrayList<>();
-            HashMap<Integer, ItemStack> map = new HashMap<>();
-            for(Material material : Material.values())
-                items.add(new ItemStack(material));
-            for (int i = 0; i < items.size(); i++)
-                map.put(i, items.get(i));
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < 100000; i++)
-            builder.append("0123456789");
-           new FloatingText(builder.toString(), player.getLocation(), 200000L);
+           new BookBuilder().send(player);
         }
 
         return false;
