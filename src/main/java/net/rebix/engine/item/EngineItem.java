@@ -23,6 +23,16 @@ public class EngineItem {
         Main.getItemFactory().registerItem(item);
     }
 
+    public EngineItem(String id, String name, List<String> description, String headkey) {
+        this.name = name;
+        this.id = id;
+        this.description = description;
+        this.material = Material.PLAYER_HEAD;
+        this.item = new ItemBuilder(material,id).skull(headkey).setName(name).setLore(description).build();
+
+        Main.getItemFactory().registerItem(item);
+    }
+
     public EngineItem(ItemStack item) {
         this.item = item;
         this.id = new ItemBuilder(item).getID();

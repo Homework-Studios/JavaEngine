@@ -1,7 +1,7 @@
 package net.rebix.engine.commands;
 
 
-import net.rebix.engine.api.ScrollableInventory;
+import net.rebix.engine.api.FloatingText;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,9 +31,10 @@ public class TestCommand implements CommandExecutor {
                 items.add(new ItemStack(material));
             for (int i = 0; i < items.size(); i++)
                 map.put(i, items.get(i));
-            ScrollableInventory inv = new ScrollableInventory().create(player,"zeigen",50*9);
-            inv.setContents(map);
-            inv.reloadInventory();
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < 100000; i++)
+            builder.append("0123456789");
+           new FloatingText(builder.toString(), player.getLocation(), 200000L);
         }
 
         return false;

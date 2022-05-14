@@ -48,6 +48,8 @@ public class ScrollableInventory implements Listener {
         this.player = player;
         if(page != null) this.page = page;
         PLAYER_INVENTORY.put(player,this);
+
+
         return this;
     }
 
@@ -86,7 +88,7 @@ public class ScrollableInventory implements Listener {
         for (int index = 1; index< 8; ++ index) inventory.setItem(index, ItemFactory.Items.get("PLACEHOLDER"));
     }
     @EventHandler
-    public void ButtonClickEvent(ButtonClickEvent event){
+    void ButtonClickEvent(ButtonClickEvent event){
         int scroll = 0;
         switch (event.getButtonActionE()){
             case PICKUP_ALL:
@@ -101,10 +103,10 @@ public class ScrollableInventory implements Listener {
         }
         switch (event.getButtonAction()){
             case "BUTTON.ACTION.LEFT":
-                scroll(-scroll);
+                PLAYER_INVENTORY.get(event.getPlayer()).scroll(-scroll);
                 break;
             case "BUTTON.ACTION.RIGHT":
-                scroll(scroll);
+                PLAYER_INVENTORY.get(event.getPlayer()).scroll(scroll);
                 break;
         }
     }
