@@ -5,15 +5,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class ButtonClickEvent extends Event {
 
     private final Player player;
-    private String action;
+    private final String action;
     private String buttonAction;
+    private ItemStack clickedItem;
 
-    public ButtonClickEvent(Player player, InventoryAction action, String buttonAction) {
+    public ButtonClickEvent(Player player, InventoryAction action, String buttonAction, ItemStack clickedItem) {
+        this.clickedItem = clickedItem;
         this.player = player;
         this.action = action.toString();
         this.buttonAction = buttonAction;
@@ -47,5 +50,13 @@ public class ButtonClickEvent extends Event {
     }
     public InventoryAction getButtonActionE() {
         return InventoryAction.valueOf(action);
+    }
+
+    public ItemStack getClickedItem() {
+        return clickedItem;
+    }
+
+    public void setClickedItem(ItemStack clickedItem) {
+        this.clickedItem = clickedItem;
     }
 }

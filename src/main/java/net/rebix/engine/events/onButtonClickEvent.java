@@ -1,6 +1,7 @@
 package net.rebix.engine.events;
 
 import net.rebix.engine.events.customevents.ButtonClickEvent;
+import net.rebix.engine.item.ItemFactory;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -11,6 +12,9 @@ public class onButtonClickEvent implements Listener {
             case "BUTTON.ACTION.EXIT":
                 event.getPlayer().closeInventory();
                 break;
+            case "BUTTONACTION.GIVECLICKED:BYID":
+                event.getPlayer().getInventory().addItem(ItemFactory.getItemByItemStack(event.getClickedItem()).getItem());
+
         }
     }
 }

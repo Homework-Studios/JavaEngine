@@ -5,6 +5,6 @@ import org.bukkit.Material;
 
 public class NullItem extends EngineItem {
     public NullItem() {
-        super("NULL", "null", null, Material.BARRIER);
+        super("NULL", "null", Material.BARRIER);
     }
 }

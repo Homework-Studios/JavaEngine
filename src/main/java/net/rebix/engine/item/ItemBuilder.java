@@ -1,4 +1,5 @@
 package net.rebix.engine.item;
+
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.rebix.engine.Main;
@@ -12,6 +13,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,9 +64,9 @@ public class ItemBuilder {
         return this;
 
     }
-    public ItemBuilder setLore(List<String> lore) {
+    public ItemBuilder setLore(String... lore) {
         if(lore != null) {
-            itemMeta.setLore(lore);
+            itemMeta.setLore(Arrays.asList(lore));
 
         }
         return this;
@@ -132,9 +134,10 @@ public class ItemBuilder {
         return item;
     }
 
-    public void setID(String id){
+    public ItemBuilder setID(String id){
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(Main.plugin, "ID"), PersistentDataType.STRING, id);
         item.setItemMeta(itemMeta);
+        return this;
     }
 
     public String getID(){
@@ -145,5 +148,18 @@ public class ItemBuilder {
                 else return item.getType().name();
         } else return item.getType().name();
     }
+
+    public List<String> getLore() {
+        return itemMeta.getLore();
+    }
+
+    public Material getMaterial() {
+        return item.getType();
+    }
+
+    public String getName() {
+        return itemMeta.getDisplayName();
+    }
+
 
 }

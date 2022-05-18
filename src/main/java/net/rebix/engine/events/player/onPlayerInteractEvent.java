@@ -1,7 +1,12 @@
 package net.rebix.engine.events.player;
 
 import net.rebix.engine.Main;
+import net.rebix.engine.events.customevents.ItemUseAbilityEvent;
+import net.rebix.engine.item.EngineItem;
+import net.rebix.engine.item.ItemFactory;
 import net.rebix.engine.qol.DoorOpener;
+import net.rebix.engine.util.enums.ItemAbilityType;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,5 +31,13 @@ public class onPlayerInteractEvent implements Listener {
 
                 break;
         }
+
+        if(event.getPlayer().getInventory().getItemInMainHand().getType() != Material.AIR) {
+            EngineItem item = ItemFactory.getItemByItemStack(event.getPlayer().getInventory().getItemInMainHand());
+            if(item != null)
+            if(item.getAbilities().size() > 0)
+            Bukkit.getPluginManager().callEvent(new ItemUseAbilityEvent(event.getPlayer(), item, ItemAbilityType.translateFromInteractEvent(event.getAction(), event.getPlayer().isSneaking())));
+        }
+
     }
 }

@@ -43,6 +43,8 @@ public class Registry {
         registerListener(new onPlayerInteractEvent());
         registerListener(new onPlayerInventoryCloseEvent());
         registerListener(new CropHarvester());
+        registerListener(new onPlayerDropItemEvent());
+        registerListener(new onPlayerUseAbilityEvent());
         //block Events
         registerListener(new onBlockPlaceEvent());
         registerListener(new onBlockBreakEvent());
@@ -72,11 +74,11 @@ public class Registry {
         Bukkit.getServer().addRecipe(furnaceRecipe);
     }
 
-    void registerListener(Listener listener){
+    public static void registerListener(Listener listener){
         listeners.add(listener);
     }
 
-    void registerCommand(String command, CommandExecutor executor){
+    public static void registerCommand(String command, CommandExecutor executor){
        Objects.requireNonNull(Bukkit.getPluginCommand(command)).setExecutor(executor);
     }
 }
