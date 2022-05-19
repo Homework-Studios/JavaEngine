@@ -5,9 +5,9 @@ import net.rebix.engine.item.ItemAbility.abilities.Ability_ShadowWarp;
 import net.rebix.engine.item.ItemBuilder;
 import org.bukkit.Material;
 
-public class ENGINE_ITEM_TEST_FURY extends EngineItem {
-    public ENGINE_ITEM_TEST_FURY() {
-        super(new ItemBuilder(Material.DIAMOND_SWORD, "ENGINE_ITEM:TEST_FURY").setName("§8Test Fury").setLore("§fA very powerfull weapon").build());
+public class ENGINE_ITEM_TEST_SWORD extends EngineItem {
+    public ENGINE_ITEM_TEST_SWORD() {
+        super(new ItemBuilder(Material.POINTED_DRIPSTONE,"ENGINE_ITEM:TEST_SWORD").setName("§4§lSTECHER").setLore("§fHerzensbrecher").setUnbreakable(true).setGlowing(true));
     }
 
     @Override

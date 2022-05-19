@@ -115,7 +115,9 @@ public class EngineItem {
         if(description != null && item.getItemMeta() != null) {
             List<String> lore = new ArrayList<>(description);
             for(ItemAbility ability : abilities) {
-                lore.add("§2§lUSE: §6§l"+ability.getTrigger().name().replaceAll("_"," ")+"§2§l To Use: "+"§a§l"+ ability.getName() + "§f§o\n" + ability.getDescription());
+                lore.add("§2§lUSE: §6§l"+ability.getTrigger().name().replaceAll("_"," ")+"§2§l To Use: "+"§a§l"+ ability.getName());
+                for(String s : ability.getDescription())
+                lore.add( "§f§o" + s);
                 if(ability.getTicks_unit_next_use() > 1) {
                     float cdcounter = ability.getTicks_unit_next_use()/20f;
                     cdcounter = Math.round(cdcounter*10f)/10f;

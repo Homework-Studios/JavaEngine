@@ -5,14 +5,16 @@ import net.rebix.engine.item.ItemFactory;
 import net.rebix.engine.util.enums.ItemAbilityType;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class ItemAbility {
     ItemAbilityType trigger;
     String name;
-    String description;
+    List<String> description;
     String id;
     Float ticks_unit_next_use;
 
-    public ItemAbility(ItemAbilityType trigger, String name, String description, String ability_id) {
+    public ItemAbility(ItemAbilityType trigger, String name, List<String> description, String ability_id) {
         this.trigger = trigger;
         this.name = name;
         this.description = description;
@@ -20,7 +22,7 @@ public class ItemAbility {
         register();
     }
 
-    public ItemAbility(ItemAbilityType trigger, String name, String description, String ability_id, Float ticks_unit_next_use) {
+    public ItemAbility(ItemAbilityType trigger, String name, List<String> description, String ability_id, Float ticks_unit_next_use) {
         this.ticks_unit_next_use = ticks_unit_next_use;
         this.trigger = trigger;
         this.name = name;
@@ -41,7 +43,7 @@ public class ItemAbility {
         return name;
     }
 
-    public String getDescription() {
+    public List<String> getDescription() {
         return description;
     }
 

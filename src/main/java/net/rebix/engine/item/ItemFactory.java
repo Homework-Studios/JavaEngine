@@ -1,10 +1,7 @@
 package net.rebix.engine.item;
 
 import net.rebix.engine.item.ItemAbility.ItemAbility;
-import net.rebix.engine.item.items.engineitems.ENGINE_ITEM_EXIT_BUTTON;
-import net.rebix.engine.item.items.engineitems.ENGINE_ITEM_NOTHING;
-import net.rebix.engine.item.items.engineitems.ENGINE_ITEM_PLACEHOLDER;
-import net.rebix.engine.item.items.engineitems.ENGINE_ITEM_TEST_FURY;
+import net.rebix.engine.item.items.engineitems.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -24,6 +21,7 @@ public class ItemFactory {
        new ENGINE_ITEM_NOTHING().register();
        new ENGINE_ITEM_PLACEHOLDER().register();
        new ENGINE_ITEM_TEST_FURY().register();
+       new ENGINE_ITEM_TEST_SWORD().register();
 
         new ShapedNormalRecipe("enchanted_golden_apple", new ItemBuilder(Material.ENCHANTED_GOLDEN_APPLE,"").build(),Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.APPLE,Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.GOLD_BLOCK);
     }
