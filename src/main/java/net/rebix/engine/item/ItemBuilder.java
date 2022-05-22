@@ -162,4 +162,8 @@ public class ItemBuilder {
     }
 
 
+    public ItemBuilder setCustomModelData(int s) {
+        itemMeta.setCustomModelData(s);
+        return this;
+    }
 }

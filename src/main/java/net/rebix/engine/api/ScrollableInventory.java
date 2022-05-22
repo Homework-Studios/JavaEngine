@@ -4,7 +4,7 @@ package net.rebix.engine.api;
 import net.rebix.engine.Main;
 import net.rebix.engine.events.customevents.ButtonClickEvent;
 import net.rebix.engine.item.ItemBuilder;
-import net.rebix.engine.item.ItemFactory;
+import net.rebix.engine.item.items.engineitems.ENGINE_ITEM_PLACEHOLDER;
 import net.rebix.engine.util.enums.InventoryButtonType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -85,7 +85,7 @@ public class ScrollableInventory implements Listener {
     public void fillInButtonsAndPlaceholder() {
         inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction("BUTTON.ACTION.LEFT").build());
         inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction("BUTTON.ACTION.RIGHT").build());
-        for (int index = 1; index< 8; ++ index) inventory.setItem(index, ItemFactory.Items.get("PLACEHOLDER"));
+        for (int index = 1; index< 8; ++ index) inventory.setItem(index, new ENGINE_ITEM_PLACEHOLDER().getItem());
     }
     @EventHandler
     void ButtonClickEvent(ButtonClickEvent event){

@@ -13,10 +13,12 @@ public class ItemUseAbilityEvent extends Event {
 
     private final Player player;
     private final EngineItem item;
+    private final ItemAbilityType type;
 
     public ItemUseAbilityEvent(Player player, EngineItem item, ItemAbilityType type) {
         this.player = player;
-             this.item = item;
+        this.item = item;
+        this.type = type;
     }
 
     private static final HandlerList HANDLERS = new HandlerList();
@@ -37,5 +39,9 @@ public class ItemUseAbilityEvent extends Event {
 
     public EngineItem getItem() {
         return item;
+    }
+
+    public ItemAbilityType getTrigger() {
+        return type;
     }
 }

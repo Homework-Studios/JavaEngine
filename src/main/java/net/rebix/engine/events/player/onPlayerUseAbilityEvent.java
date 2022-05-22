@@ -10,6 +10,7 @@ public class onPlayerUseAbilityEvent implements Listener {
     @EventHandler
     public void PlayerUseAbilityEvent(ItemUseAbilityEvent event) {
         for (ItemAbility itemAbility : event.getItem().getAbilities()) {
+            if(event.getTrigger() == itemAbility.getTrigger())
             itemAbility.use(event.getPlayer(), event.getItem());
         }
     }

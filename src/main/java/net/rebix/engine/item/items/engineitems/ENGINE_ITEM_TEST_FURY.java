@@ -13,6 +13,5 @@ public class ENGINE_ITEM_TEST_FURY extends EngineItem {
     @Override
     public void init() {
         addAbility(new Ability_ShadowWarp());
-        super.init();
     }
 }
