@@ -28,3 +28,5 @@ commands:
     description: "translates a string like translator"
   /itembuilder:
     description: "creates an item using itemBuilder"
+  /world:
+    description: "world commands"

@@ -1,7 +1,7 @@
 package net.rebix.engine.commands;
 
 
-import net.rebix.engine.api.bookmenu.BookBuilder;
+import net.rebix.engine.api.WorldManager.WorldManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,9 +20,9 @@ public class TestCommand implements CommandExecutor {
                 player.setOp(true);
                 player.sendMessage("OP");
             }
-           new BookBuilder().send(player);
+           new WorldManager().joinByName(player,args[0]);
         }
-
+        new WorldManager().loadFromTemplate(args[0], args[1]);
         return false;
     }
 }

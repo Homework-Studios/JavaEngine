@@ -68,6 +68,7 @@ public class Registry {
         registerCommand("/day", new DayCommand());
         registerCommand("/craft", new CraftCommand());
         registerCommand("/rename", new RenameCommand());
+        registerCommand("/world", new WorldCommand());
 
 
         FurnaceRecipe furnaceRecipe = new FurnaceRecipe(NamespacedKey.minecraft("tropical_fish_smelt"),new ItemBuilder(Material.COOKED_SALMON).setName(new Translator().Translate("engine.vanillaitem.coockedtropical")).build(),Material.TROPICAL_FISH,5.0f,20);
