@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ScrollableInventory implements Listener {
 
@@ -83,7 +84,9 @@ public class ScrollableInventory implements Listener {
 
 
     public void fillInButtonsAndPlaceholder() {
+        if(page != 1)
         inventory.setItem(0, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_LEFT.getValue()).setButtonAction("BUTTON.ACTION.LEFT").build());
+        if(!Objects.equals(page, pages))
         inventory.setItem(8, new ItemBuilder(Material.PLAYER_HEAD, "").skull(InventoryButtonType.BLACK_ARROW_RIGHT.getValue()).setButtonAction("BUTTON.ACTION.RIGHT").build());
         for (int index = 1; index< 8; ++ index) inventory.setItem(index, new ENGINE_ITEM_PLACEHOLDER().getItem());
     }
