@@ -20,7 +20,6 @@ import org.bukkit.inventory.FurnaceRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Registry {
 
@@ -68,7 +67,7 @@ public class Registry {
         registerCommand("/day", new DayCommand());
         registerCommand("/craft", new CraftCommand());
         registerCommand("/rename", new RenameCommand());
-        registerCommand("/world", new WorldCommand());
+        registerCommand("/world_menu", new WorldCommand());
 
 
         FurnaceRecipe furnaceRecipe = new FurnaceRecipe(NamespacedKey.minecraft("tropical_fish_smelt"),new ItemBuilder(Material.COOKED_SALMON).setName(new Translator().Translate("engine.vanillaitem.coockedtropical")).build(),Material.TROPICAL_FISH,5.0f,20);
@@ -80,6 +79,6 @@ public class Registry {
     }
 
     public static void registerCommand(String command, CommandExecutor executor){
-       Objects.requireNonNull(Bukkit.getPluginCommand(command)).setExecutor(executor);
+       Bukkit.getPluginCommand(command).setExecutor(executor);
     }
 }

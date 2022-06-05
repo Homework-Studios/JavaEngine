@@ -20,6 +20,7 @@ public class onInventoryClickEvent implements Listener {
         if(properties.getCannotBePickedUp()) event.setCancelled(true);
         if(properties.getButtonAction() != null) {
             Bukkit.getPluginManager().callEvent(new ButtonClickEvent((Player) event.getWhoClicked(), event.getAction(), properties.getButtonAction(), event.getCurrentItem()));
+            event.setCancelled(true);
         }
         }
         }

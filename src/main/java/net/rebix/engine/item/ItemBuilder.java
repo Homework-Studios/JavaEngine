@@ -35,7 +35,7 @@ public class ItemBuilder {
 
     public ItemBuilder(Material material) {
         this(material, (short)0);
-        setID("");
+        setID(material.name());
     }
 
     public ItemBuilder(ItemStack itemBuilder) {
@@ -51,6 +51,7 @@ public class ItemBuilder {
     public ItemBuilder(EngineItem item) {
         this.item = item.getItem();
         this.itemMeta = item.getItem().getItemMeta();
+
     }
 
 

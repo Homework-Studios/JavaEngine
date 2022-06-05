@@ -145,8 +145,20 @@ public class EngineItem {
         return this;
     }
 
+    public EngineItem setAmount(int amount) {
+        item.setAmount(amount);
+        return this;
+    }
+
     public void register() {
         init();
         Main.getItemFactory().registerItem(item, this);
+    }
+
+    public boolean recipecompare(EngineItem item) {
+        if(item.id == this.id && this.item.getAmount() <= item.item.getAmount()) {
+            return true;
+        }
+        return false;
     }
 }

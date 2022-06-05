@@ -8,6 +8,7 @@ import net.rebix.engine.item.EngineItem;
 import net.rebix.engine.item.ItemBuilder;
 import net.rebix.engine.item.ItemFactory;
 import net.rebix.engine.item.items.NullItem;
+import net.rebix.engine.item.items.engineitems.ENGINE_ITEM_EXIT_BUTTON;
 import net.rebix.engine.util.FillInventoryWithPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,12 +20,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CraftingManager implements Listener {
     public static List<CraftingRecipe> recipes = new ArrayList<CraftingRecipe>();
-
+    public static HashMap<Player, CraftingManager> playermanager = new HashMap<>();
+     EngineItem[][] ingredients;
+     CraftingRecipe recipe;
 
     public CraftingManager() {
     }
@@ -64,7 +68,7 @@ public class CraftingManager implements Listener {
     }
 
     private void setCraftingInventoryDefaults(Inventory inventory, int size) {
-        inventory.setItem(42, ItemFactory.Items.get("EXIT_BUTTON"));
+        inventory.setItem(42, new ENGINE_ITEM_EXIT_BUTTON().getItem());
         inventory.setItem(24,ItemFactory.Items.get("NOTHING"));
         for (int i = 1; i < 6; i++) inventory.setItem(i*9-1,  new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setName("§4Quick Craft").setPickupabel(false).build());
         inventory.setItem(6,new ItemBuilder(Material.CRAFTING_TABLE).setName("§6"+size+"x"+size).setButtonAction(size+"x"+size).build());
@@ -104,13 +108,16 @@ public class CraftingManager implements Listener {
 
 
                 EngineItem[][] finalInventoryIngredients = inventoryIngredients;
+                ingredients = finalInventoryIngredients;
                 CraftingRecipe inventoryRecipe = new CraftingRecipe(new NullItem(), finalInventoryIngredients);
                 if (inventoryRecipe.topLeftCorner.getX() > 0 || inventoryRecipe.topLeftCorner.getY() > 0)
                     inventoryRecipe.normalize();
                 inventory.setItem(24, ItemFactory.Items.get("NOTHING"));
+
                 recipes.forEach(recipe -> {
                             if (recipe.compare(inventoryRecipe)) {
-                                result(recipe.getResult(), player);
+                                result(recipe, player);
+                                playermanager.put(player, this);
                             }
                         }
                 );
@@ -118,10 +125,10 @@ public class CraftingManager implements Listener {
         }).start();
     }
 
-    public void result(EngineItem item, Player player) {
-
-        player.getOpenInventory().getTopInventory().setItem(24, new ItemBuilder(item).setButtonAction("craft").setPickupabel(false).build());
-
+    public void result(CraftingRecipe result, Player player) {
+        recipe = result;
+        ItemStack item  = new ItemBuilder(result.getResult()).setButtonAction("craft").setPickupabel(false).build();
+        player.getOpenInventory().getTopInventory().setItem(24,item);
     }
 
 
@@ -135,10 +142,16 @@ public class CraftingManager implements Listener {
                 case "5x5":
                     open5x5(event.getPlayer());
                     break;
+                    case "craft":
+                        craft(event.getPlayer());
             }
         }
     }
 
+    public void craft(Player player) {
+        player.getInventory().addItem(playermanager.get(player).recipe.getResult().getItem());
+
+    }
 
     public void updateRecipes() {
         Main.plugin.getServer().recipeIterator().forEachRemaining(recipe -> {

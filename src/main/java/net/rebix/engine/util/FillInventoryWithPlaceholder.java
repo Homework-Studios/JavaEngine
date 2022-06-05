@@ -1,8 +1,7 @@
 package net.rebix.engine.util;
 
 
-
-import net.rebix.engine.item.ItemFactory;
+import net.rebix.engine.item.items.engineitems.ENGINE_ITEM_PLACEHOLDER;
 import org.bukkit.inventory.Inventory;
 
 public class FillInventoryWithPlaceholder {
@@ -10,7 +9,7 @@ public class FillInventoryWithPlaceholder {
         int $index;
         for($index = 0; $index < $inventory.getSize(); ++$index){
             if($inventory.getItem($index) == null) {
-                $inventory.setItem($index, ItemFactory.Items.get("PLACEHOLDER"));
+                $inventory.setItem($index, new ENGINE_ITEM_PLACEHOLDER().getItem());
             }
         }
     }

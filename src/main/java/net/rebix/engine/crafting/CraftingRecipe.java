@@ -82,7 +82,7 @@ public class CraftingRecipe {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if (grid[i][j] != null && recipe.grid[i][j] != null) {
-                    if (grid[i][j].getId() != recipe.grid[i][j].getId()) return false;
+                    if (!grid[i][j].recipecompare(recipe.grid[i][j])) return false;
                 }
             }
         }

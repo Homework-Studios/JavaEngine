@@ -50,4 +50,18 @@ public class WorldManager {
                 inventory.setContents(iinvitem);
 
         }
+
+        public void addWorld(String name) {
+                worlds.add(new WorldManagerWorld(name));
+        }
+
+        public void removeWorld(String name) {
+                for (WorldManagerWorld world : worlds) {
+                        if(world.getName().equals(name)) {
+                                worlds.remove(world);
+                                return;
+                        }
+                }
+        }
+
 }

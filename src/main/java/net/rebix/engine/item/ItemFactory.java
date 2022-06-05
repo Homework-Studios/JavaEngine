@@ -23,6 +23,12 @@ public class ItemFactory {
        new ENGINE_ITEM_TEST_FURY().register();
        new ENGINE_ITEM_ATOM_BOMB().register();
        new ENGINE_ITEM_SWORD_OF_THE_FOUR_WINDS().register();
+       new ENGINE_ITEM_ENCHANTED_NETHER_STAR().register();
+       new ENCHANTED_NETHER_STAR_BLOCK().register();
+       new ENGINE_ITEM_ENCHANTED_DIAMOND().register();
+         new ENGINE_ITEM_ENCHANTED_IRON().register();
+         new ENGINE_ITEM_ENCHANTED_IRON_BLOCK().register();
+         new ENGINE_ITEM_ENCHANTED_DIAMOND_BLOCK().register();
 
         new ShapedNormalRecipe("enchanted_golden_apple", new ItemBuilder(Material.ENCHANTED_GOLDEN_APPLE,"").build(),Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.APPLE,Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.GOLD_BLOCK,Material.GOLD_BLOCK);
     }
