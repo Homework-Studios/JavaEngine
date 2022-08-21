@@ -1,10 +1,9 @@
 package net.rebix.engine.item.ItemAbility;
 
-import net.rebix.engine.item.EngineItem;
-import net.rebix.engine.item.ItemFactory;
-import net.rebix.engine.util.enums.ItemAbilityType;
+import net.rebix.engine.item.EItem;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ItemAbility {
@@ -13,6 +12,7 @@ public class ItemAbility {
     List<String> description;
     String id;
     Float ticks_unit_next_use;
+    public static HashMap<String, ItemAbility> abilities = new HashMap<>();
 
     public ItemAbility(ItemAbilityType trigger, String name, List<String> description, String ability_id) {
         this.trigger = trigger;
@@ -51,11 +51,11 @@ public class ItemAbility {
         return ticks_unit_next_use;
     }
 
-    public void use(Player player, EngineItem item) {
-
+    public boolean use(Player player, EItem item) {
+        return false;
     }
 
     void register() {
-        ItemFactory.registerAbility(id, this);
+        abilities.put(id, this);
     }
 }

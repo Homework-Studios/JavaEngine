@@ -1,9 +1,8 @@
 package net.rebix.engine.item.ItemAbility.abilities;
 
-import net.rebix.engine.item.EngineItem;
+import net.rebix.engine.item.EItem;
 import net.rebix.engine.item.ItemAbility.ItemAbility;
-import net.rebix.engine.util.enums.ItemAbilityType;
-import net.rebix.engine.util.enums.SkyDirection;
+import net.rebix.engine.item.ItemAbility.ItemAbilityType;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -20,23 +19,8 @@ public class Ability_Slash_of_the_Winds extends ItemAbility {
 
 
 
-    SkyDirection getDirection(float yaw) {
-    if(yaw <= -135 || yaw >= 135)
-        return SkyDirection.NORTH;
-    if(yaw < 135 && yaw > 45)
-        return SkyDirection.WEST;
-    if(yaw >= -45)
-        return SkyDirection.SOUTH;
-    if(yaw > -135)
-        return SkyDirection.EAST;
-return SkyDirection.NONE;
-    }
-
-
     @Override
-    public void use(Player player, EngineItem engineItem) {
-        SkyDirection facing = getDirection(player.getLocation().getYaw());
-        float yaw = facing.yaw;
-
+    public boolean use(Player player, EItem engineItem) {
+        return true;
     }
 }

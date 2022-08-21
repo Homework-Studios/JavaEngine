@@ -1,4 +1,4 @@
-package net.rebix.engine.api.scoreboard;
+package net.rebix.engine.V1.api.scoreboard;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -1,6 +1,6 @@
-package net.rebix.engine.api;
+package net.rebix.engine.V1.api;
 
-import net.rebix.engine.Main;
+import net.rebix.engine.JavaEngine;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,13 +18,13 @@ public class Translator {
     public void enable() {
         StringBuilder sb = new StringBuilder();
         try {
-            if(!new File(Main.plugin.getDataFolder() + File.separator + "Translations.txt").exists()) {
-                PrintWriter writer = new PrintWriter(Main.plugin.getDataFolder() + "/Translations.txt");
+            if(!new File(JavaEngine.plugin.getDataFolder() + File.separator + "Translations.txt").exists()) {
+                PrintWriter writer = new PrintWriter(JavaEngine.plugin.getDataFolder() + "/Translations.txt");
                 writer.println("test");
             }
-            for(Scanner scanner = new Scanner(new URL(Objects.requireNonNull(Main.plugin.getConfig().getString("DigitalTranslationTable"))).openStream()); scanner.hasNext(); )
+            for(Scanner scanner = new Scanner(new URL(Objects.requireNonNull(JavaEngine.plugin.getConfig().getString("DigitalTranslationTable"))).openStream()); scanner.hasNext(); )
                 TranslateList.add(scanner.nextLine());
-            for(Scanner scanner = new Scanner(new File(Main.plugin.getDataFolder() + File.separator + "Translations.txt")); scanner.hasNext(); )
+            for(Scanner scanner = new Scanner(new File(JavaEngine.plugin.getDataFolder() + File.separator + "Translations.txt")); scanner.hasNext(); )
                 TranslateList.add(scanner.nextLine());
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,7 +47,7 @@ public class Translator {
                         if (lang.equals(Language)) {
                             return value.replace("Â", "");
                         }
-                    } else Main.plugin.getLogger().info("translation Error in translation " + input);
+                    } else JavaEngine.plugin.getLogger().info("translation Error in translation " + input);
                 }
                 }
             }
@@ -57,7 +57,7 @@ public class Translator {
     }
 
     public String Translate(String input) {
-        return Translate(input,Main.Language);
+        return Translate(input, JavaEngine.Language);
     }
 
 

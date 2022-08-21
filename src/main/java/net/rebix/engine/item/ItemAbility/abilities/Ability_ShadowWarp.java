@@ -1,9 +1,9 @@
 package net.rebix.engine.item.ItemAbility.abilities;
 
-import net.rebix.engine.Main;
-import net.rebix.engine.item.EngineItem;
+import net.rebix.engine.JavaEngine;
+import net.rebix.engine.item.EItem;
 import net.rebix.engine.item.ItemAbility.ItemAbility;
-import net.rebix.engine.util.enums.ItemAbilityType;
+import net.rebix.engine.item.ItemAbility.ItemAbilityType;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -24,7 +24,7 @@ public class Ability_ShadowWarp extends ItemAbility {
     List<EntityType> types = Arrays.asList(EntityType.ZOMBIE, EntityType.SKELETON, EntityType.CREEPER, EntityType.SPIDER);
     int i = 0;
     @Override
-    public void use(Player player, EngineItem item) {
+    public boolean use(Player player, EItem item) {
         if (player.getNearbyEntities(50, 50, 50).size() > 0) {
             Location player_return = player.getLocation();
 
@@ -50,10 +50,11 @@ public class Ability_ShadowWarp extends ItemAbility {
                                     i++;
                                 }
                             }
-                        }.runTaskTimer(Main.plugin, 0L, 1L)
+                        }.runTaskTimer(JavaEngine.plugin, 0L, 1L)
                 ).start();
             }
     }
+        return true;
     }
 
     public void drawLine(Location point1, Location point2, double space, Integer time) {

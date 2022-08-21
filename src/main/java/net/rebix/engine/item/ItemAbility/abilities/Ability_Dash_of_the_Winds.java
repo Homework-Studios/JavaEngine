@@ -1,9 +1,9 @@
 package net.rebix.engine.item.ItemAbility.abilities;
 
-import net.rebix.engine.Main;
-import net.rebix.engine.item.EngineItem;
+import net.rebix.engine.JavaEngine;
+import net.rebix.engine.item.EItem;
 import net.rebix.engine.item.ItemAbility.ItemAbility;
-import net.rebix.engine.util.enums.ItemAbilityType;
+import net.rebix.engine.item.ItemAbility.ItemAbilityType;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -28,7 +28,7 @@ public class Ability_Dash_of_the_Winds extends ItemAbility {
     List<EntityType> types = Arrays.asList(EntityType.ZOMBIE, EntityType.SKELETON, EntityType.CREEPER, EntityType.SPIDER);
     int i = 0;
     @Override
-    public void use(Player player, EngineItem engineItem) {
+    public boolean use(Player player, EItem engineItem) {
         if (player.getNearbyEntities(12, 12, 12).size() > 0) {
             Location player_return = player.getLocation();
             List<Entity> nearby = player.getNearbyEntities(12, 12, 12);
@@ -50,11 +50,11 @@ public class Ability_Dash_of_the_Winds extends ItemAbility {
                                     i++;
                                 }
                             }
-                        }.runTaskTimer(Main.plugin, 0L, 5L)
+                        }.runTaskTimer(JavaEngine.plugin, 0L, 5L)
                 ).start();
             }
         }
-
+    return true;
     }
 
     public void drawLine(Location point1, Location point2, double space, Integer time) {

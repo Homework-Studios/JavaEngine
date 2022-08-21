@@ -1,32 +1,36 @@
 name: JavaEngine
 version: '${project.version}'
-main: net.rebix.engine.Main
-api-version: 1.18
+main: net.rebix.engine.JavaEngine
+api-version: 1.19
 description: My plugin engine to improve coding
 
-
 commands:
-  test:
-    description: "the test command"
-  writedefaultcfg:
-    description: "writes the default cfg"
-  /r:
-    description: "reloads the plugins"
-  /item:
-    description: "custom item"
-  /spawn:
-    description: "spawn entity with amount"
-  /time:
-    description: "shows you the time"
-  /day:
-    description: "makes it day and not raining"
-  /craft:
-    description: "opens crafting menu"
-  /rename:
-    description: "renames an item"
-  /translate:
-    description: "translates a string like translator"
-  /itembuilder:
-    description: "creates an item using itemBuilder"
-  /world_menu:
-    description: "world commands"
+  giveitem:
+
+  javaengine:
+    aliases: "je"
+#commands:
+#  test:
+#    description: "the test command"
+#  writedefaultcfg:
+#    description: "writes the default cfg"
+#  /r:
+#    description: "reloads the plugins"
+#  /item:
+#    description: "custom item"
+#  /spawn:
+#    description: "spawn entity with amount"
+#  /time:
+#    description: "shows you the time"
+#  /day:
+#    description: "makes it day and not raining"
+#  /craft:
+#    description: "opens crafting menu"
+#  /rename:
+#    description: "renames an item"
+#  /translate:
+#    description: "translates a string like translator"
+#  /itembuilder:
+#    description: "creates an item using itemBuilder"
+#  /world_menu:
+#    description: "world commands"

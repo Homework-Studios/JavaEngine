@@ -1,9 +1,8 @@
-package net.rebix.engine.api;
+package net.rebix.engine.V1.api;
 
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import net.rebix.engine.item.ItemBuilder;
+import com.mojang.authlib.GameProfile;import com.mojang.authlib.properties.Property;
+import net.rebix.engine.item.ItemStackBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -15,7 +14,7 @@ public class PlayerHead {
     private ItemStack skull;
 
     public PlayerHead(String id) {
-        skull = new ItemBuilder(Material.PLAYER_HEAD, "skull").build();
+        skull = new ItemStackBuilder(Material.PLAYER_HEAD, "skull").build();
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 
 

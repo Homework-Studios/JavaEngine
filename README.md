@@ -8,7 +8,7 @@ My Plugin Engine
 #### Scrollabel Inventory API
 
 ```java
-import net.rebix.engine.item.ItemBuilder;
+import net.rebix.engine.item.ItemStackBuilder;
 import org.bukkit.Material;
 
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class example {
     public example() {
         ScrollableInventory scrollable_inventory = new ScrollableInventory().create(player, name, size, page, pages);
         HashMap<Integer, String> contents = new HashMap<>();
-        contents.put(1, new ItemBuilder(Material.STONE).build());
+        contents.put(1, new ItemStackBuilder(Material.STONE).build());
         scrollable_inventory.setContents(contents);
 
         scrollable_inventory.reloadInventory();
@@ -32,13 +32,13 @@ page an pages can be left out page will be 1 and pages will be integer limit
 
 ```java
 
-import net.rebix.engine.item.ItemBuilder;
+import net.rebix.engine.item.ItemStackBuilder;
 import org.bukkit.inventory.ItemStack;
 
 public class example {
 
     public example() {
-        ItemStack itemStack = new ItemBuilder(Material)
+        ItemStack itemStack = new ItemStackBuilder(Material)
                 .setUnbreakable(true).build();
         //you can add a lot here below is a list of functions
         //remember do .build(); at the end to return a itemstack
@@ -82,8 +82,7 @@ public class example {
 
 ```java
 import org.bukkit.scoreboard.DisplaySlot;
-import net.rebix.engine.api.scoreboard.CustomScoreboard;
-import org.bukkit.entity.Player;
+import net.rebix.engine.V1.api.scoreboard.CustomScoreboard;
 
 public class example {
 
@@ -126,7 +125,7 @@ dont forget to do .send(); at the end
 #### Translator
 
 ```java
-import net.rebix.engine.api.Translator;
+import net.rebix.engine.V1.api.Translator;
 
 public class example {
 
@@ -150,7 +149,7 @@ you can find the list of translations here
 #### ButtonClickEvent
 
 ```java
-import net.rebix.engine.util.enums.ButtonAction;
+import net.rebix.engine.V1.api.inventory.ButtonAction;
 import org.bukkit.event.Listener;
 
 public class exampel implements Listener {

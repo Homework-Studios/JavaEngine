@@ -1,6 +1,6 @@
-package net.rebix.engine.api;
+package net.rebix.engine.V1.api;
 
-import net.rebix.engine.Main;
+import net.rebix.engine.JavaEngine;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -62,7 +62,7 @@ public class FloatingText {
             public void run() {
                 destroy();
             }
-        }.runTaskLater(Main.plugin,lifetime);
+        }.runTaskLater(JavaEngine.plugin,lifetime);
 
         //movement
         new BukkitRunnable() {
@@ -73,7 +73,7 @@ public class FloatingText {
                 location = location1;
                 if(entity == null) cancel();
             }
-        }.runTaskTimer(Main.plugin,0L,0L);
+        }.runTaskTimer(JavaEngine.plugin,0L,0L);
     }
 
     public void destroy() {
