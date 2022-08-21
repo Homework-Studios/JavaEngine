@@ -16,8 +16,8 @@
 	
 }	
 ```
-(https://github.com/Homework-Studios/github-storage/blob/main/JavaEngine/Screenshots/Screenshot%202022-08-22%20011742.png)
-(https://github.com/Homework-Studios/github-storage/blob/main/JavaEngine/Screenshots/Screenshot%202022-08-22%20011816.png)
+[Sword](https://github.com/Homework-Studios/github-storage/blob/main/JavaEngine/Screenshots/Screenshot%202022-08-22%20011742.png)
+[Sword Maxed](https://github.com/Homework-Studios/github-storage/blob/main/JavaEngine/Screenshots/Screenshot%202022-08-22%20011816.png)
 ```json
 {
 	"type" : "OFFENCIVE",
@@ -26,4 +26,4 @@
 	"value" : "150"
 }
 ```
-(https://github.com/Homework-Studios/github-storage/blob/main/JavaEngine/Screenshots/Screenshot%202022-08-22%20012059.png)
+[Items](https://github.com/Homework-Studios/github-storage/blob/main/JavaEngine/Screenshots/Screenshot%202022-08-22%20012059.png)
