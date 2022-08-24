@@ -87,21 +87,30 @@ public class Menu {
     }
 
     public void close() {
-        player.closeInventory();
+        if(onLeave()) {
+            player.closeInventory();
+         MenuManger.menus.remove(player);
+        }
+    }
+
+    public boolean onLeave() {
+        return true;
     }
 
     public void goBack() {
-        if(parent instanceof Menu) {
-            ((Menu) parent).setPlayer(player);
-        } else if(parent instanceof Inventory) {
-            for(Player p : MenuManger.menus.keySet())
-                if(MenuManger.menus.get(p).inventory == parent) {
-                    p.openInventory((Inventory) parent);
-                    break;
-                }
-            player.openInventory((Inventory) parent);
+        if(onLeave()) {
+            if (parent instanceof Menu) {
+                ((Menu) parent).setPlayer(player);
+            } else if (parent instanceof Inventory) {
+                for (Player p : MenuManger.menus.keySet())
+                    if (MenuManger.menus.get(p).inventory == parent) {
+                        p.openInventory((Inventory) parent);
+                        break;
+                    }
+                player.openInventory((Inventory) parent);
+            }
+            close();
         }
-        close();
     }
 
     public void fillEmpty() {

@@ -14,7 +14,7 @@ public class Ability_Nuclear_blast extends ItemAbility {
 
     @Override
     public boolean use(Player player, EItem engineItem) {
-        player.getWorld().createExplosion(player.getLocation(), 10,false);
+        player.getWorld().createExplosion(player.getLocation(), 10,false, false);
         return true;
     }
 }

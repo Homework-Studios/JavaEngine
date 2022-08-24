@@ -39,7 +39,6 @@ public enum Rarity {
             case VERY_EPIC:
                 return LEGENDARY;
             case LEGENDARY:
-                return ARTIFACT;
             case ARTIFACT:
                 return ARTIFACT;
             default:

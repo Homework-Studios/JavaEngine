@@ -26,7 +26,6 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 public class Modifier {
-    private ModifierType type;
     private Modifiers modifier;
     private String id;
     private ItemStack item = new ItemStack(Material.PLAYER_HEAD);
@@ -36,17 +35,15 @@ public class Modifier {
 
     public static HashMap<String, Modifier> registered = new HashMap<>();
 
-    public Modifier(ModifierType type,Modifiers modifier,ItemStatType statType, Integer value) {
-        this.type = type;
+    public Modifier(ItemStatType type,Modifiers modifier, Integer value) {
         this.modifier = modifier;
-        this.itemStats = statType;
+        this.itemStats = type;
         itemStats.setValue(value);
     }
     public Modifier(ItemStack item) {
         if(item.hasItemMeta())
             if(Objects.requireNonNull(item.getItemMeta()).getLocalizedName().contains("modifier")) {
                 meta = item.getItemMeta();
-                type = ModifierType.valueOf(meta.getPersistentDataContainer().get(new NamespacedKey(JavaEngine.plugin, "type"), PersistentDataType.STRING));
                 modifier = Modifiers.valueOf(meta.getPersistentDataContainer().get(new NamespacedKey(JavaEngine.plugin, "modifier"), PersistentDataType.STRING));
                 id = meta.getPersistentDataContainer().get(new NamespacedKey(JavaEngine.plugin, "id"), PersistentDataType.STRING);
                 itemStats = ItemStatType.valueOf(meta.getPersistentDataContainer().get(new NamespacedKey(JavaEngine.plugin, "stat"), PersistentDataType.STRING));
@@ -70,7 +67,6 @@ public class Modifier {
             JsonObject json = JsonParser.parseReader(new FileReader(file)).getAsJsonObject();
             id = file.getName().replace(".json", "");
             setItemStats(ItemStatType.valueOf(json.get("stat").getAsString()));
-            setType(ModifierType.valueOf(json.get("type").getAsString()));
             setModifier(Modifiers.valueOf(json.get("modifier").getAsString()));
             String[] split = json.get("value").getAsString().split(":");
             value = Integer.parseInt(split[0]);
@@ -80,7 +76,7 @@ public class Modifier {
             setValue(itemStats.getValue());
             meta.getPersistentDataContainer().set(new NamespacedKey(JavaEngine.plugin, "id"), PersistentDataType.STRING, id);
             meta.setLocalizedName("modifier");
-            meta.setDisplayName(type.getColor() + id);
+            meta.setDisplayName(itemStats.getType().getColor() + id);
             meta.setLore(Collections.singletonList(getLoreString()));
             SkullMeta skullMeta = (SkullMeta) meta;
             GameProfile gameProfile = new GameProfile(UUID.fromString("0ed8b527-d3cf-48a4-b9fc-c35c9efee447"), null);
@@ -112,13 +108,12 @@ public class Modifier {
     }
 
 
-
     public static Modifier getbyString(String modifier) {
         return get(modifier);
     }
 
     public ModifierType getType() {
-        return type;
+        return itemStats.getType();
     }
 
     public Modifiers getModifier() {
@@ -178,20 +173,15 @@ public class Modifier {
 
     private void updateValues() {
         Modifier update = get(id);
-        setType(update.getType());
         setModifier(update.getModifier());
         setItemStats(update.itemStats);
+        meta.setDisplayName(itemStats.getType().getColor() + id);
         meta.setLore(Collections.singletonList(getLoreString()));
         item.setItemMeta(meta);
     }
 
     private String getLoreString() {
-        return "§f" + itemStats.name() + ":" + itemStats.getValue();
-    }
-
-    void setType(ModifierType type) {
-        this.type = type;
-        meta.getPersistentDataContainer().set(new NamespacedKey(JavaEngine.plugin, "type"), PersistentDataType.STRING, type.name());
+        return itemStats.getType().getColor() + itemStats.name() + " §f: " + itemStats.getType().getColor() + itemStats.getSymbol() + " " + itemStats.getValue() + modifier.getSymbol();
     }
 
     public void setModifier(Modifiers modifier) {

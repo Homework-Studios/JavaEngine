@@ -173,6 +173,13 @@ public class EItem implements Listener {
         l.add("§fLevel: " + (level + 1));
         l.add("");
         Collections.addAll(l, lore.split("\n"));
+        l.add("");
+        for(ItemAbility a : abilities) {
+            if(a != null) {
+                l.add("§6§l" + a.getTrigger() + " §fto use §5" + a.getName());
+                l.addAll(a.getDescription());
+            }
+        }
         return l;
     }
 

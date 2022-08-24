@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//0.04 x^(3)+0.8 x^(2)+2 x   copilot: ^(1)+1
 public class JavaEngineCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(org.bukkit.command.CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {

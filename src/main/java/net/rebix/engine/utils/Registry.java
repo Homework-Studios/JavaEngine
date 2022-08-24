@@ -2,12 +2,16 @@ package net.rebix.engine.utils;
 
 import net.rebix.engine.JavaEngine;
 import net.rebix.engine.item.EItem;
+import net.rebix.engine.item.ItemAbility.abilities.Ability_Ether_Transmission;
+import net.rebix.engine.item.ItemAbility.abilities.Ability_Instant_Transmission;
 import net.rebix.engine.item.ItemAbility.abilities.Ability_Nuclear_blast;
+import net.rebix.engine.item.ItemAbility.abilities.Ability_ShadowWarp;
 import net.rebix.engine.item.modifier.Modifier;
 import net.rebix.engine.utils.commands.GiveItemCommand;
 import net.rebix.engine.utils.commands.JavaEngineCommand;
 import net.rebix.engine.utils.customevents.playerItemUseEvent;
 import net.rebix.engine.utils.events.PlayerInventoryClickEvent;
+import net.rebix.engine.utils.events.PlayerInventoryCloseEvent;
 import net.rebix.engine.utils.events.PlayerInventoryPickupEvent;
 import net.rebix.engine.utils.events.PlayerItemHeldEvent;
 import net.rebix.engine.utils.loops.tensecloop;
@@ -27,8 +31,10 @@ public class Registry {
         registerCommand("javaengine", new JavaEngineCommand());
 
         new Ability_Nuclear_blast();
+        new Ability_Instant_Transmission();
+        new Ability_Ether_Transmission();
 
-        registerListeners(new EItem(), new playerItemUseEvent(), new PlayerInventoryClickEvent(), new PlayerItemHeldEvent(), new PlayerInventoryPickupEvent());
+        registerListeners(new EItem(), new playerItemUseEvent(), new PlayerInventoryClickEvent(), new PlayerItemHeldEvent(), new PlayerInventoryPickupEvent(), new PlayerInventoryCloseEvent());
 
         Modifier.registerAll();
         EItem.registerAll();
