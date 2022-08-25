@@ -1,4 +1,4 @@
-package net.rebix.engine.item.stats;
+package net.rebix.engine.combat.stats;
 
 public class ItemStats {
     public static ItemStats getbyString(String stats) {

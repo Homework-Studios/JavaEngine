@@ -12,8 +12,10 @@ public enum Rarity {
     VERY_RARE(ChatColor.BLUE),
     EPIC(ChatColor.LIGHT_PURPLE),
     VERY_EPIC(ChatColor.DARK_PURPLE),
-    LEGENDARY(ChatColor.YELLOW),
-    ARTIFACT(ChatColor.RED);
+    LEGENDARY(ChatColor.GOLD),
+    ARTIFACT(ChatColor.RED),
+
+    GODLY(ChatColor.YELLOW);
 
     private ChatColor color;
     Rarity(ChatColor color) {
@@ -41,6 +43,8 @@ public enum Rarity {
             case LEGENDARY:
             case ARTIFACT:
                 return ARTIFACT;
+                case GODLY:
+                    return GODLY;
             default:
                 return NORMAL;
         }

@@ -6,7 +6,7 @@ import net.rebix.engine.item.ItemAbility.ItemAbility;
 import net.rebix.engine.item.Rarity;
 import net.rebix.engine.item.enchant.Enchantment;
 import net.rebix.engine.item.modifier.Modifier;
-import net.rebix.engine.item.stats.ItemStats;
+import net.rebix.engine.combat.stats.ItemStats;
 import org.bukkit.Material;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package net.rebix.engine.item.stats;
+package net.rebix.engine.combat.stats;
 
 import net.rebix.engine.item.modifier.ModifierType;
 
