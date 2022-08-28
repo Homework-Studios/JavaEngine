@@ -1,6 +1,7 @@
 package net.rebix.engine.combat;
 
 import net.rebix.engine.EPlayer;
+import net.rebix.engine.api.stuff.WaveGenerator;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,6 +18,13 @@ public class DamageEvents implements Listener {
             EPlayer player = EPlayer.get((Player) event.getEntity());
             event.setDamage(0);
 
+            if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                if (player.getFallDistance() < 10) {
+                    event.setCancelled(true);
+                }
+                if (player.getFallDistance() > 50)
+                    new WaveGenerator().generateShockWave(10, false, player.getLocation(), 20L, false, player, 0.5f);
+            }
         }
     }
 
@@ -41,4 +49,6 @@ public class DamageEvents implements Listener {
         EPlayer player = EPlayer.get(event.getPlayer());
         player.respawn();
     }
+
+
 }

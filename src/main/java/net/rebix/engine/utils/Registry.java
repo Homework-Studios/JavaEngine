@@ -2,11 +2,11 @@ package net.rebix.engine.utils;
 
 import net.rebix.engine.JavaEngine;
 import net.rebix.engine.combat.DamageEvents;
+import net.rebix.engine.combat.onPlayerToggleSneakEvent;
 import net.rebix.engine.item.EItem;
 import net.rebix.engine.item.ItemAbility.abilities.Ability_Ether_Transmission;
 import net.rebix.engine.item.ItemAbility.abilities.Ability_Instant_Transmission;
 import net.rebix.engine.item.ItemAbility.abilities.Ability_Nuclear_blast;
-import net.rebix.engine.item.ItemAbility.abilities.Ability_ShadowWarp;
 import net.rebix.engine.item.modifier.Modifier;
 import net.rebix.engine.utils.commands.GiveItemCommand;
 import net.rebix.engine.utils.commands.JavaEngineCommand;
@@ -17,12 +17,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Registry {
 
-    public Registry(){
+    public Registry() {
         registerCommand("giveitem", new GiveItemCommand());
         registerCommand("javaengine", new JavaEngineCommand());
 
@@ -32,21 +29,21 @@ public class Registry {
 
         registerListeners(new EItem(), new playerItemUseEvent(), new PlayerInventoryClickEvent(), new PlayerItemHeldEvent(),
                 new PlayerInventoryPickupEvent(), new PlayerInventoryCloseEvent(), new PlayerJoinEvent(), new DamageEvents(),
-                new PlayerFoodLevelChangeEvent());
+                new PlayerFoodLevelChangeEvent(), new onPlayerToggleSneakEvent());
 
         Modifier.registerAll();
         EItem.registerAll();
 
-
         new tensecloop();
+
     }
 
-    public static void registerListeners(Listener... listener){
-        for (Listener l: listener)
+    public static void registerListeners(Listener... listener) {
+        for (Listener l : listener)
             Bukkit.getPluginManager().registerEvents(l, JavaEngine.plugin);
     }
 
-    public static void registerCommand(String command, CommandExecutor executor){
-       Bukkit.getPluginCommand(command).setExecutor(executor);
+    public static void registerCommand(String command, CommandExecutor executor) {
+        Bukkit.getPluginCommand(command).setExecutor(executor);
     }
 }
