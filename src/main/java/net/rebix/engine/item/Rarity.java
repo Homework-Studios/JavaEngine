@@ -2,8 +2,6 @@ package net.rebix.engine.item;
 
 import org.bukkit.ChatColor;
 
-import java.awt.*;
-
 public enum Rarity {
 
     NORMAL(ChatColor.WHITE),
@@ -17,13 +15,17 @@ public enum Rarity {
 
     GODLY(ChatColor.YELLOW);
 
-    private ChatColor color;
+    private final ChatColor color;
+
     Rarity(ChatColor color) {
         this.color = color;
     }
 
-    public ChatColor getColor() {
-        return color;
+    public static Rarity get(String rarity) {
+        for (Rarity r : Rarity.values()) {
+            if (r.name().equalsIgnoreCase(rarity)) return r;
+        }
+        return NORMAL;
     }
 
     public static Rarity getNext(Rarity rarity) {
@@ -43,10 +45,14 @@ public enum Rarity {
             case LEGENDARY:
             case ARTIFACT:
                 return ARTIFACT;
-                case GODLY:
-                    return GODLY;
+            case GODLY:
+                return GODLY;
             default:
                 return NORMAL;
         }
+    }
+
+    public ChatColor getColor() {
+        return color;
     }
 }

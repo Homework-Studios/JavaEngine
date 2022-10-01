@@ -1,6 +1,7 @@
 package net.rebix.engine.utils.commands;
 
 import net.rebix.engine.EPlayer;
+import net.rebix.engine.combat.stats.StatType;
 import net.rebix.engine.item.EItem;
 import net.rebix.engine.item.modifier.Modifier;
 import net.rebix.engine.menus.menus.MainMenu;
@@ -24,7 +25,7 @@ public class JavaEngineCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(org.bukkit.command.CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        Player player = new EPlayer((Player) sender);
+        EPlayer player = EPlayer.get((Player) sender);
         if (args.length > 0)
             switch (args[0]) {
                 case "reregister":
@@ -62,14 +63,14 @@ public class JavaEngineCommand implements CommandExecutor, TabCompleter {
                     player.getInventory().addItem(Modifier.get(args[1]).getItem());
                     break;
                 case "health":
-
-
                     if (args.length > 1) {
                         player.setHealth(Integer.parseInt(args[1]));
-                    } else sender.sendMessage("Health: " + player.getHealth());
+                    } else sender.sendMessage("Health: " + player.getMaxHealth());
                     break;
                 case "test":
-
+                    if (player.getItemInUse().getType() != Material.AIR && EItem.isEItem(player.getItemInHand()))
+                        sender.sendMessage(new EItem(player.getItemInHand()).getStats().getStat(StatType.HEALTH) + "");
+                    else sender.sendMessage("Item in hand is not an EItem!");
 
                     break;
             }

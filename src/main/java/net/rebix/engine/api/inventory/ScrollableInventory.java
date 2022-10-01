@@ -19,16 +19,16 @@ import java.util.Objects;
 
 public class ScrollableInventory implements Listener {
 
-    public static HashMap<Player,ScrollableInventory> PLAYER_INVENTORY = new HashMap<>();
+    public static HashMap<Player, ScrollableInventory> PLAYER_INVENTORY = new HashMap<>();
     private Integer size;
     private Integer page = 1;
     private Integer pages = JavaEngine.INTEGER_LIMIT;
     private String name;
-    private HashMap<Integer,ItemStack> contents = new HashMap<>();
+    private HashMap<Integer, ItemStack> contents = new HashMap<>();
     private Inventory inventory;
     private Player player;
 
-    public ScrollableInventory(){
+    public ScrollableInventory() {
     }
 
     public ScrollableInventory create(@NotNull Player player, @NotNull String name, @NotNull Integer size) {
@@ -36,7 +36,7 @@ public class ScrollableInventory implements Listener {
         this.size = size;
         this.name = name;
         this.player = player;
-        PLAYER_INVENTORY.put(player,this);
+        PLAYER_INVENTORY.put(player, this);
         return this;
     }
 
@@ -45,8 +45,8 @@ public class ScrollableInventory implements Listener {
         this.size = size;
         this.name = name;
         this.player = player;
-        if(page != null) this.page = page;
-        PLAYER_INVENTORY.put(player,this);
+        if (page != null) this.page = page;
+        PLAYER_INVENTORY.put(player, this);
 
 
         return this;
@@ -57,24 +57,24 @@ public class ScrollableInventory implements Listener {
         this.size = size;
         this.name = name;
         this.player = player;
-        if(page != null) this.page = page;
-        if(page != null) this.pages = pages;
-        PLAYER_INVENTORY.put(player,this);
+        if (page != null) this.page = page;
+        if (page != null) this.pages = pages;
+        PLAYER_INVENTORY.put(player, this);
         return this;
     }
 
     //utils
-    public void reloadInventory(){
-        inventory = Bukkit.createInventory(null,size,name + " - " + page);
+    public void reloadInventory() {
+        inventory = Bukkit.createInventory(null, size, name + " - " + page);
 
 
         int slot;
-        for(slot = 8; slot < size; ++slot) {
-            Integer invenotryslot = slot-8 + (size-9) * (page-1);
+        for (slot = 8; slot < size; ++slot) {
+            Integer invenotryslot = slot - 8 + (size - 9) * (page - 1);
 
             ItemStack fillitem = contents.get(invenotryslot);
 
-            if(fillitem != null) inventory.setItem(slot,fillitem);
+            if (fillitem != null) inventory.setItem(slot, fillitem);
         }
         fillInButtonsAndPlaceholder();
         player.openInventory(inventory);
@@ -82,28 +82,30 @@ public class ScrollableInventory implements Listener {
 
 
     public void fillInButtonsAndPlaceholder() {
-        for (int index = 0; index< 9; ++ index) inventory.setItem(index, new ItemStackBuilder(Material.ARROW).setPickupabel(false).build());
-        if(page != 1)
-        inventory.setItem(0, new ItemStack(Material.ARROW));
-        if(!Objects.equals(page, pages))
-        inventory.setItem(8, new ItemStack(Material.ARROW));
+        for (int index = 0; index < 9; ++index)
+            inventory.setItem(index, new ItemStackBuilder(Material.BLACK_STAINED_GLASS_PANE).setPickupabel(false).build());
+        if (page != 1)
+            inventory.setItem(0, new ItemStack(Material.ARROW));
+        if (!Objects.equals(page, pages))
+            inventory.setItem(8, new ItemStack(Material.ARROW));
 
     }
+
     @EventHandler
-    void ButtonClickEvent(ButtonClickEvent event){
+    void ButtonClickEvent(ButtonClickEvent event) {
         int scroll = 0;
-        switch (event.getButtonActionE()){
+        switch (event.getButtonActionE()) {
             case PICKUP_ALL:
-                    scroll = 1;
-                    break;
+                scroll = 1;
+                break;
             case PICKUP_HALF:
-                    scroll = 10;
-                    break;
+                scroll = 10;
+                break;
             case MOVE_TO_OTHER_INVENTORY:
-                    scroll = 100;
-                    break;
+                scroll = 100;
+                break;
         }
-        switch (event.getButtonAction()){
+        switch (event.getButtonAction()) {
             case "BUTTON.ACTION.LEFT":
                 PLAYER_INVENTORY.get(event.getPlayer()).scroll(-scroll);
                 break;
@@ -116,23 +118,23 @@ public class ScrollableInventory implements Listener {
     //set Values
     public void scroll(Integer direction) {
         page = direction + page;
-        if(page < 1) page = 1;
-        if(page > pages) page = pages;
+        if (page < 1) page = 1;
+        if (page > pages) page = pages;
         reloadInventory();
     }
 
-    public void scrollTo(Integer page){
+    public void scrollTo(Integer page) {
         this.page = page;
     }
 
-    public void setContents(HashMap<Integer,ItemStack> itemStackList){
+    public void setContents(HashMap<Integer, ItemStack> itemStackList) {
         this.contents = itemStackList;
         reloadInventory();
     }
 
 
     //get Values
-    public Integer getSize(){
+    public Integer getSize() {
         return size;
     }
 

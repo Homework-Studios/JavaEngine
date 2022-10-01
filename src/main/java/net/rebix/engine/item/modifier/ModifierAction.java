@@ -1,15 +1,17 @@
 package net.rebix.engine.item.modifier;
 
-public enum Modifiers {
+public enum ModifierAction {
     Multiplier("%"),
     Adder(""),
     GeneralMultiplier("%"),
     CustomEffect("");
 
     final String symbol;
-    Modifiers(String symbol) {
+
+    ModifierAction(String symbol) {
         this.symbol = symbol;
     }
+
     public String getSymbol() {
         return symbol;
     }

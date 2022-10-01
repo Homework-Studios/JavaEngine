@@ -1,5 +1,8 @@
 package net.rebix.engine;
 
+import net.rebix.engine.combat.stats.StatType;
+import net.rebix.engine.combat.stats.Stats;
+import net.rebix.engine.item.EItem;
 import org.bukkit.*;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
@@ -14,6 +17,7 @@ import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.*;
 import org.bukkit.entity.memory.MemoryKey;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.*;
@@ -44,12 +48,26 @@ public class EPlayer implements Player {
     Player player;
     Integer maxHealth = 500;
     Integer health = maxHealth;
+    Stats baseStats = new Stats();
+    Stats effectiveStats = new Stats();
 
     public EPlayer(Player player) {
         this.player = player;
+        baseStats.setStat(StatType.HEALTH, 500);
+        baseStats.setStat(StatType.DAMAGE, 1);
+        baseStats.setStat(StatType.SPEED, 100);
+        baseStats.setStat(StatType.AGILITY, 25);
+        baseStats.setStat(StatType.HEALTHREGEN, 10);
+        baseStats.setStat(StatType.MANA, 100);
+        baseStats.setStat(StatType.MANAREGEN, 10);
+        baseStats.setStat(StatType.MAGICDAMAGE, 1);
+        sendMessage(ChatColor.STRIKETHROUGH + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
+
         players.put(player.getUniqueId().toString(), this);
-        player.setAllowFlight(true);
+        //player.setAllowFlight(true);
         player.setMaximumNoDamageTicks(0);
+
+        updateStats();
         convertHealth();
     }
 
@@ -62,15 +80,6 @@ public class EPlayer implements Player {
     }
 
 
-    public double getCHealth() {
-        return health;
-    }
-
-    public void setCHealth(Integer health) {
-        this.health = health;
-        convertHealth();
-    }
-
     public void addHealth(Integer health) {
         this.health += health;
         if (this.health > maxHealth) {
@@ -80,34 +89,115 @@ public class EPlayer implements Player {
     }
 
     public void convertHealth() {
-        char[] chars = health.toString().toCharArray();
+        if (health > maxHealth) {
+            health = maxHealth;
+        }
         if (health < 1) {
             respawn();
             return;
         }
-        Integer redHealth = 20;
-        Integer maxRedHealth = 20;
 
+        Integer redHealth = 20;
         if (health < 500)
             redHealth = health / 25;
-        if (maxHealth < 500)
-            maxRedHealth = maxHealth / 25;
+        if (health < 25)
+            redHealth = 1;
         Integer hp = health - 500;
         Integer goldHealth = 0;
         //calculatingGold
         if (hp > 0) goldHealth = hp / 100;
-        player.setHealthScale(maxRedHealth);
         player.setHealth(redHealth);
         player.setAbsorptionAmount(goldHealth);
+    }
+
+    public List<EItem> getEquippedItems(boolean sword) {
+        List<EItem> items = new ArrayList<>();
+        if (sword)
+            if (Objects.requireNonNull(getItemInUse()).getType() != Material.AIR && EItem.isEItem(getItemInUse()))
+                items.add(new EItem(getItemInUse()));
+
+        for (ItemStack item : getInventory().getArmorContents())
+            if (EItem.isEItem(item)) items.add(new EItem(item));
+        return items;
+    }
+
+    public void updateStats() {
+        effectiveStats = new Stats(baseStats);
+        List<EItem> equippedItems = getEquippedItems(true);
+
+        for (int i = 0; i < equippedItems.size(); i++) {
+            equippedItems.get(i).updateValues();
+            if (equippedItems.get(i).getEffectiveStats() != null) {
+                effectiveStats.add(equippedItems.get(i).getEffectiveStats());
+            }
+        }
+        setMaxHealth(effectiveStats.getStat(StatType.HEALTH));
+        updateTablist();
+    }
+
+    public void updateStats(EItem item) {
+        effectiveStats = new Stats(baseStats);
+        List<EItem> equippedItems = getEquippedItems(false);
+        equippedItems.add(item);
+        for (int i = 0; i < equippedItems.size(); i++) {
+            equippedItems.get(i).updateValues();
+            if (equippedItems.get(i).getEffectiveStats() != null) {
+                effectiveStats.add(equippedItems.get(i).getEffectiveStats());
+            }
+        }
+        setMaxHealth(effectiveStats.getStat(StatType.HEALTH));
+        updateTablist();
+    }
+
+    public void updateTablist() {
+        String o = "";
+        String m = "";
+        String d = "";
+        String u = "";
+        for (int i = 0; i < StatType.values().length; i++) {
+            Double stat = effectiveStats.getStat(StatType.values()[i]);
+            if (stat != 0) {
+                switch (StatType.values()[i].getType()) {
+                    case OFFENCIVE:
+                        o += StatType.values()[i].setValue(stat).toString() + ChatColor.WHITE + " ";
+                        break;
+                    case MAGIC:
+                        m += StatType.values()[i].setValue(stat).toString() + ChatColor.WHITE + " ";
+                        break;
+                    case DEFENCIVE:
+                        d += StatType.values()[i].setValue(stat).toString() + ChatColor.WHITE + " ";
+                        break;
+                    case UTILITY:
+                        u += StatType.values()[i].setValue(stat).toString() + ChatColor.WHITE + " ";
+                        break;
+                }
+
+
+            }
+        }
+
+        player.setPlayerListFooter(o + "\n" + m + "\n" + d + "\n" + u);
+
 
     }
 
-    public void resetMaxHealth() {
-
+    public double getHealth() {
+        return health;
     }
+
+    public void setHealth(double v) {
+        health = (int) v;
+        convertHealth();
+    }
+
 
     public double getMaxHealth() {
         return maxHealth;
+    }
+
+    public void setMaxHealth(double v) {
+        maxHealth = (int) v;
+        convertHealth();
     }
 
     public void setMaxHealth(Integer maxHealth) {
@@ -115,26 +205,31 @@ public class EPlayer implements Player {
         convertHealth();
     }
 
-    public void setMaxHealth(double v) {
-
-    }
-
     public void damage(double v) {
-
+        addHealth((int) -v);
     }
 
     public void damage(double v, @Nullable Entity entity) {
+        damage(v);
+        assert entity != null;
+        Bukkit.getPluginManager().callEvent(new EntityDamageByEntityEvent(player, entity, EntityDamageEvent.DamageCause.ENTITY_ATTACK, v));
+    }
 
+    public String getNametag() {
+        return player.getName();
     }
 
     public void respawn() {
         setHealth(maxHealth);
     }
 
-
     //region vanilla methods
     public boolean isOnline() {
         return player.isOnline();
+    }
+
+    public void resetMaxHealth() {
+        maxHealth = 500;
     }
 
     @NotNull
@@ -168,15 +263,6 @@ public class EPlayer implements Player {
 
     public boolean hasPlayedBefore() {
         return player.hasPlayedBefore();
-    }
-
-
-    public double getHealth() {
-        return player.getHealth();
-    }
-
-    public void setHealth(double v) {
-        player.setHealth(v);
     }
 
     public double getAbsorptionAmount() {
@@ -1194,7 +1280,7 @@ public class EPlayer implements Player {
 
     @NotNull
     public ItemStack getItemInHand() {
-        return Objects.requireNonNull(player.getItemInUse());
+        return Objects.requireNonNull(player.getInventory().getItemInMainHand());
     }
 
     public void setItemInHand(@Nullable ItemStack itemStack) {
@@ -1258,7 +1344,7 @@ public class EPlayer implements Player {
 
     @Nullable
     public ItemStack getItemInUse() {
-        return player.getItemInUse();
+        return player.getInventory().getItemInMainHand();
     }
 
     public int getExpToLevel() {
@@ -1735,6 +1821,8 @@ public class EPlayer implements Player {
     public <T extends Projectile> T launchProjectile(@NotNull Class<? extends T> aClass, @Nullable Vector vector) {
         return player.launchProjectile(aClass, vector);
     }
+
+
     //endregion
 
 

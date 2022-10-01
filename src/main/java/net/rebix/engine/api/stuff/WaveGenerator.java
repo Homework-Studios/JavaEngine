@@ -2,12 +2,14 @@ package net.rebix.engine.api.stuff;
 
 import net.rebix.engine.EPlayer;
 import net.rebix.engine.JavaEngine;
+import net.rebix.engine.utils.customevents.EntityShockWavehitEvent;
 import net.rebix.engine.utils.variables.Vector2;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nullable;
@@ -17,6 +19,10 @@ import java.util.List;
 public class WaveGenerator {
 
     public int i;
+    public Player player;
+    public String id = "";
+
+    boolean event;
 
     public static List<Vector2> getCircle(int radius) {
         List<Vector2> cords = new ArrayList<>();
@@ -34,15 +40,18 @@ public class WaveGenerator {
         return cords;
     }
 
-    public void generateShockWave(int radius, boolean event, Location location, Long bps, boolean inverted, @Nullable EPlayer player, float v) {
+    public void generateShockWave(int radius, boolean event, Location location, Long bps, boolean inverted, @Nullable EPlayer player, float v, String id) {
         location.setX(Math.floor(location.getX()) + 0.5);
         location.setY(Math.floor(location.getY()));
         location.setZ(Math.floor(location.getZ()) + 0.5);
+        player = player == null ? null : EPlayer.get(player);
+        this.id = id == null ? "" : id;
 
-        waveStep(radius, event, location, bps, inverted, player, v);
+        waveStep(radius * 2, event, location, bps, inverted, player, v);
     }
 
     void waveStep(int radius, boolean event, Location location, Long bps, boolean inverted, @Nullable EPlayer player, float v) {
+        this.event = event;
         Bukkit.getScheduler().scheduleSyncDelayedTask(JavaEngine.plugin, () -> {
             if (inverted) {
                 if (i == 0) {
@@ -63,15 +72,20 @@ public class WaveGenerator {
 
     List<Entity> shockWaveSpawn(Location l, List<Vector2> cords, float offset) {
         for (Vector2 cord : cords) {
+
             Location location = new Location(l.getWorld(), l.getX() + cord.getX(), l.getY(), l.getZ() + cord.getY());
+            if (event) for (Entity e : location.getChunk().getEntities()) {
+                if (e.getLocation().distance(location) < 1) {
+                    Bukkit.getPluginManager().callEvent(new EntityShockWavehitEvent(player, l, e, this));
+                }
+            }
             Material material = location.subtract(0, 1, 0).getBlock().getType();
-            if (material != Material.AIR) {
+            if (location.getBlock().getType().isSolid()) {
                 FallingBlock fallingBlock = location.getWorld().spawnFallingBlock(location, Material.COBBLESTONE, (byte) 0);
                 fallingBlock.setDropItem(false);
                 fallingBlock.setHurtEntities(false);
                 fallingBlock.setGravity(false);
                 fallingBlock.setInvulnerable(true);
-
 
                 WaveAnimation(fallingBlock, fallingBlock.getLocation().getBlockY(), true, offset);
             }

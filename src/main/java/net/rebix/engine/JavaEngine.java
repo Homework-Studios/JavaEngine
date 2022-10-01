@@ -13,15 +13,20 @@ public final class JavaEngine extends JavaPlugin {
 
     public static Plugin plugin;
 
+    public static String getVersion() {
+        return plugin.getDescription().getVersion();
+    }
+
     @Override
     public void onEnable() {
-plugin = this;
+
+        plugin = this;
         //if(!new File(this.getDataFolder(),"config.yml").exists()) System.out.println("[RebixEngine] Config file not found, creating new one");
 
         //Removing unwanted Entity's with scoreboard Tag: RemoveEntityOnDisable
-        for (World world: Bukkit.getWorlds())
-            for (Entity entity: world.getEntities())
-                if(entity.getScoreboardTags().contains("RemoveEntityOnDisable")) entity.remove();
+        for (World world : Bukkit.getWorlds())
+            for (Entity entity : world.getEntities())
+                if (entity.getScoreboardTags().contains("RemoveEntityOnDisable")) entity.remove();
         new Registry();
 
 
@@ -30,10 +35,6 @@ plugin = this;
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-    public static String getVersion(){
-        return plugin.getDescription().getVersion();
     }
 
 

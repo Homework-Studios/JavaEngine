@@ -22,8 +22,8 @@ public class DamageEvents implements Listener {
                 if (player.getFallDistance() < 10) {
                     event.setCancelled(true);
                 }
-                if (player.getFallDistance() > 50)
-                    new WaveGenerator().generateShockWave(10, false, player.getLocation(), 20L, false, player, 0.5f);
+                if (player.getFallDistance() > 25)
+                    new WaveGenerator().generateShockWave(3, false, player.getLocation(), 10L, false, player, 0.2f, "playerland");
             }
         }
     }
