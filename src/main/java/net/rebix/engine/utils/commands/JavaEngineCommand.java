@@ -30,7 +30,9 @@ public class JavaEngineCommand implements CommandExecutor, TabCompleter {
             switch (args[0]) {
                 case "reregister":
                     sender.sendMessage("Reregistering...");
+                    Modifier.registered.clear();
                     EItem.registered.clear();
+                    Modifier.registerAll();
                     EItem.registerAll();
                     sender.sendMessage("Reregistered!");
                     break;

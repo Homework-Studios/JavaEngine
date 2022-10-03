@@ -15,7 +15,6 @@ public class JsonReader {
             if (value != null) return value;
         }
         return "";
-
     }
 
     public Double getDouble(String key) {

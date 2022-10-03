@@ -176,7 +176,7 @@ public class EPlayer implements Player {
             }
         }
 
-        player.setPlayerListFooter(o + "\n" + m + "\n" + d + "\n" + u);
+        player.setPlayerListFooter(ChatColor.STRIKETHROUGH + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯\n" + o + "\n" + m + "\n" + d + "\n" + u);
 
 
     }
