@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class JavaEngine extends JavaPlugin {
     public static Integer INTEGER_LIMIT = 2147483647;
     public static String Language = "English";
+    public static Database DATABASE;
 
     public static Plugin plugin;
 
@@ -21,23 +22,31 @@ public final class JavaEngine extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        Database database = new Database("localhost", "3306", "javaengine", "root", "tJyqifRvCamHJQlFIeny");
-        //System.out.println(database.getStringByString("translations","system.general.enabled", "translation_key", "EnUs"));
-        //database.setStringByString("translations","a", "translation_key", "EnUs", "Disabled the plugin");
-        //database.addLine("translations", "translation_key", UUID.randomUUID().toString());
+        if (getConfig().getString("servertype") == null) {
+            getConfig().set("servertype", "test_servers");
+
+            getConfig().set("dbhost", "host");
+            getConfig().set("dbport", "3306");
+            getConfig().set("dbdatabase", "JavaEngine");
+            getConfig().set("dbusername", "root");
+            getConfig().set("dbpassword", "root");
+            System.err.println("Config created! Please edit the config.yml before continuing!");
+            saveConfig();
+            try {
+                Bukkit.getPluginManager().disablePlugin(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        DATABASE = new Database(getConfig().getString("dbhost"), getConfig().getString("dbport"), getConfig().getString("dbdatabase"), getConfig().getString("dbusername"), getConfig().getString("dbpassword"));
 
         plugin = this;
-        //if (!new File(this.getDataFolder(), "config.yml").exists())
-        //    System.out.println("[JavaEngine] Config file not found, creating new one");
-
-
         //Removing unwanted Entity's with scoreboard Tag: RemoveEntityOnDisable
         for (World world : Bukkit.getWorlds())
             for (Entity entity : world.getEntities())
                 if (entity.getScoreboardTags().contains("RemoveEntityOnDisable")) entity.remove();
         new Registry();
-
-
     }
 
     @Override

@@ -1,7 +1,6 @@
 package net.rebix.engine.utils.commands;
 
 import net.rebix.engine.EPlayer;
-import net.rebix.engine.combat.stats.StatType;
 import net.rebix.engine.item.EItem;
 import net.rebix.engine.item.modifier.Modifier;
 import net.rebix.engine.menus.menus.MainMenu;
@@ -70,9 +69,7 @@ public class JavaEngineCommand implements CommandExecutor, TabCompleter {
                     } else sender.sendMessage("Health: " + player.getMaxHealth());
                     break;
                 case "test":
-                    if (player.getItemInUse().getType() != Material.AIR && EItem.isEItem(player.getItemInHand()))
-                        sender.sendMessage(new EItem(player.getItemInHand()).getStats().getStat(StatType.HEALTH) + "");
-                    else sender.sendMessage("Item in hand is not an EItem!");
+                    player.addXp(10L);
 
                     break;
             }

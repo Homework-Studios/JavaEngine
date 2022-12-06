@@ -25,6 +25,7 @@ public class ItemStackBuilder {
     public ItemStackBuilder(Material material, short subID){
         item = new ItemStack(material, 1, subID);
         itemMeta = item.getItemMeta();
+        
     }
 
 

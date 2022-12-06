@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.List;
 
-public class ItemAbility {
+public abstract class ItemAbility {
     ItemAbilityType trigger;
     String name;
     List<String> description;
@@ -51,9 +51,7 @@ public class ItemAbility {
         return ticks_unit_next_use;
     }
 
-    public boolean use(Player player, EItem item) {
-        return false;
-    }
+    public abstract boolean use(Player player, EItem item);
 
     void register() {
         abilities.put(id, this);

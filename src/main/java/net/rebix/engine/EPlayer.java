@@ -1,8 +1,11 @@
 package net.rebix.engine;
 
+import com.google.gson.JsonObject;
 import net.rebix.engine.combat.stats.StatType;
 import net.rebix.engine.combat.stats.Stats;
 import net.rebix.engine.item.EItem;
+import net.rebix.engine.utils.Database;
+import net.rebix.engine.utils.JsonReader;
 import org.bukkit.*;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
@@ -48,24 +51,40 @@ public class EPlayer implements Player {
     Player player;
     Integer maxHealth = 500;
     Integer health = maxHealth;
+    Long exp = 0L;
     Stats baseStats = new Stats();
     Stats effectiveStats = new Stats();
+    String language = "EnUs";
 
     public EPlayer(Player player) {
         this.player = player;
         baseStats.setStat(StatType.HEALTH, 500);
         baseStats.setStat(StatType.DAMAGE, 1);
         baseStats.setStat(StatType.SPEED, 100);
-        baseStats.setStat(StatType.AGILITY, 25);
+        baseStats.setStat(StatType.AGILITY, 10);
         baseStats.setStat(StatType.HEALTHREGEN, 10);
         baseStats.setStat(StatType.MANA, 100);
         baseStats.setStat(StatType.MANAREGEN, 10);
         baseStats.setStat(StatType.MAGICDAMAGE, 1);
-        sendMessage(ChatColor.STRIKETHROUGH + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
+        baseStats.setStat(StatType.ENGINEERING, 1);
 
         players.put(player.getUniqueId().toString(), this);
         //player.setAllowFlight(true);
         player.setMaximumNoDamageTicks(0);
+
+        Database db = JavaEngine.DATABASE;
+        UUID uuid = player.getUniqueId();
+        String databaseExp = db.getStringByString("players", uuid.toString(), "UUID", "player_exp");
+        System.out.println("databaseExp: " + databaseExp);
+        if (Objects.equals(databaseExp, "N/A")) {
+            db.addLine("players", "UUID", uuid.toString());
+            db.setStringByString("players", uuid.toString(), "UUID", "0", "player_exp");
+        } else {
+            //load player profile
+            exp = Long.parseLong(databaseExp);
+
+        }
+
 
         updateStats();
         convertHealth();
@@ -79,6 +98,53 @@ public class EPlayer implements Player {
         }
     }
 
+    JsonObject getSaveObject() {
+        JsonObject out = new JsonObject();
+        JsonObject settings = new JsonObject();
+        settings.addProperty("language", language);
+        out.add("settings", settings);
+        HashMap<Integer, ItemStack> invitems = new HashMap<>();
+        ItemStack[] contents = player.getInventory().getContents();
+        for (int i = 0; i < contents.length; i++) {
+            if (contents[i] != null && !contents[i].getType().equals(Material.AIR)) {
+                invitems.put(i, contents[i]);
+            }
+        }
+        out.add("inventory", JsonReader.convertItemHashmapToJsonObject(invitems));
+        return out;
+    }
+
+    public void save() {
+        Database db = JavaEngine.DATABASE;
+        UUID uuid = player.getUniqueId();
+        db.setStringByString("players", uuid.toString(), "UUID", exp.toString(), "player_exp");
+        db.setJsonByString("players", uuid.toString(), "UUID", getSaveObject(), "playerdata");
+    }
+
+    public boolean onLeave() {
+        players.remove(player.getUniqueId().toString());
+        save();
+        return true;
+    }
+
+    public Long getXp() {
+        return exp;
+    }
+
+    public void setXp(Long exp) {
+        this.exp = exp;
+        updateStats();
+    }
+
+    public void addXp(Long xp) {
+        exp += xp;
+        updateStats();
+    }
+
+    public void removeXp(Long xp) {
+        exp -= xp;
+        updateStats();
+    }
 
     public void addHealth(Integer health) {
         this.health += health;
@@ -133,12 +199,14 @@ public class EPlayer implements Player {
         }
         setMaxHealth(effectiveStats.getStat(StatType.HEALTH));
         updateTablist();
+        setExp(exp * .01f);
     }
 
-    public void updateStats(EItem item) {
+    public void updateStats(@Nullable EItem item) {
         effectiveStats = new Stats(baseStats);
         List<EItem> equippedItems = getEquippedItems(false);
-        equippedItems.add(item);
+        if (item != null)
+            equippedItems.add(item);
         for (int i = 0; i < equippedItems.size(); i++) {
             equippedItems.get(i).updateValues();
             if (equippedItems.get(i).getEffectiveStats() != null) {
@@ -179,6 +247,10 @@ public class EPlayer implements Player {
         player.setPlayerListFooter(ChatColor.STRIKETHROUGH + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯\n" + o + "\n" + m + "\n" + d + "\n" + u);
 
 
+    }
+
+    public Stats getEffectiveStats() {
+        return effectiveStats;
     }
 
     public double getHealth() {

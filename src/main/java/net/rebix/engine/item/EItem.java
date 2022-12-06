@@ -245,6 +245,13 @@ public class EItem implements Listener {
         return copy(id);
     }
 
+    public JsonObject getJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("level", level);
+        return json;
+    }
+
     void copy(EItem item) {
         this.item = item.item;
         this.meta = item.meta;
@@ -309,7 +316,6 @@ public class EItem implements Listener {
         EItem update = registered.get(id);
         maxLevel = update.getLvlskins().size();
         boolean max = level >= maxLevel;
-        setId(update.getId());
         setUpgradeItems(update.getUpgradeItems());
         setLvlskins(update.getLvlskins());
         setAbilities(update.getAbilities());
@@ -368,6 +374,8 @@ public class EItem implements Listener {
         if (level <= lvlskins.size())
             item.setType(lvlskins.get(level));
         item.setItemMeta(meta);
+
+        
     }
 
     public Stats getEffectiveStats() {
@@ -564,4 +572,6 @@ public class EItem implements Listener {
     public void onEntityTakeDamage() {
 
     }
+
+
 }

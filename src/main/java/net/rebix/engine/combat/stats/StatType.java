@@ -16,8 +16,9 @@ public enum StatType {
     ARMOR(.0, "❈", ModifierType.DEFENCIVE),
 
     DEXTERITY(.0, "ஐ", ModifierType.UTILITY),
-    SPEED(.0, "Ⓑ/ⓢ", ModifierType.UTILITY),
+    SPEED(.0, "ⓢ", ModifierType.UTILITY),
     AGILITY(.0, "㊚", ModifierType.UTILITY),
+    ENGINEERING(.0, "⚙", ModifierType.UTILITY),
 
     MANA(.0, "☯", ModifierType.MAGIC),
     MAGICDAMAGE(.0, "\uD83D\uDDE1", ModifierType.MAGIC),

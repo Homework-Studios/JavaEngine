@@ -18,12 +18,19 @@ public class DamageEvents implements Listener {
             EPlayer player = EPlayer.get((Player) event.getEntity());
             event.setDamage(0);
 
-            if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                if (player.getFallDistance() < 10) {
+            switch (event.getCause()) {
+                case FALL:
+                    if (player.getFallDistance() < 10) {
+                        event.setCancelled(true);
+                    }
+                    if (player.getFallDistance() > 25)
+                        new WaveGenerator().generateShockWave(3, false, player.getLocation(), 10L, false, player, 0.2f, "playerland");
+                    break;
+                case ENTITY_EXPLOSION:
+                case BLOCK_EXPLOSION:
                     event.setCancelled(true);
-                }
-                if (player.getFallDistance() > 25)
-                    new WaveGenerator().generateShockWave(3, false, player.getLocation(), 10L, false, player, 0.2f, "playerland");
+                    break;
+
             }
         }
     }
@@ -33,6 +40,11 @@ public class DamageEvents implements Listener {
         if (event.getEntity() instanceof Player) {
             EPlayer player = EPlayer.get((Player) event.getEntity());
             event.setDamage(0);
+        }
+        if (event.getDamager() instanceof Player) {
+            EPlayer player = EPlayer.get((Player) event.getDamager());
+
+            //new FloatingText(ChatColor.RED + "" + player.getEffectiveStats().getStat(StatType.DAMAGE), event.getEntity().getLocation(), 100L, 0.1D);
         }
     }
 

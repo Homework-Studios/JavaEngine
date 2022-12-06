@@ -1,5 +1,7 @@
 package net.rebix.engine.utils;
 
+import com.google.gson.JsonObject;
+
 import java.sql.*;
 
 public class Database {
@@ -18,7 +20,6 @@ public class Database {
         this.username = username;
         this.password = password;
 
-        connect();
     }
 
     public void connect() {
@@ -43,32 +44,63 @@ public class Database {
     }
 
     public Connection getConnection() {
+        if(!hasConnection()) {
+            connect();
+        }
         return connection;
     }
 
-    public String getStringByString(String table, String key, String keycolumn, String valuecolumn) {
+    public String getStringByString(String table, String key, String keyColumn, String valueColumn) {
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "SELECT " + valuecolumn + " FROM " + table + " WHERE " + keycolumn + " = ?;"
+                "SELECT " + valueColumn + " FROM " + table + " WHERE " + keyColumn + " = ?;"
         )) {
             stmt.setString(1, key);
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                String result = resultSet.getString(valuecolumn);
-                stmt.close();
+                String result = resultSet.getString(valueColumn);
                 return result;
             }
-            System.out.println("No result found for " + key + " in " + table);
             stmt.close();
-            return "";
+            return "N/A";
         } catch (SQLException e) {
             e.printStackTrace();
-            return "";
+            return "ERROR";
         }
     }
 
-    public boolean setStringByString(String table, String key, String keycolumn, String valuecolumn, String value) {
+    public JsonObject getJsonByString(String table, String key, String keyColumn, String valueColumn) {
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE " + table + " SET " + valuecolumn + " = ? WHERE " + keycolumn + " = ?"
+                "SELECT " + valueColumn + " FROM " + table + " WHERE " + keyColumn + " = ?;"
+        )) {
+            stmt.setString(1, key);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                JsonObject result = new JsonObject();
+                result.addProperty("result", resultSet.getString(valueColumn));
+                return result;
+            }
+            return new JsonObject();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new JsonObject();
+        }
+    }
+
+    public void setJsonByString(String table, String key, String keyColumn, JsonObject value, String valueColumn) {
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE " + table + " SET " + valueColumn + " = ? WHERE " + keyColumn + " = ?;"
+        )) {
+            stmt.setString(1, value.toString());
+            stmt.setString(2, key);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean setStringByString(String table, String key, String keyColumn, String value, String valueColumn) {
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE " + table + " SET " + valueColumn + " = ? WHERE " + keyColumn + " = ?"
         )) {
             stmt.setString(1, value);
             stmt.setString(2, key);
@@ -80,12 +112,10 @@ public class Database {
         return false;
     }
 
-    public boolean addLine(String table, String columnname, String columnvalue) {
+    public boolean addLine(String table, String Columnname, String Columnvalue) {
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO " + table + "(" + columnname + ") select '" + columnvalue + "'"
+                "INSERT INTO " + table + "(" + Columnname + ") select '" + Columnvalue + "'"
         )) {
-
-
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

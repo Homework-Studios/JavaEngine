@@ -14,6 +14,7 @@ import net.rebix.engine.utils.commands.JavaEngineCommand;
 import net.rebix.engine.utils.customevents.playerItemUseEvent;
 import net.rebix.engine.utils.events.*;
 import net.rebix.engine.utils.loops.secloop;
+import net.rebix.engine.utils.loops.tensecloop;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -30,14 +31,14 @@ public class Registry {
 
 
         registerListeners(new EItem(), new playerItemUseEvent(), new PlayerInventoryClickEvent(), new PlayerItemHeldEvent(),
-                new PlayerInventoryPickupEvent(), new PlayerInventoryCloseEvent(), new PlayerJoinEvent(), new DamageEvents(),
+                new PlayerInventoryPickupEvent(), new PlayerInventoryCloseEvent(), new PlayerJoinLeaveEvent(), new DamageEvents(),
                 new PlayerFoodLevelChangeEvent(), new onPlayerToggleSneakEvent(), new ItemAbilityGravityStrom());
 
         Modifier.registerAll();
         EItem.registerAll();
 
         new secloop();
-
+        new tensecloop();
     }
 
     public static void registerListeners(Listener... listener) {

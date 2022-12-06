@@ -1,4 +1,4 @@
-package net.rebix.engine.V1.api;
+package net.rebix.engine.api;
 
 import net.rebix.engine.JavaEngine;
 import org.bukkit.Location;
@@ -50,6 +50,7 @@ public class FloatingText {
     void spawn() {
         //make Entity
         entity = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+        entity.teleport(new Location(location.getWorld(), 0, 0, 0, 0, 0));
         entity.setInvisible(true);
         entity.setMarker(true);
         entity.setCustomName(text);
@@ -57,23 +58,23 @@ public class FloatingText {
         entity.addScoreboardTag("RemoveEntityOnDisable");
 
         //destroy Delay
-        if(lifetime != null) new BukkitRunnable() {
+        if (lifetime != null) new BukkitRunnable() {
             @Override
             public void run() {
                 destroy();
             }
-        }.runTaskLater(JavaEngine.plugin,lifetime);
+        }.runTaskLater(JavaEngine.plugin, lifetime);
 
         //movement
         new BukkitRunnable() {
             @Override
             public void run() {
-                Location location1 = new Location(location.getWorld(),location.getX(),location.getY() + floatingDirection,location.getZ());
+                Location location1 = new Location(location.getWorld(), location.getX(), location.getY() + floatingDirection, location.getZ());
                 entity.teleport(location1);
                 location = location1;
-                if(entity == null) cancel();
+                if (entity == null) cancel();
             }
-        }.runTaskTimer(JavaEngine.plugin,0L,0L);
+        }.runTaskTimer(JavaEngine.plugin, 0L, 0L);
     }
 
     public void destroy() {

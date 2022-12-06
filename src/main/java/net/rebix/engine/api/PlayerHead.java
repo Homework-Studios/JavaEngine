@@ -1,7 +1,8 @@
-package net.rebix.engine.V1.api;
+package net.rebix.engine.api;
 
 
-import com.mojang.authlib.GameProfile;import com.mojang.authlib.properties.Property;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import net.rebix.engine.item.ItemStackBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -11,7 +12,7 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 
 public class PlayerHead {
-    private ItemStack skull;
+    private final ItemStack skull;
 
     public PlayerHead(String id) {
         skull = new ItemStackBuilder(Material.PLAYER_HEAD, "skull").build();
@@ -19,7 +20,7 @@ public class PlayerHead {
 
 
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
-        gameProfile.getProperties().put("textures",new Property("textures",id));
+        gameProfile.getProperties().put("textures", new Property("textures", id));
         Field profileField;
         try {
             profileField = skullMeta.getClass().getDeclaredField("profile");
@@ -32,7 +33,7 @@ public class PlayerHead {
 
     }
 
-    public ItemStack getItem(){
+    public ItemStack getItem() {
         return skull;
     }
 }
